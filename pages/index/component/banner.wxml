@@ -1,0 +1,10 @@
+<template name="banner">
+  <swiper indicator-dots="{{indicatorDots}}" class="banner-box"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style="width: 100%;height:220rpx">
+    <block wx:key="{{item.id}}" wx:for="{{url}}">
+      <swiper-item>
+        <image src="{{item}}" style="width: 100%;height:100%" />
+      </swiper-item>
+    </block>
+  </swiper>
+</template>

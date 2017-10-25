@@ -30,6 +30,8 @@
       </view>
       <text class="text">餐饮美食</text>
     </view>
+  </view>
+  <view class="flex-wrp" style="margin-top: -16rpx">
     <view class="flex-item">
       <view class="icon">
         <image src="../images/menu.png" class="icon-img" mode="widthFix"/>

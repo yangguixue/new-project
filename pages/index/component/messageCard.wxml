@@ -17,16 +17,13 @@
         <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
         <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
         <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
-        
       </view>
-      <view class="content-footer">
-        <view class="time">1小时前</view>
-        <view class="content-focus">
-          <image class="collect-icon left-icon" src="../images/zan.png" />
-          <image class="collect-icon" src="../images/zand.png" />
-        </view>
-      </view>
-      <input type="text" class="card-input" placeholder="评论" />
+      <view class="time">1小时前</view>
     </view>
+  </view>
+  <view class="button-menu">
+    <view class="button"><image src="../images/collection.png" class="button-icon"/></view>
+    <view class="button"><image src="../images/comment.png" class="button-icon"/>33</view>
+    <view class="button"><image src="../images/like.png" class="button-icon"/>55</view>
   </view>
 </template>

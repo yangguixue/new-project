@@ -4,8 +4,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   color: #333;
-  padding: 15px;
-  margin: 0 0 5px 0;
+  padding: 30rpx 30rpx 0 30rpx;
   background: #fff;
 }
 
@@ -14,24 +13,24 @@
 }
 
 .user-head{
-  width:50px;
+  width:100rpx;
 }
 
 .card-right{
   flex: 5;
-  padding-left:8px;
+  padding-left:16rpx;
 }
 
 .position {
-  margin-top: 15px;
-  font-size: 12px;
+  margin-top: 30rpx;
+  font-size: 24rpx;
   color: #999;
-  padding-left: 14px;
-  background: url('../images/css-sprites2.png') no-repeat -67px -151px;
+  padding-left: 28rpx;
+  background: url('../images/css-sprites.png') no-repeat -20px -20px;
 }
 
 .content-text{
-  padding: 15px 0;
+  padding: 30rpx 0;
 }
 
 .content-img{
@@ -41,38 +40,35 @@
 }
 
 .article-img{
-  width: 88px;
+  width: 176rpx;
   flex: auto;
-  margin: 0 5px 5px 0;
-}
-
-.content-footer{
-  display: flex;
-  margin: 15px 0;
+  margin: 0 10rpx 10rpx 0;
 }
 
 .time{
-  flex: 1;
-  font-size: 12px;
+  font-size: 24rpx;
   color: #999;
+  line-height: 80rpx;
 }
 
-.content-focus{
-  flex: 1;
-  text-align: right;
+.button-menu {
+  display: flex;
+  height: 80rpx;
+  text-align: center;
+  background: #fff;
+  margin: 0 0 10rpx 0;
+  font-size: 24rpx;
+  color: #333;
+  border: 1px solid #f1f2f2;
 }
 
-.collect-icon{
-  width: 20px;
-  height: 20px;
+.button {
+  flex: auto;
 }
 
-.left-icon{
-  margin-right: 10px;
-}
-
-.card-input{
-  border: 1px solid #ccc;
-  height: 25px;
-  padding: 0 0 0 8px;
+.button-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+  margin-right: 10rpx;
 }
