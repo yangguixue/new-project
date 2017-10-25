@@ -1,0 +1,79 @@
+page {
+  font-family: '微软雅黑';
+  background: #f2f6f9;
+}
+
+.head{
+  height: 300rpx;
+  background: #333;
+  padding: 60rpx 30rpx 0 30rpx;
+}
+
+.head-top {
+  overflow: hidden;
+}
+
+.head-top-left {
+  width: 120rpx;
+  height: 120rpx;
+  float: left;
+  border-radius: 50px;
+  background: pink;
+  margin-right: 30rpx;
+  overflow: hidden;
+}
+
+.user-img {
+  width: 100%;
+  height: 100%;
+}
+
+.head-top-right {
+  padding-top: 12rpx;
+  font-size: 36rpx;
+  color: #fff;
+  float: left;
+}
+
+.leval {
+  width: 50rpx;
+  display: inline-block;
+  margin-left: 21rpx;
+  font-size: 24rpx;
+  color: #ff0000;
+  padding-left: 30rpx;
+  background: url('../images/css-sprites.png') no-repeat -20px -176px;
+}
+
+.gold {
+  margin-top: 26rpx;
+  font-size: 28rpx;
+  padding-left: 48rpx;
+  background: url('../images/css-sprites.png') no-repeat -123px -20px;
+}
+
+.head-bottom {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.collection {
+  width: 228rpx;
+  height: 52rpx;
+  padding-top: 50rpx;
+  display: inline-block;
+  text-align: center;
+}
+
+.number {
+  color: #fff;
+  margin-bottom: 10rpx;
+  font-size: 36rpx;
+}
+
+.line {
+  width: 2rpx;
+  height: 67rpx;
+  display: inline-block;
+  background: #545454;
+}

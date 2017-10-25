@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/usercenter/index",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -33,7 +34,7 @@
         "selectedIconPath": "pages/images/tabbar/icon4-1.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/usercenter/index",
         "text": "我的",
         "iconPath": "pages/images/tabbar/icon3.png",
         "selectedIconPath": "pages/images/tabbar/icon3-1.png"

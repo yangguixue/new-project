@@ -1,6 +1,6 @@
 /**index.wxss**/
-@import 'component/menu.wxss';
-@import 'component/messageCard.wxss';
+@import '../components/menu.wxss';
+@import '../components/messageCard.wxss';
 page {
   font-size: 28rpx;
   font-family: 微软雅黑;

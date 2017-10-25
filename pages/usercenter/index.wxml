@@ -1,0 +1,29 @@
+<view>
+  <view class="head">
+    <view class="head-top">
+      <view class="head-top-left">
+        <image src="src" class="user-img"/>
+      </view>
+      <view class="head-top-right">
+        <view class="user-name">我是昵称<text class="leval">7</text></view>
+        <view class="gold">133</view>
+      </view>
+    </view>
+    <view class="head-bottom">
+      <view class="collection">
+        <view class="number">33</view>
+        <view>动态</view>
+      </view>
+      <view class="line"/>
+      <view class="collection">
+        <view class="number">33</view>
+        <view>动态</view>
+      </view>
+      <view class="line"/>
+      <view class="collection">
+        <view class="number">33</view>
+        <view>动态</view>
+      </view>
+    </view>
+  </view>
+</view>
