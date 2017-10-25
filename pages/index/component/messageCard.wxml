@@ -1,0 +1,32 @@
+<template name="message">
+  <view class="card">
+    <view class="card-left">
+      <image class="user-head" src="../images/userhead.jpg" mode="widthFix" />
+    </view>
+    <view class="card-right">
+      <view class="username">我是昵称</view>
+      <view class="position">景县惠民市场</view>
+      <view class="content-text">我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章</view>
+      <view class="content-img">
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        <image class="article-img" src="../images/userhead.jpg" mode="widthFix" />
+        
+      </view>
+      <view class="content-footer">
+        <view class="time">1小时前</view>
+        <view class="content-focus">
+          <image class="collect-icon left-icon" src="../images/zan.png" />
+          <image class="collect-icon" src="../images/zand.png" />
+        </view>
+      </view>
+      <input type="text" class="card-input" placeholder="评论" />
+    </view>
+  </view>
+</template>

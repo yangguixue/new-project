@@ -1,0 +1,54 @@
+/**index.wxss**/
+@import 'component/menu.wxss';
+@import 'component/messageCard.wxss';
+page {
+  font-size: 28rpx;
+  font-family: 微软雅黑;
+  background: #eee;
+}
+.search {
+  height: 120rpx;
+  line-height: 120rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  background: #333;
+  overflow: hidden;
+}
+
+.place, .searchInput, .userCenter {
+  float: left;
+}
+
+.place {
+  width: 160rpx;
+  font-size: 36rpx;
+  color: #fff;
+}
+.placeIcon {
+  width: 30rpx;
+  height: 40rpx;
+  display: inline-block;
+  background-image: url('../images/css-sprites2.png'); 
+  background-repeat: no-repeat;
+  background-position: -35px -143px;
+}
+
+.searchInput {
+  width: 380rpx;
+  height: 60rpx;
+  padding: 0 30rpx;
+  font-size: 24rpx;
+  font-family: 微软雅黑;
+  background: #fff;
+  border-radius: 100rpx;
+  margin-top: 30rpx;
+}
+
+.userCenter {
+  width: 56rpx;
+  height: 56rpx;
+  margin: 36rpx 0 0 30rpx;
+  background-image: url('../images/css-sprites2.png');
+  background-repeat: no-repeat;
+  background-position: -40px 0;
+}

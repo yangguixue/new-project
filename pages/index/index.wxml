@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<import src="component/menu.wxml"/>
+<import src="component/messageCard.wxml"/>
+<view class="content">
+  <view class="search">
+    <view class="place">景县<span class="placeIcon"/></view>
+    <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/>
+    <text class="userCenter"></text>
+  </view> 
+  <template is="menu"/>
+  <template is="message"/>
+</view>

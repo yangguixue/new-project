@@ -1,0 +1,43 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#FF0033",
+    "navigationBarTitleText": "息壤小镇",
+    "navigationBarTextStyle":"#fff"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "color": "#333",
+    "selectedColor": "#ff0033",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "pages/images/tabbar/icon1.png",
+        "selectedIconPath": "pages/images/tabbar/icon1-1.png"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "圈子",
+        "iconPath": "pages/images/tabbar/icon2.png",
+        "selectedIconPath": "pages/images/tabbar/icon2-1.png"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "发布",
+        "iconPath": "pages/images/tabbar/icon4.png",
+        "selectedIconPath": "pages/images/tabbar/icon4-1.png"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "我的",
+        "iconPath": "pages/images/tabbar/icon3.png",
+        "selectedIconPath": "pages/images/tabbar/icon3-1.png"
+      }
+    ]
+  }  
+}

@@ -1,0 +1,25 @@
+.flex-wrp{
+  width: 100%;
+  height: 147px;
+  display: flex;
+  background: #fff;
+  margin: 5px 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 15px 0;
+} 
+.flex-item{
+  flex: auto;
+  padding: 0 16px;
+}
+.icon{
+  width: 100%;
+}
+.icon-img{
+  width: 100%;
+  height: 40px;
+}
+.text{
+  font-size: 10px;
+}
