@@ -49,11 +49,28 @@ page {
   padding: 0 30rpx;
   border-top: 1px solid #f9f9f9;
   margin-bottom: 10rpx;
-  padding-left: 120rpx;
-  background: #fff url('../images/css-sprites.png') no-repeat -5px -48px;
+  background: #fff;
+}
+
+.toutiao {
+  width: 72rpx;
+  height: 36rpx;
+  margin: 26rpx 10rpx 0 0;
+  float: left;
+}
+
+.message {
+  float: left;
 }
 
 .title{
+  width: 100%;
   height: 60rpx;
-  background: #fff url('../images/css-sprites.png') no-repeat -20px -105px;
+  background: #fff;
+}
+
+.title-img {
+  width: 136rpx;
+  height: 50rpx;
+  margin-top: 10rpx;
 }

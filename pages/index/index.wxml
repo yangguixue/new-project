@@ -10,8 +10,11 @@
   <template is="banner" data="{{...banners}}"/>
   <template is="menu"/>
   <view class="new-message">
-  签到送积分，积分可提现啦！
+    <image src="../images/toutiao.png" class="toutiao"/>
+    <text class="message">签到送积分，积分可提现啦！</text>
   </view>
-  <view class="title"/>
+  <view class="title">
+    <image src="../images/dajiashuo.png" class="title-img"/>
+  </view>
   <template is="message"/>
 </view>

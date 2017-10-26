@@ -1,0 +1,32 @@
+<!--pages/circle/index.wxml-->
+<import src="../components/messageCard.wxml" />
+<view class="banner">
+  <image src="../images/quanzi.png" class="banner"/>
+</view>
+<view class="title">
+  <image src="../images/hot.png" class="hot-icon" />
+  <text>热门圈子</text>
+  <image src="../images/next.png" class="next-icon" />
+  <text class="next">更多</text>
+</view>
+<scroll-view class="scroll" scroll-x >
+  <view id="0" class="scroll-content">
+    <image src="../images/quanziImg.png" class="bg" />
+    <view class="text">王者荣耀</view>
+    <view class="text number">20人关注</view>
+    <view class="block"></view>
+  </view>
+  <view id="1" class="scroll-content">
+    <image src="../images/quanziImg.png" class="bg" />
+    <view class="text">王者荣耀</view>
+    <view class="text number">20人关注</view>
+    <view class="block"></view>
+  </view>
+  <view id="2" class="scroll-content">
+    <image src="../images/quanziImg.png" class="bg" />
+    <view class="text">王者荣耀</view>
+    <view class="text number">20人关注</view>
+    <view class="block"></view>
+  </view>
+</scroll-view>
+<template is="message" />

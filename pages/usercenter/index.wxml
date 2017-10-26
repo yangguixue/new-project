@@ -5,8 +5,14 @@
         <image src="src" class="user-img"/>
       </view>
       <view class="head-top-right">
-        <view class="user-name">我是昵称<text class="leval">7</text></view>
-        <view class="gold">133</view>
+        <view class="user-name">
+          我是昵称
+          <image src="../images/leval-img.png"  class="leval-img"/>
+          <text class="leval">7</text></view>
+        <view class="gold">
+          <image src="../images/gold.png" style="width:32rpx;height:40rpx" />
+          133
+        </view>
       </view>
     </view>
     <view class="head-bottom">
@@ -25,5 +31,70 @@
         <view>动态</view>
       </view>
     </view>
+  </view>
+  <view class="circle-title">
+    <text>我加入的圈子</text>
+    <image src="../images/next.png" class="next" />
+  </view>
+  <view class="circle-join">
+    <scroll-view class="scroll" scroll-x >
+      <view id="0" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="1" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="2" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="3" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="4" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="5" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="6" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+      <view id="last" class="circle-content">
+        <view class="circle">
+          <image src="src" class="circle-img" />
+        </view>
+        <text>王者荣耀</text>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="usercenter-list">
+    <view class="list-name">绑定手机<image src="../images/next.png" class="next" /></view>
+    <view class="list-name">金币规则<image src="../images/next.png" class="next" /></view>
+    <view class="list-name">等级升级<image src="../images/next.png" class="next" /></view>
+    <view class="list-name">留言反馈<image src="../images/next.png" class="next" /></view>
+  </view>
+  <view class="usercenter-list">
+    <view class="list-name">关于我们<image src="../images/next.png" class="next" /></view>
   </view>
 </view>

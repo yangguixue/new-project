@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  font-size: 28rpx;
   justify-content: space-between;
   color: #333;
   padding: 30rpx 30rpx 0 30rpx;

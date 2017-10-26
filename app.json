@@ -1,5 +1,7 @@
 {
   "pages":[
+    "pages/publish/index",
+    "pages/circle/index",
     "pages/usercenter/index",
     "pages/index/index",
     "pages/logs/logs"
@@ -22,13 +24,13 @@
         "selectedIconPath": "pages/images/tabbar/icon1-1.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/circle/index",
         "text": "圈子",
         "iconPath": "pages/images/tabbar/icon2.png",
         "selectedIconPath": "pages/images/tabbar/icon2-1.png"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/publish/index",
         "text": "发布",
         "iconPath": "pages/images/tabbar/icon4.png",
         "selectedIconPath": "pages/images/tabbar/icon4-1.png"

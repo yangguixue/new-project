@@ -1,0 +1,49 @@
+/* pages/publish/index.wxss */
+page {
+  background: #333333;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-family: '微软雅黑';
+}
+
+.title {
+  font-size: 44rpx;
+  margin: 180rpx 0 60rpx 0;
+}
+
+.warning {
+  margin-bottom: 100rpx;
+}
+
+.catelog{
+  height: 270rpx;
+  padding: 50rpx 0;
+  background: #515151;
+}
+
+.tip01 {
+  margin: 50rpx 40rpx;
+}
+
+.scroll {
+  height: 280rpx;
+  text-align: left;
+  padding: 0 30rpx;
+}
+
+.item {
+  text-align: center;
+  font-size: 24rpx;
+  display: inline-block;
+  width: 98rpx;
+  padding: 0 20rpx;
+  margin-bottom: 32rpx;
+}
+
+.catelog-img {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  overflow: hidden;
+}
