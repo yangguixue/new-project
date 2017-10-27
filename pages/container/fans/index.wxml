@@ -1,0 +1,15 @@
+<!--pages/container/fans.wxml-->
+<view class="fans-list">
+  <view class="fans-content">
+    <image src="../../images/userhead.jpg" class="fans-img" />
+    <view class="fans-info">
+      <view class="fans-name">
+        <text class="name">我是昵称</text>
+        <image src="../../images/leval-img.png" class="leval" />
+        <text class="leval-num">3</text>
+      </view>
+    </view>
+    <view class="button">+ 关注</view>
+  </view>
+</view>
+<view class="nothing">没有更多了</view>

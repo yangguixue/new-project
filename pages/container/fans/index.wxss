@@ -1,0 +1,67 @@
+/* pages/container/fans.wxss */
+
+page {
+  font-size:24rpx;
+  font-family: '微软雅黑';
+}
+
+.fans-list {
+  padding: 0 30rpx;
+}
+
+.fans-content {
+  padding: 30rpx 0; 
+  overflow: hidden;
+  border-bottom: 1px solid #f1f2f2;
+}
+
+.fans-img, .fans-info {
+  float: left;
+}
+
+.fans-img {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50rpx;
+  margin-right: 20rpx;
+}
+
+.fans-info{
+  
+}
+
+.fans-name{
+  line-height: 90rpx;
+}
+
+.name {
+  font-size:32rpx;
+  margin-right: 10rpx;
+}
+
+.leval {
+  width:36rpx;
+  height: 28rpx;
+}
+
+.leval-num {
+  color: #ff0000;
+}
+
+.button {
+  float: right;
+  width: 120rpx;
+  height: 60rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 8rpx;
+  background: #ffa800;
+  margin-top: 16rpx;
+}
+
+.nothing {
+  text-align: center;
+  color: #999;
+  line-height: 90rpx;
+}

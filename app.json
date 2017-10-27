@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/circleDetail/index",
+    "pages/userPage/index",
+    "pages/container/fans/index",
     "pages/publish/index",
     "pages/circle/index",
     "pages/usercenter/index",
