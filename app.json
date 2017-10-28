@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/article/index",
     "pages/circleDetail/index",
     "pages/userPage/index",
     "pages/container/fans/index",
