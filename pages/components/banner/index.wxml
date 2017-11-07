@@ -1,0 +1,11 @@
+<!--pages/components/banner/index.wxml-->
+<swiper indicator-dots="{{banners.indicatorDots}}" class="banner-box"
+    autoplay="{{banners.autoplay}}" interval="{{banners.interval}}" duration="{{banners.duration}}" style="width: 100%;height:240rpx">
+   <block wx:key="{{item.id}}" wx:for="{{banners.url}}"> 
+    <navigator url="{{item.link}}">
+      <swiper-item>
+        <image src="{{item.url}}" style="width: 100%;height:100%" />
+      </swiper-item> 
+    </navigator>
+   </block> 
+</swiper>

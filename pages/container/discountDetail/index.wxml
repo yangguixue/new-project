@@ -1,0 +1,32 @@
+<!--pages/container/discountDetail/index.wxml-->
+<discount isDetail />
+<view class="like">
+  <scroll-view scroll-x class="user-list">
+    <image src="../../images/userhead.jpg" class="user-img"/>
+  </scroll-view>
+  <text class="like-text">130人感兴趣</text>
+</view>
+<view class="line">
+  <image src="../../images/clock.png" class="icon"/>
+  <text class="text">8:00-12:00</text>
+</view>
+<view class="line">
+  <image src="../../images/phone.png" class="icon"/>
+  <text class="text">13388889999</text>
+</view>
+
+<view class="pd intro">
+  <view class="intro-title">
+  活动简介
+  </view>
+</view>
+
+<view class="footer">
+  <view class="footer-left">
+    <navigator url='../discountList/index'>更多优惠活动</navigator>
+  </view>
+  <view class="footer-center" />
+  <view class="footer-right" bindtap='handleCall'>
+    联系商家
+  </view>
+</view>

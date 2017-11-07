@@ -1,4 +1,5 @@
-<!--pages/container/fans.wxml-->
+<!--pages/container/fans/index.wxml-->
+<import src="../../template/no-info.wxml"/>
 <view class="fans-list">
   <view class="fans-content">
     <image src="../../images/userhead.jpg" class="fans-img" />
@@ -13,3 +14,6 @@
   </view>
 </view>
 <view class="nothing">没有更多了</view>
+<block>
+  <template is="no-info" data="{{img: '../../images/cry.png', tips: '魅力值待优化，帖子不给力啊', button: '前去发帖子 >>', url: '../publish/index'}}" />
+</block>

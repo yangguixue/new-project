@@ -1,0 +1,4 @@
+<!--pages/container/activity/myIntegration/index.wxml-->
+<view class='bg-box'>
+  <image src='../../../images/bg-jifen02.png' class='bg'/>
+</view>

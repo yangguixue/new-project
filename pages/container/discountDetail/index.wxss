@@ -1,0 +1,92 @@
+/* pages/container/discountDetail/index.wxss */
+.like, .line {
+  background: #fff;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 30rpx;
+  border-bottom: 1px solid #f1f2f2;
+}
+
+.like {
+  margin-bottom: 10rpx;
+}
+
+.user-list {
+  white-space: nowrap;
+  width: 460rpx;
+  float: left;
+}
+
+.user-img {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 16rpx 10rpx 0 0;
+  border-radius: 40rpx;
+}
+
+.like-text {
+  float: right;
+  font-size: 28rpx;
+}
+
+.icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 16rpx;
+}
+
+.text{
+  font-size: 28rpx;
+}
+
+.intro-title {
+  font-size: 32rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #f1f2f2;
+}
+
+.intro {
+  margin-top: 10rpx;
+  padding-bottom: 20rpx;
+}
+
+.footer {
+  font-size: 28rpx;
+  color: #fff;
+  width: 100%;
+  height: 62rpx;
+  line-height: 62rpx;
+  background: #e90021;
+  position: fixed;
+  bottom: 0;
+  padding: 18rpx 0;
+  display: flex;
+}
+
+.footer-left, .footer-right {
+  flex: 1;
+  text-align: center;
+  float: left;
+}
+
+.footer-center {
+  text-align: center;
+  float: left;
+  margin-top: 10rpx;
+}
+
+.footer-center {
+  width: 2rpx;
+  height: 44rpx;
+  background: #ff647a;
+}
+
+.share, .send {
+  float: left;
+}
+
+.share {
+  width: 44rpx;
+  height: 44rpx;
+  margin: 8rpx 20rpx 0 120rpx;
+}

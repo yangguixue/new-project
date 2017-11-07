@@ -1,0 +1,75 @@
+/* pages/container/release/index.wxss */
+
+
+page {
+  background: #f8f8f8;
+}
+
+.text-box{
+  padding: 40rpx 30rpx;
+  background: #fff;
+}
+
+.content {
+  width: 100%;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.image-box {
+ 
+}
+
+.image {
+  position: relative;
+  display: inline-block;
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 10rpx;
+}
+
+.delete {
+  position: absolute;
+  top:0;
+  right:0;
+  width: 32rpx;
+  height: 32rpx;
+  background: #eee;
+  line-height: 32rpx;
+  font-size: 26rpx;
+  text-align: center;
+  color: #666;
+}
+
+.add {
+  width: 158rpx;
+  height: 158rpx;
+  border: 1px solid #e5e5e5;
+}
+
+.address {
+  color: #999;
+  font-size: 28rpx;
+  margin-top: 30rpx;
+}
+
+.address-img {
+  width: 24rpx;
+  height: 28rpx;
+  margin: 0 10rpx 0 0;
+}
+
+.publish-button {
+  padding: 20rpx 30rpx;
+}
+
+.button {
+  background: #cacaca;
+  border: none;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.hover {
+  background: orange;
+}

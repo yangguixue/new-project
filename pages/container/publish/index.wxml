@@ -1,0 +1,24 @@
+<!--pages/container/publish/index.wxml-->
+<!--pages/publish/index.wxml-->
+<view class="title">一键发布，全城推广</view>
+<view class="warning">
+  <image src="../../images/publish.png" class="line fl" style="margin-left:88rpx;" />
+  <text class="fl">免费发送推广消息</text>
+  <image src="../../images/publish.png" class="line fl" style="transform: scale(-1);"/>
+</view>
+<view class="warning">分类明确，直击目标用户</view>
+<view class="warning">用户数量无上限</view>
+<view class="catelog">
+  <scroll-view scroll-y class="scroll">
+    <block wx:for="{{category}}">
+      <navigator url="../release/index">
+        <view class="item">
+          <image src="{{item.icon}}"  class="catelog-img" />
+          <text class="catelog-text">{{item.name}}</text>
+        </view>
+      </navigator>
+    </block>
+  </scroll-view> 
+</view>
+<view class="tip01">没有找到所需标签？</view>
+<view>联系小娱：微信 yangguixue1204</view>

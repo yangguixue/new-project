@@ -1,0 +1,9 @@
+<!--pages/container/leaveMessage/index.wxml-->
+
+<view class='content'>
+  <textarea placeholder='非常欢迎您为我们提出改进意见~~' class='' />
+</view>
+
+<view class="submit-button">
+  <view class="button">提交</view>
+</view>

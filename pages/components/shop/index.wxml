@@ -1,0 +1,21 @@
+
+<view class="list pd">
+  <view class="list-l">
+    <image src="../../images/userhead.jpg"/>
+  </view>
+  <view class="list-r">
+    <view class="shop-title">
+      <text class="real-shop">实体</text>
+      <text class="new-shop">新店</text>
+      <text class="shop-name">店铺名</text>
+    </view>
+    <view class="shop-intro">
+      主营业务： 面食，饺子
+    </view>
+    <view>
+      <image src="../../images/address.png"  class="address" />
+      <text>景县惠民市场 </text>
+      <text> 离您20m</text>
+    </view>
+  </view>
+</view>

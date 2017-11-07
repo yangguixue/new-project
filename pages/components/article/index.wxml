@@ -1,0 +1,49 @@
+
+  <view class="card">
+    <view class="card-left">
+      <navigator url="../../container/userPage/index">
+        <image class="user-head" src="{{content.userhead}}" mode="widthFix" />
+      </navigator>
+    </view>
+
+    <view class="card-right">
+      <navigator url="../../container/userPage/index">
+        <view class="username">{{ content.username }} </view>
+      </navigator>
+      <view class="position">
+        <image src="../../images/address.png" style="width:20rpx; height:24rpx;margin-right:8rpx" />
+        <text>{{content.address}} </text>
+      </view>
+      <!--  详情页点击内容无链接 -->
+      <navigator wx:if="{{isDetail !== true}}" url="../container/articleDetail/index">
+        <view class="content-text">{{content.content}} </view>
+      </navigator>
+      <view wx:else class="content-text">{{content.content}} </view>
+      <!--  详情页点击内容无链接 END -->
+      <view class="content-img">
+        <block wx:for="{{content.images}}">
+          <image class="article-img" src="{{item}}" mode="widthFix" bindtap="handleBigImage" />
+        </block>
+      </view>
+      <view class="time">1小时前</view>   
+      <view class="time">删除</view>      
+    </view>
+  </view>
+
+  <view wx:if="{{isDetail !== true}}" class="button-menu">
+    <view class="button" bindtap="handleCollection">
+      <image wx:if="{{content.isCollection}}" src="../../images/collection-fill.png" class="button-icon"/>
+      <image wx:else src="../../images/collection.png" class="button-icon"/>
+    </view>
+    <navigator url="../article/index" class="button">
+      <view><image src="../../images/comment.png" class="button-icon"/>33</view>
+    </navigator>
+    <view class="button red" wx:if="{{content.isZan}}"  bindtap="handleZan">
+      <image src="../../images/like-fill.png" class="button-icon"/>
+      55
+    </view>
+    <view class="button" wx:else   bindtap="handleZan">
+      <image src="../../images/like.png" class="button-icon"/>
+      55
+    </view>
+  </view>

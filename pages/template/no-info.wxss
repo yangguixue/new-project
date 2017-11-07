@@ -1,0 +1,35 @@
+.no-info {
+  font-size: 24rpx;
+  color: #999;
+  display: flex;
+  width: 100%;
+  justify-content: center;  
+}
+
+.no-info-box {
+  overflow: hidden;
+}
+
+.no-info-img {
+  width: 130rpx;
+  height: 130rpx;
+  float: left;
+}
+
+.no-info-text {
+  float: left; 
+  margin-left: 20rpx;
+}
+
+.tips {
+  font-size: 26rpx;
+}
+
+.no-info-button {
+  color: #fff;
+  border-radius: 6rpx;
+  padding: 10rpx;
+  background: #faa603;
+  margin-top: 30rpx;
+  display: inline-block;
+}

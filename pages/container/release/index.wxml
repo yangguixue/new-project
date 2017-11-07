@@ -1,0 +1,25 @@
+<!--pages/container/release/index.wxml-->
+<view class="text-box">
+  <textarea placeholder="发布消息" class="content" maxlength="-1" bindinput="handleChange" />
+  <view class="image-box">
+    <block wx:for="{{imagesList}}">
+      <view class="image">
+        <image src="{{item}}" mode="aspectFill" />
+        <text class="delete" bindtap="deleteImage" id="{{index}}">x</text>
+      </view>
+    </block>
+    <view class="image add" bindtap='chooseImage' wx:if="{{imagesList.length < 6}}">
+      <image src="../../images/add-img.png" />
+    </view>
+  </view>
+  <view class="address">
+    <image src="../../images/address.png" class="address-img" />
+    <text>景县惠民市场</text>
+  </view>
+</view>
+
+<view class="publish-button">
+  <button class="button" wx:if="{{isNull}}">立即发布</button>
+  <button class="button hover" wx:else>立即发布</button>
+</view>
+

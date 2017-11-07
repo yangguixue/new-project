@@ -1,0 +1,41 @@
+/* pages/container/getPhone/index.wxss */
+page {
+  background: #f1f2f2;
+}
+
+.box {
+  background: #fff;
+  padding: 0 30rpx;
+  margin: 30rpx 0;
+  font-size: 28rpx;
+  overflow: hidden;
+}
+
+.phone {
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #f1f2f2;
+}
+
+.name {
+  line-height: 90rpx;
+  margin-right: 20rpx;
+  width: 100rpx;
+  float: left;
+}
+
+.input {
+  float: left;
+  height: 90rpx;
+}
+
+.code-button {
+  float: right;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 15rpx;
+  padding: 0 20rpx;
+  color: #fff;
+  border-radius: 10rpx;
+  background: orange;
+}

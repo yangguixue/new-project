@@ -1,0 +1,82 @@
+.card{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 28rpx;
+  justify-content: space-between;
+  color: #333;
+  padding: 30rpx 30rpx 0 30rpx;
+  background: #fff;
+}
+
+.card-left{
+  flex: 1;
+}
+
+.user-head{
+  width:100rpx;
+}
+
+.card-right{
+  flex: 5;
+  padding-left:16rpx;
+}
+
+.username {
+  width: 200rpx;
+  color:#4d638c;
+}
+
+.position {
+  margin-top: 30rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.content-text{
+  padding: 30rpx 0;
+}
+
+.content-img{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.article-img{
+  width: 176rpx;
+  flex: auto;
+  margin: 0 10rpx 10rpx 0;
+}
+
+.time{
+  font-size: 24rpx;
+  color: #999;
+  line-height: 80rpx;
+}
+
+.button-menu {
+  display: flex;
+  height: 80rpx;
+  text-align: center;
+  background: #fff;
+  margin: 0 0 10rpx 0;
+  font-size: 24rpx;
+  color: #333;
+  border: 1px solid #f1f2f2;
+}
+
+.button {
+  flex: auto;
+}
+
+.button-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+  margin-right: 10rpx;
+}
+
+.red {
+  color: #ff0033;
+}

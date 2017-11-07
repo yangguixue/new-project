@@ -1,20 +1,56 @@
 <!--index.wxml-->
-<import src="../components/banner.wxml"/>
-<import src="../components/menu.wxml"/>
-<import src="../components/messageCard.wxml"/>
-<view>
-  <view class="search">
-    <view class="place">景县<image src="../images/placeIcon.png" class="placeIcon"/></view>
-    <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/>
-  </view> 
-  <template is="banner" data="{{...banners}}"/>
-  <template is="menu"/>
-  <view class="new-message">
-    <image src="../images/toutiao.png" class="toutiao"/>
-    <text class="message">签到送积分，积分可提现啦！</text>
+<view class="search">
+  <view class="place">景县<image src="../images/placeIcon.png" class="placeIcon"/></view>
+  <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/>
+</view> 
+<banner banners="{{banners}}"/>
+<!-- 分类 -->
+<view class="flex-wrp">
+  <view class="item-box">
+    <block wx:key="{{item.id}}" wx:for="{{category}}">
+      <navigator url="../container/catalogList/index">
+        <view class="flex-item">
+          <view class="icon">
+            <image src="{{item.icon}}" class="icon-img" mode="widthFix"/>
+          </view>
+          <text class="text">{{item.name}}</text>
+        </view>
+      </navigator>
+    </block>
   </view>
-  <view class="title">
-    <image src="../images/dajiashuo.png" class="title-img"/>
-  </view>
-  <template is="message"/>
 </view>
+<!-- 分类END -->
+<view class="active-entry">
+  <navigator url="../container/discountList/index">
+    <view class="entry01">
+      <view class="entry01-left">
+        <view class="active-title">热门活动</view>
+        <view class="active-intro">打折,赠品,促销一网打尽</view>
+      </view>
+      <view class="entry01-right">
+        <image src="../images/sale.png" />
+      </view>
+    </view>
+  </navigator>
+  
+  <navigator url="../container/shopList/index">
+    <view class="entry02">
+      <view class="entry01-left">
+        <view class="active-title">全城商家</view>
+        <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
+      </view>
+      <view class="entry01-right">
+        <image src="../images/shop.png" />
+      </view>
+    </view>
+  </navigator>
+</view>
+<view class="title">
+  <image src="../images/dajiashuo.png" class="title-img"/>
+</view>
+<message-card />
+<block wx:for="{{list}}">
+  <article content="{{item}}" />
+</block> 
+
+<view class="nothing">已经到底了哦~</view>

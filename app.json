@@ -1,20 +1,33 @@
 {
-  "pages":[
-    "pages/article/index",
-    "pages/circleDetail/index",
-    "pages/userPage/index",
-    "pages/container/fans/index",
-    "pages/publish/index",
-    "pages/circle/index",
-    "pages/usercenter/index",
+  "pages": [
+    "pages/container/activity/myIntegration/index",
+    "pages/container/activity/integration/index",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/container/aboutUs/index",
+    "pages/container/leaveMessage/index",
+    "pages/container/getPhone/index",
+    "pages/container/usercenter/index",
+    "pages/container/circleDetail/index",
+    "pages/container/release/index",
+    "pages/container/discountList/index",
+    "pages/container/focus/index",
+    "pages/container/fans/index",
+    "pages/container/circleList/index",
+    "pages/container/catelogList/index",
+    "pages/container/articleDetail/index",
+    "pages/container/shopList/index",
+    "pages/container/shopDetail/index",
+    "pages/container/userPage/index",
+    "pages/container/circle/index",
+    "pages/container/publish/index",
+    "pages/logs/logs",
+    "pages/container/discountDetail/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#FF0033",
-    "navigationBarTitleText": "息壤小镇",
-    "navigationBarTextStyle":"#fff"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#333",
+    "navigationBarTitleText": "全民参娱",
+    "navigationBarTextStyle": "#fff"
   },
   "tabBar": {
     "backgroundColor": "#fff",
@@ -28,23 +41,23 @@
         "selectedIconPath": "pages/images/tabbar/icon1-1.png"
       },
       {
-        "pagePath": "pages/circle/index",
+        "pagePath": "pages/container/circle/index",
         "text": "圈子",
         "iconPath": "pages/images/tabbar/icon2.png",
         "selectedIconPath": "pages/images/tabbar/icon2-1.png"
       },
       {
-        "pagePath": "pages/publish/index",
+        "pagePath": "pages/container/publish/index",
         "text": "发布",
         "iconPath": "pages/images/tabbar/icon4.png",
         "selectedIconPath": "pages/images/tabbar/icon4-1.png"
       },
       {
-        "pagePath": "pages/usercenter/index",
+        "pagePath": "pages/container/usercenter/index",
         "text": "我的",
         "iconPath": "pages/images/tabbar/icon3.png",
         "selectedIconPath": "pages/images/tabbar/icon3-1.png"
       }
     ]
-  }  
+  }
 }

@@ -1,0 +1,26 @@
+/* pages/container/catelogList/index.wxss */
+
+page {
+  background: #f1f2f2;
+}
+.tab {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border: 1px solid #f1f2f2;
+  margin-top: 10rpx;
+  height: 90rpx;
+  padding: 0 30rpx;
+}
+
+.tab-left, .tab-right {
+  font-size: 32rpx;
+  line-height: 90rpx;
+  text-align: center;
+  float: left;
+  width: 100rpx;
+}
+
+.tab-hover {
+  border-bottom: 6rpx solid red;
+}

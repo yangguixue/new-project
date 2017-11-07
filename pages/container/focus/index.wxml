@@ -1,0 +1,5 @@
+<!--pages/container/focus/index.wxml-->
+<block>
+  <article />
+</block>
+

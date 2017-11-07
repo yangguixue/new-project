@@ -1,0 +1,34 @@
+/* pages/container/circleDetail/index.wxss */
+page {
+  background: #f1f2f2;
+  font-family: '微软雅黑';
+}
+
+.add {
+  width: 90rpx;
+  height: 70rpx;
+  background: #ff0033;
+  border-radius: 200rpx;
+  text-align: center;
+  padding-top: 20rpx;
+  position: fixed;
+  bottom: 200rpx;
+  right: 60rpx;
+}
+
+
+.new-message{
+  font-size: 26rpx;
+  padding: 0 30rpx;
+  background: #fff;
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-bottom: 10rpx;
+}
+
+.new-icon {
+  width: 80rpx;
+  height: 40rpx;
+  float: left;
+  margin: 28rpx 20rpx 0 0; 
+}

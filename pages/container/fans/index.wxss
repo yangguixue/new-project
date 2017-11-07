@@ -1,5 +1,5 @@
-/* pages/container/fans.wxss */
-
+/* pages/container/fans/index.wxss */
+@import '../../template/no-info.wxss';
 page {
   font-size:24rpx;
   font-family: '微软雅黑';

@@ -1,0 +1,31 @@
+<!--pages/container/circle/index.wxml-->
+<!--pages/circle/index.wxml-->
+<view class="banner">
+  <image src="../../images/quanzi.png" class="banner"/>
+</view>
+<view class="title">
+  <image src="../../images/hot.png" class="hot-icon" />
+  <text>热门圈子</text>
+  <navigator url="../circleList/index">
+    <image src="../../images/next.png" class="next-icon" />
+    <text class="next">更多</text>
+  </navigator>
+</view>
+<view class="scroll-box">
+  <scroll-view class="scroll" scroll-x >
+    <block wx:for="{{circle}}">
+      <navigator url="../circleDetail/index">
+        <view id="0" class="scroll-content">
+          <image src="{{item.img}}" class="bg" />
+          <view class="text">{{item.name}} </view>
+          <view class="text number">{{item.focus}}人关注</view>
+          <view class="block"></view>
+        </view>
+      </navigator>
+    </block>
+  </scroll-view>
+</view>
+<block wx:for="{{list}}">
+  <article content="{{item}}" />
+</block> 
+<view class="nothing">已经到底了哦~</view>

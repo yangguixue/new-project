@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "banner": "../components/banner/index",
+    "article": "../components/article/index"
+  }
+}

@@ -1,0 +1,4 @@
+<!--pages/container/discountList/index.wxml-->
+<discount />
+<view class="nothing">没有更多了</view>
+

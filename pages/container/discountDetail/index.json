@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "discount": "../../components/discount/index"
+  }
+}

@@ -1,0 +1,146 @@
+/* pages/container/usercenter/index.wxss */
+@import '../../template/no-info.wxss';
+page {
+  font-family: '微软雅黑';
+  background: #f2f6f9;
+}
+
+.head{
+  height: 300rpx;
+  background: #333;
+  padding: 60rpx 30rpx 0 30rpx;
+}
+
+.head-top {
+  overflow: hidden;
+}
+
+.head-top-left {
+  width: 120rpx;
+  height: 120rpx;
+  float: left;
+  border-radius: 50px;
+  background: pink;
+  margin-right: 30rpx;
+  overflow: hidden;
+}
+
+.user-img {
+  width: 100%;
+  height: 100%;
+}
+
+.head-top-right {
+  padding-top: 12rpx;
+  font-size: 36rpx;
+  color: #fff;
+  float: left;
+}
+
+.leval {
+  font-size: 24rpx;
+  color: #ff0000;
+  margin-left: -4rpx;
+}
+
+.leval-img {
+  width: 36rpx;
+  height: 28rpx;
+}
+
+.gold {
+  margin-top: 26rpx;
+  font-size: 28rpx;
+}
+
+.head-bottom {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.collection {
+  width: 228rpx;
+  height: 52rpx;
+  padding-top: 50rpx;
+  display: inline-block;
+  text-align: center;
+}
+
+.number {
+  color: #fff;
+  margin-bottom: 10rpx;
+  font-size: 36rpx;
+}
+
+.line {
+  width: 2rpx;
+  height: 67rpx;
+  display: inline-block;
+  background: #545454;
+}
+
+.circle-title {
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #fff;
+  margin: 10rpx 0 0 0;
+  padding: 0 30rpx;
+  border-top: 1px solid #f1f2f2;
+}
+
+.circle-join {
+  height: 180rpx;
+  background: #fff;
+  margin-bottom: 10rpx;
+  padding: 0 30rpx;
+  border-bottom: 1px solid #f1f2f2;
+}
+
+
+
+.circle-content {
+  margin-right: 40rpx;
+  font-size: 24rpx;
+  display: inline-block;
+}
+
+.circle-title {
+  font-size: 28rpx;
+}
+
+.next {
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 38rpx;
+  float: right;
+}
+
+.scroll {
+  white-space: nowrap;
+}
+
+.circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  background: blue;
+  margin-bottom: 20rpx;
+}
+
+.circle-img {
+  width: 100%;
+  height: 100%;
+}
+
+.usercenter-list {
+  font-size: 28rpx;
+  line-height: 100rpx;
+  background: #fff;
+  border-top: 1px solid #f1f2f2;
+  margin-bottom: 10rpx;
+}
+
+.list-name {
+  padding: 0 30rpx;
+  border-bottom: 1px solid #f1f2f2;
+}

@@ -1,0 +1,15 @@
+/* pages/container/activity/myIntegration/index.wxss */
+page{
+  background: #fa8689;
+}
+
+.bg-box {
+  width: 100%;
+  height: 411rpx;
+  background: linear-gradient(#fe0039,#fa8d8d);
+}
+
+.bg {
+  width: 100%;
+  height: 690rpx
+}

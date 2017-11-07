@@ -1,0 +1,5 @@
+<!--pages/container/circleList/index.wxml-->
+<block wx:for="{{circle}}">
+  <circle circle="{{item}}" />
+</block>
+<view class='nothing'>没有更多了哦~</view>

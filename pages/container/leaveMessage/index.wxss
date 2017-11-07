@@ -1,0 +1,13 @@
+/* pages/container/leaveMessage/index.wxss */
+page {
+  background: #f1f2f2;
+}
+
+.content {
+  padding: 30rpx;
+  margin: 30rpx;
+  background: #fff;
+  font-size: 28rpx;
+  border-radius: 10rpx;
+}
+

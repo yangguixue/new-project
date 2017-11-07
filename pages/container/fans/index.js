@@ -1,4 +1,4 @@
-// pages/container/fans.js
+// pages/container/fans/index.js
 Page({
 
   /**

@@ -1,0 +1,19 @@
+  <view class="circle-info">
+    <navigator url="../../container/circleDetail/index">
+      <image class="circle-img" src="../../images/quanziImg.png"/>
+    </navigator>
+    <view class="info-r-t">
+      <navigator url="../../container/circleDetail/index">
+        <view class="name">王者荣耀</view>
+      </navigator>
+      <view class="join-button">加入圈子</view>
+    </view>
+    <view class="circle-intro">
+      打响王者之间的斗争！
+    </view>
+    <view class="circle-focus">
+      <text class="number">人数: 33人</text>
+      <text class="active">动态：33条</text>
+      <image src="../../images/share.png" class="share" />
+    </view>
+  </view>

@@ -1,0 +1,14 @@
+<!--pages/container/catelogList/index.wxml-->
+<banner banners="{{banners}}"/>
+<view class="tab">
+  <view class="tab-left tab-hover">
+    求职
+  </view>
+  <view class="tab-right">
+    招聘
+  </view>
+</view>
+<block wx:for="{{list}}">
+  <article content="{{item}}"  />
+</block>
+<view class="nothing">没有更多了哦~</view>
