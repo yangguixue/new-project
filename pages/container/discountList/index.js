@@ -5,14 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    discount: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=ad&a=getAdsList', //仅为示例，并非真实的接口地址
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          discount: res.data.result
+        })
+      }
+    })
   },
 
   /**

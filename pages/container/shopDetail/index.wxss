@@ -47,6 +47,10 @@ page {
   margin-bottom: 20rpx;
 }
 
+.shop-img {
+  padding-bottom: 30rpx;
+}
+
 .footer {
   width: 100%;
   height: 90rpx;

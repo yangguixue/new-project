@@ -1,37 +1,23 @@
-<article content="{{info}}" isDetail="{{true}}" />
+<article content="{{item}}" isDetail="{{true}}" />
 <view class="comments" id="comment">
   <view class="title">
-    <text class="comment-number">评论 91</text>
+    <text class="comment-number">评论 {{item.comment_count}}</text>
   </view>
   <view class="comment-list">
-    <view class="block">
-      <navigator url="../userPage/index">
-        <image src="../../images/userhead.jpg" class="block-left"/>
-      </navigator>
-      <view class="block-right">
-        <navigator url="../userPage/index">
-          <view class="username">我是昵称</view>
+    <block wx:for="{{item.comments}}" wx:key="{{item.id}}">
+      <view class="block">
+        <navigator url="../userPage/index?user_id={{item.from_mid}}">
+          <image src="{{item.from_userphoto}}" class="block-left"/>
         </navigator>
-        <view class="context">我是内容内容内容内容</view>
-        <view class="date">10-23 10:30  回复</view>
+        <view class="block-right">
+          <navigator url="../userPage/index?user_id={{item.from_mid}}">
+            <view class="username">{{item.from_name}}</view>
+          </navigator>
+          <view class="context">{{item.content}}</view>
+          <view class="date">{{item.createtime}}  回复</view>
+        </view>
       </view>
-    </view>
-    <view class="block">
-      <image src="../../images/userhead.jpg" class="block-left"/>
-      <view class="block-right">
-        <view class="username">我是昵称</view>
-        <view class="context">我是内容内容内容内容</view>
-        <view class="date">10-23 10:30  回复</view>
-      </view>
-    </view>
-    <view class="block">
-      <image src="../../images/userhead.jpg" class="block-left"/>
-      <view class="block-right">
-        <view class="username">我是昵称</view>
-        <view class="context">我是内容内容内容内容</view>
-        <view class="date">10-23 10:30  回复</view>
-      </view>
-    </view>
+    </block>
   </view>
 </view>
 <view class="nothing">没有更多了</view>

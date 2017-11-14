@@ -2,3 +2,51 @@
 <view class='bg-box'>
   <image src='../../../images/bg-jifen02.png' class='bg'/>
 </view>
+
+<view class='content-top'>
+  <view class='total'>总积分</view>
+  <view class='total-num'>200</view>
+  <view class='how'>
+    <image src='../../../images/question.png' class='how-img' />
+    <text class='how-text'>如何获取积分?</text>
+  </view>
+</view>
+
+<view class='bg-opacity'></view>
+
+<view class='content-bottom'>
+  <view class='today-num'>
+    <view>今日积分</view>
+    <view class='number'>200</view>
+  </view>
+  <view class='week-num'>
+    <view>本周积分</view>
+    <view class='number'>5090</view>
+  </view>
+</view>
+
+<view class='line'>
+  <image src='../../../images/line-bg.png' />
+</view>
+
+<view class='pd30'>
+  <navigator url="../integration/index">
+    <image src='../../../images/activity-jifen.png' style='height:150rpx;margin-top: -26rpx;'/>
+  </navigator>
+  <view class='list-box'>
+    <view class='title'>
+      <block wx:for="{{tabs}}" wx:key="{{item.id}}"> 
+        <text class="{{item.id == tabId ? 'title-hover' : ''}}" bindtap='handleClickTab' data-id='{{item.id}}'> {{item.name}}</text>
+      </block> 
+    </view>
+     <block wx:for="{{items}}" wx:key="{{item.id}}"> 
+      <view class='list'>
+        <view class='list-left'> {{tabId == 0 ? item.action : item.addtime}}被点赞</view>
+        <view class='list-time' wx:if="{{tabId == 0}}">88909</view>
+        <view class='list-right'>sss{{item.point}}积分</view>
+      </view>
+     </block> 
+  </view>
+</view>
+
+

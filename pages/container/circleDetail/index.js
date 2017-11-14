@@ -5,13 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    circle: {
-      url: '../../images/banner01.jpg',
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 1000
-    },
+    circle: {},
     list: [{
       id: 0,
       username: '昵称昵称',
@@ -44,7 +38,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCicleInfo',
+      data: {
+        cg_id: options.id
+      },
+      success: function(res) {
+        that.setData({
+          circle: res.data.result
+        })
+      }
+    })
   },
 
   /**

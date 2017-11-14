@@ -23,14 +23,14 @@
       </view>
       </navigator>
       <view class="line"/>
-      <navigator url="../fans/index">
+      <navigator url="../fans/index?url=focus">
         <view class="collection">
         <view class="number">33</view>
         <view>关注</view>
       </view>
       </navigator>
       <view class="line"/>
-      <navigator url="../fans/index">
+      <navigator url="../fans/index?url=fans">
         <view class="collection">
           <view class="number">33</view>
           <view>粉丝</view>
@@ -38,7 +38,7 @@
       </navigator>
     </view>
   </view>
-  <navigator url="../circleJoined/index">
+  <navigator url="../circleList/index">
     <view class="circle-title">
       <text>我加入的圈子</text>
       <image src="../../images/next.png" class="next" />
@@ -124,7 +124,9 @@
     <navigator url="../focus/index">
       <view class="list-name">我的收藏<image src="../../images/next.png" class="next" /></view>
     </navigator>
-    <view class="list-name">积分排名<image src="../../images/next.png" class="next" /></view>
+    <navigator url="../activity/myIntegration/index">
+      <view class="list-name">积分排名<image src="../../images/next.png" class="next" /></view>
+    </navigator>
     <navigator url="../leaveMessage/index">
       <view class="list-name">留言反馈<image src="../../images/next.png" class="next" /></view>
     </navigator>

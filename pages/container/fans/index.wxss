@@ -53,6 +53,7 @@ page {
   width: 120rpx;
   height: 60rpx;
   color: #fff;
+  font-size: 26rpx;
   text-align: center;
   line-height: 60rpx;
   border-radius: 8rpx;
@@ -64,4 +65,8 @@ page {
   text-align: center;
   color: #999;
   line-height: 90rpx;
+}
+
+.cancelFocus {
+  background: #999; 
 }

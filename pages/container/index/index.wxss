@@ -57,6 +57,7 @@ page {
 
 .flex-item{
   width: 100rpx;
+  text-align: center;
   padding: 0 10rpx;
   margin-bottom: 20rpx;
 }

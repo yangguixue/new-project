@@ -1,23 +1,25 @@
-<navigator url="../../container/discountDetail/index" wx:if="{{isDetail === false}}">
-  <view class="box">
-    <view class="content">
-      <image src="../../images/discount.jpg" class="discount-img" />
-      <view class="title">我是标题</view>
-      <view class="detail">
-        <text class="detail-left">2.5折</text>
-        <text class="detail-right">10-9 12:00 到 10-20 12:00</text>
+<block wx:if="{{isDetail === false}}">
+  <navigator url="{{'../../container/discountDetail/index?id=' + items.id}}">
+    <view class="box">
+      <view class="content">
+        <image src="{{items.smeta}}" class="discount-img" />
+        <view class="title"> {{ items.post_title }}</view>
+        <view class="detail">
+          <text class="detail-left"> {{ items.post_discount }}</text>
+          <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
+        </view>
       </view>
     </view>
-  </view>
-</navigator>
+  </navigator>
+</block>
 
 <view class="box" wx:else>
   <view class="content">
-    <image src="../../images/discount.jpg" class="discount-img" />
-    <view class="title">我是标题</view>
+    <image src="{{items.smeta}}" class="discount-img" />
+    <view class="title"> {{ items.post_title }}</view>
     <view class="detail">
-      <text class="detail-left">2.5折</text>
-      <text class="detail-right">10-9 12:00 到 10-20 12:00</text>
+      <text class="detail-left"> {{ items.post_discount }}</text>
+      <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
     </view>
   </view>
 </view>

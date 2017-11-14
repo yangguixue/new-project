@@ -1,20 +1,20 @@
 
 <view class="list pd">
   <view class="list-l">
-    <image src="../../images/userhead.jpg"/>
+    <image src="{{item.shop_pic}}"/>
   </view>
   <view class="list-r">
     <view class="shop-title">
-      <text class="real-shop">实体</text>
-      <text class="new-shop">新店</text>
-      <text class="shop-name">店铺名</text>
+      <text class="real-shop" wx:if="{{item.is_shiti == 1}}">实体</text>
+      <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
+      <text class="shop-name"> {{item.shop_name}}</text>
     </view>
     <view class="shop-intro">
-      主营业务： 面食，饺子
+      主营业务： {{item.shop_major}}
     </view>
     <view>
       <image src="../../images/address.png"  class="address" />
-      <text>景县惠民市场 </text>
+      <text> {{item.shop_addr}} </text>
       <text> 离您20m</text>
     </view>
   </view>

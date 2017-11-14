@@ -20,6 +20,6 @@
 
 <view class="publish-button">
   <button class="button" wx:if="{{isNull}}">立即发布</button>
-  <button class="button hover" wx:else>立即发布</button>
+  <button class="button hover" wx:else bindtap='handleSubmit'>立即发布</button>
 </view>
 

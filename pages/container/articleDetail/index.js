@@ -4,27 +4,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    info: {
-      id: 0,
-      username: '昵称昵称',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: true,
-      isZan: true
-    }
+    item: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=info&a=getInfo',
+      data: {
+        id: options.id
+      },
+      success: function(res) {
+        console.log(res)
+        that.setData({
+          item: res.data.result
+        })
+      }
+    })
   },
 
   /**

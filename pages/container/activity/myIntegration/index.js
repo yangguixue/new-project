@@ -5,14 +5,50 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    dayItems: [],
+    weekItems: [],
+    items:[],
+    tabId: '0',
+    tabs: [{
+      id: 0,
+      name: '今日明细'
+    }, {
+      id: 1,
+      name: '本周明细'
+    }]
   },
 
-  /**
+  /** 
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=point&a=getDailyDetail', 
+      success:function(res) {
+        that.setData({
+          dayItems: res.data.result
+        })
+      }
+    });
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=point&a=getWeeklyDetail',
+      success: function (res) {
+        that.setData({
+          weekItems: res.data.result
+        })
+      }
+    })
+  },
+
+  handleClickTab: function (event) {
+    var dayItems = this.data.dayItems;
+    var weekItems = this.data.weekItems;
+    var items = event.target.dataset.id === '0' ? dayItems : weekItems;
+    this.setData({
+      tabId: event.target.dataset.id,
+      items: items
+    })
   },
 
   /**
@@ -55,12 +91,7 @@ Page({
    */
   onReachBottom: function () {
   
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
+
+
 })

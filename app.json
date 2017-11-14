@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages/container/activity/myIntegration/index",
+    "pages/container/publish/index",
+    "pages/container/index/index",
     "pages/container/activity/integration/index",
-    "pages/index/index",
+    "pages/container/activity/myIntegration/index",
     "pages/container/aboutUs/index",
     "pages/container/leaveMessage/index",
     "pages/container/getPhone/index",
@@ -19,7 +20,7 @@
     "pages/container/shopDetail/index",
     "pages/container/userPage/index",
     "pages/container/circle/index",
-    "pages/container/publish/index",
+    
     "pages/logs/logs",
     "pages/container/discountDetail/index"
   ],
@@ -35,7 +36,7 @@
     "selectedColor": "#ff0033",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/container/index/index",
         "text": "首页",
         "iconPath": "pages/images/tabbar/icon1.png",
         "selectedIconPath": "pages/images/tabbar/icon1-1.png"

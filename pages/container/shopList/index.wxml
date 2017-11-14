@@ -8,15 +8,15 @@
   </view>
 </view>
 <view class="banner">
-  <image src="../../images/banner.png" />
+  <image src="../../images/shop-list.jpg" />
 </view>
 <view class="list-title pd">
   商家列表
 </view>
 
-<block wx:for="{{shop}}">
-  <navigator url="../shopDetail/index">
-    <shop list="{{item}}"/>
+<block wx:for="{{items}}" wx:key="{{item.id}}">
+  <navigator url="../shopDetail/index?id={{item.id}}">
+    <shop item="{{item}}"/>
   </navigator>
 </block>
 <view class="nothing">

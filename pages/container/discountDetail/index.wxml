@@ -1,24 +1,23 @@
 <!--pages/container/discountDetail/index.wxml-->
-<discount isDetail />
+<discount items="{{discountDetail}}" isDetail />
 <view class="like">
   <scroll-view scroll-x class="user-list">
     <image src="../../images/userhead.jpg" class="user-img"/>
   </scroll-view>
-  <text class="like-text">130人感兴趣</text>
+  <text class="like-text">{{discountDeatil.post_hits ? discountDeatil.post_hits : '0'}}人感兴趣
+</text>
 </view>
 <view class="line">
   <image src="../../images/clock.png" class="icon"/>
-  <text class="text">8:00-12:00</text>
+  <text class="text"> {{discountDetail.store_time}}</text>
 </view>
-<view class="line">
+<view class="line" bindtap='handleCall'>
   <image src="../../images/phone.png" class="icon"/>
-  <text class="text">13388889999</text>
+  <text class="text" > {{discountDetail.store_phone}}</text>
 </view>
 
 <view class="pd intro">
-  <view class="intro-title">
-  活动简介
-  </view>
+  <rich-text nodes="{{discountDetail.post_content}}" class="intro-title"></rich-text>
 </view>
 
 <view class="footer">

@@ -1,17 +1,24 @@
+var common = require('../../common/common.js');
+
 Component({
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
-    circle: Object
+    item: Object
   },
   data: {
     // 这里是一些组件内部数据
 
   },
-  attached: function () {
-    console.log(this.data);
-  },
   methods: {
     // 这里是一个自定义方法
-    customMethod: function () { }
+    handleJoinCircle: function(event) {
+      var item = event.target.dataset.item;
+      var newItem = {
+        status: !item.status,
+        cg_id: item.cg_id,
+        cg_name: item.name
+      };
+      common.handleJoin(newItem)
+    }
   }
 })

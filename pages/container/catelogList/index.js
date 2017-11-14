@@ -1,58 +1,63 @@
 // pages/container/catelogList/index.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    banners: {
-      url: [{
+    menu: [],
+    tabId: '',
+    banners: [{
         id: 0,
-        url: '../../images/banner01.jpg',
+        smeta: '../../images/banner01.jpg',
         link: 'www'
       }, {
         id: 1,
-        url: '../../images/banner02.jpg',
+        smeta: '../../images/banner02.jpg',
         link: 'www'
-      }],
-      indicatorDots: true,
-      autoplay: true,
-      interval: 5000,
-      duration: 1000
-    },
-    list: [{
-      id: 0,
-      username: '昵称昵称',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: true,
-      isZan: true
-    }, {
-      id: 1,
-      username: '昵称昵称222',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场222',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: false,
-      isZan: false
     }],
+    list: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var id = options.id;
+    var that = this;
+    // 获取tab
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=category&a=getCgList',
+      data: {
+        type: 0,
+        parent_id: id
+      },
+      success: function (res) {
+        const menu = res.data.result;
+        if(menu.length > 0) {
+          that.setData({
+            menu: menu,
+            tabId: menu[0].cg_id
+          })
+        } else {
+          that.setData({
+            menu: menu,
+          })
+        }
+      }
+    });
+    // 获取信息
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=info&a=getInfoList',
+      data: {
+        cg_id: id
+      },
+      success:function(res) {
+        console.log(res)
+        that.setData({
+          list: res.data.result
+        })
+      }
+    })
   },
 
   /**
@@ -102,5 +107,11 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  handleClickTab: function(event) {
+    this.setData({
+      tabId: event.target.dataset.id
+    })
   }
 })

@@ -7,50 +7,20 @@ Page({
    */
   data: {
     imagesList:[],
-    isNull: true
+    isNull: true,
+    item: {},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const item = options;
+    this.setData({
+      item: item
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -59,17 +29,9 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
-
   deleteImage: function(event) {
     var imagesList = this.data.imagesList;
     imagesList.splice(event.target.id, 1);
-    console.log(imagesList)
     this.setData({
       imagesList: imagesList
     })
@@ -87,8 +49,6 @@ Page({
         var imagesList = that.data.imagesList;
         console.log(imagesList)
         if (imagesList.length > 0) {
-          console.log(tempFilePaths)
-          console.log(imagesList)
           const newList = imagesList.concat(tempFilePaths)
           that.setData({
             imagesList: newList
@@ -104,15 +64,44 @@ Page({
 
   handleChange: function(e) {
     var length = e.detail.value.length;
-    console.log(length)
+    var item = this.data.item;
+    item.post_content = e.detail.value;
+    console.log(item)
     if (length > 0) {
       this.setData({
-        isNull: false
+        isNull: false,
+        item: item
       })
     } else {
       this.setData({
-        isNull: true
+        isNull: true,
+        item: item
       })
     }
+  },
+
+  handleSubmit: function() {
+    var item = this.data.item;
+    item.smeta = this.data.imagesList;
+    item.post_addr = '景县惠民市场呵呵呵';
+    console.log(item)
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=info&a=addInfo',
+      data: item,
+      header: { "content-type": "application/x-www-form-urlencoded" },
+      method: 'POST',
+      dataType: "json",
+      success:function(res) {
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success',
+          duration: 2000
+        });
+        setTimeout(
+          wx.switchTab({
+            url: '../index/index'
+          }), 2000)
+      }
+    })
   }
 })

@@ -13,12 +13,12 @@
 </view>
 <view class="scroll-box">
   <scroll-view class="scroll" scroll-x >
-    <block wx:for="{{circle}}">
-      <navigator url="../circleDetail/index">
+    <block wx:for="{{items}}" wx:key="{{item.cg_id}}">
+      <navigator url="../circleDetail/index?id={{item.cg_id}}">
         <view id="0" class="scroll-content">
-          <image src="{{item.img}}" class="bg" />
+          <image src="{{item.icon}}" class="bg" />
           <view class="text">{{item.name}} </view>
-          <view class="text number">{{item.focus}}人关注</view>
+          <view class="text number">{{item.follow_num}}人关注</view>
           <view class="block"></view>
         </view>
       </navigator>

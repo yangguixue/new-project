@@ -1,5 +1,4 @@
 <!--pages/container/publish/index.wxml-->
-<!--pages/publish/index.wxml-->
 <view class="title">一键发布，全城推广</view>
 <view class="warning">
   <image src="../../images/publish.png" class="line fl" style="margin-left:88rpx;" />
@@ -10,8 +9,8 @@
 <view class="warning">用户数量无上限</view>
 <view class="catelog">
   <scroll-view scroll-y class="scroll">
-    <block wx:for="{{category}}">
-      <navigator url="../release/index">
+    <block wx:for="{{items}}">
+      <navigator url="../release/index?cg_id={{item.cg_id}}">
         <view class="item">
           <image src="{{item.icon}}"  class="catelog-img" />
           <text class="catelog-text">{{item.name}}</text>

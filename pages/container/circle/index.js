@@ -31,57 +31,24 @@ Page({
       isCollection: false,
       isZan: false
     }],
-    circle: [{
-      id: 0,
-      name: '王者',
-      focus: 80,
-      img: '../../images/quanziImg.png',
-    }, {
-      id: 2,
-      name: '跳舞',
-      focus: 50,
-      img: '../../images/quanziImg.png',
-      }, {
-        id: 3,
-        name: '你好',
-        focus: 90,
-        img: '../../images/quanziImg.png',
-      }],
+    items: [],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCgList', 
+      data: {
+        type: 1
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          items: res.data.result
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    })
   }
 })

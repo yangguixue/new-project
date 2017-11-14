@@ -1,4 +1,6 @@
 <!--pages/container/discountList/index.wxml-->
-<discount />
+<block wx:for="{{discount}}">
+  <discount items="{{item}}" isDetail="{{false}}" />
+</block>
 <view class="nothing">没有更多了</view>
 

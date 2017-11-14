@@ -5,23 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    circle: [{
-      id: 0,
-      name: 'dss'
-    }, {
-      id: 1,
-      name: 'dss'
-    }, {
-      id: 2,
-      name: 'dss'
-    }]
+    items: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCgList',
+      data: {
+        type: 1,
+      },
+      success: function(res) {
+        that.setData({
+          items: res.data.result
+        })
+      }
+    })
   },
 
   /**

@@ -1,42 +1,32 @@
 <!--pages/container/shopDetail/index.wxml-->
 
-<shop />
+<shop item="{{item}}" />
 <view class="info-box pd">
   <view class="shop-info">
     <image src="../../images/phone.png" class="info-icon" />
-    <text class="info">18811138793</text>
+    <text class="info"> {{item.shop_phone}}</text>
   </view>
   <view class="shop-info">
     <image src="../../images/clock.png" class="info-icon" />
-    <text class="info">10:00-20:00</text>
+    <text class="info"> {{item.shop_time}}</text>
   </view>
   <view class="shop-info" style="border: none">
     <image src="../../images/address2.png" class="info-icon" />
-    <text class="info">景县惠民市场</text>
+    <text class="info"> {{item.shop_addr}}</text>
   </view>
 </view>
-<view class="shop-img pd">
+<!-- <view class="shop-img pd">
   <view class="title">商家图片</view>
   <view class="images-box">
     <scroll-view scroll-x style="white-space: nowrap">
       <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
-      <image src="../images/userhead.jpg" class="image-list" />
     </scroll-view>
   </view>
-</view>
+</view> -->
 
 <view class="shop-img pd">
   <view class="title">商家信息</view>
-  <view class="explain">
-    本店主要经营和很合脚科达洁能吃都不会北京保定擦北海春波碧草本店主要经营和很合脚科达洁能吃都不会北京保定擦北海春波碧草本店主要经营和很合脚科达洁能吃都不会北京保定擦北海春波碧草
-  </view>
+  <rich-text nodes="{{item.shop_detail}}" class="explain"></rich-text>
 </view>
 
 <view class="footer" bindtap='handleCall'>拨打电话</view>

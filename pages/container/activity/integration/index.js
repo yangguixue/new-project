@@ -1,18 +1,26 @@
-// pages/container/activity/integration/index.js
+// pages/container/activity/ integration/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    items: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=point&a=getWeeklySort',
+      success: function(res) {
+        that.setData({
+          items: res.data.result
+        })
+      }
+    })
   },
 
   /**

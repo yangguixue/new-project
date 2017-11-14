@@ -13,7 +13,7 @@ page {
   padding: 0 30rpx;
 }
 
-.tab-left, .tab-right {
+.menu {
   font-size: 32rpx;
   line-height: 90rpx;
   text-align: center;

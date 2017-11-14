@@ -1,19 +1,20 @@
   <view class="circle-info">
-    <navigator url="../../container/circleDetail/index">
-      <image class="circle-img" src="../../images/quanziImg.png"/>
+    <navigator url="../../container/circleDetail/index?id={{item.cg_id}}">
+      <image class="circle-img" src="{{item.icon}}"/>
     </navigator>
     <view class="info-r-t">
-      <navigator url="../../container/circleDetail/index">
-        <view class="name">王者荣耀</view>
+      <navigator url="../../container/circleDetail/index?id={{item.cg_id}}">
+        <view class="name"> {{item.name}}</view>
       </navigator>
-      <view class="join-button">加入圈子</view>
+      <view class="join-button exit" wx:if="{{item.status}}" bindtap="handleJoinCircle" data-item="{{item}}">退出圈子</view>
+      <view class="join-button" wx:else bindtap="handleJoinCircle" data-item="{{item}}">加入圈子</view> 
     </view>
     <view class="circle-intro">
-      打响王者之间的斗争！
+      {{item.description}}
     </view>
     <view class="circle-focus">
-      <text class="number">人数: 33人</text>
-      <text class="active">动态：33条</text>
+      <text class="number">人数: {{item.follow_num}}人</text>
+      <text class="active">动态：{{item.info_num}}条</text>
       <image src="../../images/share.png" class="share" />
     </view>
   </view>

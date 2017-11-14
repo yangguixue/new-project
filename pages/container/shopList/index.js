@@ -5,17 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shop: [{
-      id: 0,
-      name: '店铺名',
-      catalog: '饺子',
-      address: '惠民市场'
-    }, {
-      id: 1,
-      name: '店铺名11',
-      catalog: '饺子111',
-      address: '惠民市场11'
-    }]
+    items: []
   },
 
   /**
@@ -29,7 +19,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=shop&a=getShopList', 
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          items: res.data.result
+        })
+      }
+    })
   },
 
   /**

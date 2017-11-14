@@ -5,42 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    category: [{
-      id: 0,
-      name: '热门推荐',
-      icon: '../../images/menu.png'
-    }, {
-      id: 1,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }, {
-      id: 2,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }, {
-      id: 3,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }, {
-      id: 4,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }, {
-      id: 5,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }, {
-      id: 6,
-      name: '热门招聘',
-      icon: '../../images/menu.png'
-    }]
+    items: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCgList',
+      data: {
+        type: '0'
+      },
+      success: function(res){
+        that.setData({
+          items: res.data.result
+        })
+      }
+    })
   },
 
   /**

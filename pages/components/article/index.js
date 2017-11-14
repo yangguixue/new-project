@@ -7,8 +7,7 @@ Component({
   data: {
     // 这里是一些组件内部数据
   },
-  attached: function () {
-  },
+
   methods: {
     // 这里是一个自定义方法
     // 图片放大
@@ -22,20 +21,65 @@ Component({
       })
     },
 
-    handleCollection: function () { 
+    handleCollection: function (event) {
+      var that = this;
       const content = this.data.content;
-      const isCollection = this.data.content.isCollection;
-      content['isCollection'] = !isCollection;
-      this.setData({
-        content: content
+      const is_star = content.is_star;
+      const title = content.is_star ? '取消收藏成功' : '收藏成功';      
+      wx.request({
+        url: 'http://localhost/index.php?g=qmcy&m=info&a=setStarStatus',
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        method: "POST",
+        data: {
+          id: content.id,
+          action: !content.is_star
+        },
+        dataType: "json",
+        success: function(res) {
+          if(res.data.flag === 1) {
+            content['is_star'] = !is_star;
+            wx.showToast({
+              title: title,
+              duration: 2000
+            })
+            that.setData({
+              content: content
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              duration: 2000
+            })
+          }
+        }
       })
+
     },
-    handleZan: function() {
+    handleZan: function(event) {
       const content = this.data.content;
-      const isZan = this.data.content.isZan;
-      content['isZan'] = !isZan;
-      this.setData({
-        content: content
+      const is_like = content.is_like;
+      wx.request({
+        url: 'http://localhost/index.php?g=qmcy&m=info&a=setLike',
+        header: { "content-type": "application/x-www-form-urlencoded" },
+        method: "POST",
+        data: {
+          id: content.id,
+          action: !content.is_like
+        },
+        dataType: "json",
+        success: function (res) {
+          if (res.data.flag === 1) {
+            content['is_like'] = !is_like;
+            that.setData({
+              content: content
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              duration: 2000
+            })
+          }
+        }
       })
     }
   }

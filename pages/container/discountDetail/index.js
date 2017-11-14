@@ -5,14 +5,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    discountDetail:　{},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: 'http://localhost/index.php?g=qmcy&m=ad&a=getAdInfo',
+      data: {
+        id: options.id
+      },
+      success: function (res) {
+        that.setData({
+          discountDetail: res.data.result
+        })
+      }
+    })
   },
 
   /**
@@ -66,7 +77,7 @@ Page({
 
   handleCall: function() {
     wx.makePhoneCall({
-      phoneNumber: '1340000'
+      phoneNumber: this.data.discountDetail.store_phone
     })
   }
 })

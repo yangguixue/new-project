@@ -1,12 +1,11 @@
 <!--pages/container/catelogList/index.wxml-->
 <banner banners="{{banners}}"/>
-<view class="tab">
-  <view class="tab-left tab-hover">
-    求职
-  </view>
-  <view class="tab-right">
-    招聘
-  </view>
+<view class="tab" wx:if="{{menu.length > 0}}">
+  <block wx:for="{{menu}}" >
+    <view class="{{ tabId === item.cg_id  ? 'menu tab-hover' : 'menu' }}"  bindtap="handleClickTab" data-id="{{item.cg_id}}">
+      {{item.name}}
+    </view>
+  </block>
 </view>
 <block wx:for="{{list}}">
   <article content="{{item}}"  />

@@ -39,6 +39,10 @@
   float: right;
 }
 
+.exit {
+  background: #999;
+}
+
 .circle-intro {
   font-size: 24rpx;
   color: #999;
