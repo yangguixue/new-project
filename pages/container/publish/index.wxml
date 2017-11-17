@@ -10,7 +10,7 @@
 <view class="catelog">
   <scroll-view scroll-y class="scroll">
     <block wx:for="{{items}}">
-      <navigator url="../release/index?cg_id={{item.cg_id}}">
+      <navigator url="../release/index?type={{0}}&id={{item.cg_id}}">
         <view class="item">
           <image src="{{item.icon}}"  class="catelog-img" />
           <text class="catelog-text">{{item.name}}</text>

@@ -1,46 +1,17 @@
 // pages/container/circleDetail/index.js
+var config = require('../../common/config.js');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     circle: {},
-    list: [{
-      id: 0,
-      username: '昵称昵称',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: true,
-      isZan: true
-    }, {
-      id: 1,
-      username: '昵称昵称222',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场222',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: false,
-      isZan: false
-    }],
+    articleList: [],
+    isLoadding: false,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this;
+    this.setData({ isLoading: true })
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCicleInfo',
+      url: config.configUrl + '&m=Category&a=getCicleInfo',
       data: {
         cg_id: options.id
       },
@@ -50,54 +21,19 @@ Page({
         })
       }
     })
+    wx.request({
+      url: config.configUrl + '&m=info&a=getInfoList',
+      data: {
+        cg_id: options.id,
+        type: true
+      },
+      success: function (res) {
+        that.setData({
+          articleList: res.data.result,
+          isLoading: false
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

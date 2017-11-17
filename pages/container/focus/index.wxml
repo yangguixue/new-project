@@ -1,5 +1,6 @@
 <!--pages/container/focus/index.wxml-->
 <block>
   <article />
+  <loading isLoading="{{isLoading}}" list="{{items}}" />
 </block>
 

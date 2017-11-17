@@ -1,8 +1,6 @@
 // pages/container/catelogList/index.js
+var config = require('../../common/config.js');
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     menu: [],
     tabId: '',
@@ -16,6 +14,7 @@ Page({
         link: 'www'
     }],
     list: [],
+    isLoading: false
   },
 
   /**
@@ -24,94 +23,60 @@ Page({
   onLoad: function (options) {
     var id = options.id;
     var that = this;
+    this.setData({ isLoading: true })
     // 获取tab
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=category&a=getCgList',
+      url: config.configUrl + '&m=category&a=getCgList',
       data: {
         type: 0,
         parent_id: id
       },
       success: function (res) {
         const menu = res.data.result;
+        const cg_id = menu.length > 0 ? menu[0].cg_id : options.id;
         if(menu.length > 0) {
+          // 有二级分类
           that.setData({
-            menu: menu,
-            tabId: menu[0].cg_id
-          })
-        } else {
-          that.setData({
-            menu: menu,
+            tabId: cg_id,
           })
         }
+        that.setData({
+          menu: menu,
+        })
+        wx.request({
+          url: config.configUrl + '&m=info&a=getInfoList',
+          data: {
+            cg_id: cg_id
+          },
+          success: function (res) {
+            that.setData({
+              list: res.data.result,
+              isLoading: false
+            })
+          }
+        })
       }
     });
     // 获取信息
+
+  },
+
+  handleClickTab: function(event) {
+    var id = event.target.dataset.id;
+    var that = this;
+    this.setData({
+      tabId: id
+    })
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=info&a=getInfoList',
+      url: config.configUrl + '&m=info&a=getInfoList',
       data: {
         cg_id: id
       },
-      success:function(res) {
-        console.log(res)
+      success: function (res) {
         that.setData({
           list: res.data.result
         })
       }
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  },
-
-  handleClickTab: function(event) {
-    this.setData({
-      tabId: event.target.dataset.id
     })
   }
 })

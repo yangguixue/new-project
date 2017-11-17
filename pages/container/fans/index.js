@@ -1,12 +1,10 @@
 // pages/container/fans/index.js
+var config = require('../../common/config.js');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     items: [],
-    url: ''
+    url: '',
+    isLoading: true,
   },
 
   /**
@@ -14,8 +12,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var url = options.url == 'focus' ? 'http://localhost/index.php?g=qmcy&m=member&a=getFollows' : 'http://localhost/index.php?g=qmcy&m=member&a=getFans';
-    console.log(url)
+    var url = options.url == 'focus' ? config.configUrl + '&m=member&a=getFollows' : config.configUrl + '&m=member&a=getFans';
     wx.request({
       url: url,
       success: function(res) {
@@ -24,7 +21,11 @@ Page({
         })
       },
       fail: function(res) {},
-      complete: function(res) {},
+      complete: function(res) {
+        that.setData({
+          isLoading: false
+        })
+      },
     })
   },
 
@@ -41,7 +42,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: 'http://localhost/index.php?g=qmcy&m=member&a=setRelationship',
+            url: config.configUrl + '&m=member&a=setRelationship',
             data: newItem,
             success: function(res) {
               wx.showToast({
@@ -63,54 +64,5 @@ Page({
         }
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

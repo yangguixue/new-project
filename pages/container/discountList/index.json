@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "discount": "../../components/discount/index"
+    "discount": "../../components/discount/index",
+    "loading": "../../components/loading/index"
   }
 }

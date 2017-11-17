@@ -10,4 +10,5 @@
 <block wx:for="{{list}}">
   <article content="{{item}}"  />
 </block>
-<view class="nothing">没有更多了哦~</view>
+
+<loading isLoading="{{isLoading}}" list="{{list}}" />

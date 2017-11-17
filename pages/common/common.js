@@ -15,14 +15,11 @@ function getAddress() {
           longitude: res.longitude
         },
         success: function (res) {
-          console.log(res.result.address_component.district)
           return res.result.address_component.district;
         },
         fail: function (res) {
-          console.log(res);
         },
         complete: function (res) {
-          console.log(res);
         }
       });
     }
@@ -32,7 +29,7 @@ function getAddress() {
 
 function handleJoin(item) {
   wx.request({
-    url: 'http://localhost/index.php?g=qmcy&m=member&a=setCicleStatus',
+    url: config.prod + '&m=member&a=setCicleStatus',
     data: item,
     header: { "content-type": "application/x-www-form-urlencoded" },
     method: "POST",

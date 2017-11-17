@@ -36,7 +36,7 @@
       <image wx:else src="../../images/collection.png" class="button-icon"/>
     </view>
     <navigator url="../../container/articleDetail/index?id={{content.id}}" class="button">
-      <view><image src="../../images/comment.png" class="button-icon"/>{{content.content_count}}</view>
+      <view><image src="../../images/comment.png" class="button-icon"/> {{content.content_count}}</view>
     </navigator>
     <view class="{{content.is_like ? 'button red' : 'button'}}" bindtap="handleZan" data-id="{{content.id}}">
       <image src="../../images/like-fill.png" class="button-icon" wx:if="{{content.is_like}}"/>

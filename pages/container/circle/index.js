@@ -1,54 +1,41 @@
 //index.js
 //获取应用实例
+var config = require('../../common/config.js');
 const app = getApp()
 
 Page({
   data: {
-    userInfo: {},
-    list: [{
-      id: 0,
-      username: '昵称昵称',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: true,
-      isZan: true
-    }, {
-      id: 1,
-      username: '昵称昵称222',
-      userhead: '../../images/userhead.jpg',
-      address: '惠民市场222',
-      content: '我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章我是文章',
-      images: [
-        '../../images/userhead.jpg',
-        '../../images/userhead.jpg',
-      ],
-      isCollection: false,
-      isZan: false
-    }],
     items: [],
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    articlelist: [],
+    isLoading: true,
   },
 
   onLoad: function () {
     var that = this;
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=Category&a=getCgList', 
+      url: config.configUrl + '&m=Category&a=getCgList', 
       data: {
         type: 1
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
-          items: res.data.result
+          items: res.data.result,
+        })
+      }
+    })
+
+    wx.request({
+      url: config.configUrl + '&m=info&a=getInfoList',
+      data: {
+        type: true
+      },
+      success: function(res) {
+        that.setData({
+          articleList: res.data.result,
+          isLoading: false
         })
       }
     })
   }
+  
 })

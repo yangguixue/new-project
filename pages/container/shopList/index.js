@@ -1,34 +1,37 @@
 // pages/container/shopList/index.js
-Page({
+var config = require('../../common/config.js');
 
-  /**
-   * 页面的初始数据
-   */
+Page({
   data: {
-    items: []
+    items: [],
+    isLoading: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    wx.request({
+      url: config.configUrl + '&m=shop&a=getShopList',
+      success: function (res) {
+        that.setData({
+          items: res.data.result,
+        })
+      },
+      complete: function() {
+        that.setData({
+          isLoading: false
+        })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var that = this;
-    wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=shop&a=getShopList', 
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          items: res.data.result
-        })
-      }
-    })
+    
   },
 
   /**

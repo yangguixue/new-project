@@ -21,6 +21,6 @@
 
 <block wx:for="{{list}}">
   <article content="{{item}}" />
-</block> 
-<view class="nothing">已经到底了哦~</view>
-<view class="nothing">此人已消失在太平洋，暂无动态~</view>
+</block>
+
+<loading isLoading="{{isLoading}}" list="{{list}}" />

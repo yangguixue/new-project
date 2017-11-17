@@ -3,7 +3,8 @@
   color: #999;
   display: flex;
   width: 100%;
-  justify-content: center;  
+  height: 100%;
+  justify-content: center;
 }
 
 .no-info-box {

@@ -16,6 +16,12 @@
     <image src="../../images/address.png" class="address-img" />
     <text>景县惠民市场</text>
   </view>
+  <view class='cg_tips' wx:if="{{secondMenus.length > 0}}">*该分类下需要选择一个二级分类~</view>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label wx:for="{{secondMenus}}">
+      <radio value="{{item.cg_id}}" />{{item.name}}
+    </label>
+  </radio-group>
 </view>
 
 <view class="publish-button">

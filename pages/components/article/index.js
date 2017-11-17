@@ -27,7 +27,7 @@ Component({
       const is_star = content.is_star;
       const title = content.is_star ? '取消收藏成功' : '收藏成功';      
       wx.request({
-        url: 'http://localhost/index.php?g=qmcy&m=info&a=setStarStatus',
+        url: config.prod + '&m=info&a=setStarStatus',
         header: { "content-type": "application/x-www-form-urlencoded" },
         method: "POST",
         data: {

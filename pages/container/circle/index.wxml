@@ -25,7 +25,8 @@
     </block>
   </scroll-view>
 </view>
-<block wx:for="{{list}}">
+<block wx:for="{{articleList}}">
   <article content="{{item}}" />
 </block> 
-<view class="nothing">已经到底了哦~</view>
+
+<loading isLoading="{{isLoading}}" list="{{articleList}}" />

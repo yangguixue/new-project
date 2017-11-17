@@ -1,4 +1,5 @@
 // pages/container/getPhone/index.js
+var config = require('../../common/config.js');
 Page({
 
   /**

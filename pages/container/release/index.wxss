@@ -16,10 +16,6 @@ page {
   font-size: 28rpx;
 }
 
-.image-box {
- 
-}
-
 .image {
   position: relative;
   display: inline-block;
@@ -57,6 +53,17 @@ page {
   width: 24rpx;
   height: 28rpx;
   margin: 0 10rpx 0 0;
+}
+
+.cg_tips {
+  color: #ff0033;
+  font-size: 26rpx;
+  line-height: 70rpx;
+}
+
+.radio-group {
+  font-size: 26rpx;
+  color: #666;
 }
 
 .publish-button {

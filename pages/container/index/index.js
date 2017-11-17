@@ -1,6 +1,6 @@
-//index.js
-//获取应用实例
 var common = require('../../common/common.js');
+var config = require('../../common/config.js');
+
 const app = getApp()
 
 Page({
@@ -16,15 +16,14 @@ Page({
   onLoad: function () {
     var that = this;
     // 获取地址
-    var address = common.getAddress();
-    console.log(address)
-    // this.setData({
-    //   address: common.getAddress()
-    // })
+
+    this.setData({
+      address: common.getAddress()
+    })
 
     // 请求banner
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=ad&a=getAdsList',
+      url: config.configUrl + '&m=ad&a=getAdsList',
       data: {
         recommended: 1
       },
@@ -37,7 +36,7 @@ Page({
 
     //请求分类
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=category&a=getCgList', 
+      url: config.configUrl + '&m=category&a=getCgList', 
       data: {
         type: 0
       },
@@ -50,7 +49,10 @@ Page({
 
     // 获取消息
     wx.request({
-      url: 'http://localhost/index.php?g=qmcy&m=info&a=getInfoList',
+      url: config.configUrl + '&m=info&a=getInfoList',
+      data: {
+        type: false
+      },
       success: function(res) {
         that.setData({
           list: res.data.result
@@ -85,14 +87,12 @@ Page({
       })
     }
   },
+
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-
-
+  }
 })

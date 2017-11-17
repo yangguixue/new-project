@@ -4,35 +4,35 @@
   <view class="head">
     <view class="head-top">
       <view class="head-top-left">
-        <image src="{{userInfo.avatarUrl}}" class="user-img"/>
+        <image src="{{userInfo.photo}}" class="user-img"/>
       </view>
       <view class="head-top-right">
         <view class="user-name">
-          {{userInfo.nickName}}
+          {{userInfo.name}}
         </view>
         <view class="gold">
-          积分 133
+          积分 {{userInfo.point}}
         </view>
       </view>
     </view>
     <view class="head-bottom">
-      <navigator url="../userPage/index">
+      <navigator url="../userPage/index?id={{userInfo.id}}">
         <view class="collection">
-        <view class="number">33</view>
+        <view class="number">{{userInfo.post_num}}</view>
         <view>动态</view>
       </view>
       </navigator>
       <view class="line"/>
       <navigator url="../fans/index?url=focus">
         <view class="collection">
-        <view class="number">33</view>
+        <view class="number">{{userInfo.follow_num}}</view>
         <view>关注</view>
       </view>
       </navigator>
       <view class="line"/>
       <navigator url="../fans/index?url=fans">
         <view class="collection">
-          <view class="number">33</view>
+          <view class="number">{{userInfo.fan_num}}</view>
           <view>粉丝</view>
         </view>
       </navigator>
