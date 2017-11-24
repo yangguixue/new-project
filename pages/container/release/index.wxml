@@ -12,9 +12,9 @@
       <image src="../../images/add-img.png" />
     </view>
   </view>
-  <view class="address">
+  <view class="address" bindtap="openMap">
     <image src="../../images/address.png" class="address-img" />
-    <text>景县惠民市场</text>
+    <text>{{address.formatted_addresses.rough}}</text>
   </view>
   <view class='cg_tips' wx:if="{{secondMenus.length > 0}}">*该分类下需要选择一个二级分类~</view>
   <radio-group class="radio-group" bindchange="radioChange">
@@ -25,7 +25,10 @@
 </view>
 
 <view class="publish-button">
-  <button class="button" wx:if="{{isNull}}">立即发布</button>
-  <button class="button hover" wx:else bindtap='handleSubmit'>立即发布</button>
+  <button class="button" wx:if="{{isNull || !hasLogin}}">立即发布</button>
+  <button class="button hover" wx:else bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
 </view>
 
+<!-- <view class='noLogin' wx:if="{{!hasLogin}}">
+  您现在处于游客状态，不可以发布消息哦~<button class='getUser blue' bindgetuserinfo="handleGetUserInfo" open-type="getUserInfo">登录</button>
+</view> -->

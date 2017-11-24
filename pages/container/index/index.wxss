@@ -125,3 +125,15 @@ page {
   height: 62rpx;
   margin-top: 10rpx;
 }
+
+.noToken {
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  background: #fff;
+  padding: 60rpx 0;
+}
+
+.login {
+  color: #4d638c;
+}

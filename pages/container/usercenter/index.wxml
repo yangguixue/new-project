@@ -4,38 +4,37 @@
   <view class="head">
     <view class="head-top">
       <view class="head-top-left">
-        <image src="{{userInfo.photo}}" class="user-img"/>
+        <image src="{{userInfo.photo || '../../images/userhead.jpg'}}" class="user-img"/>
       </view>
       <view class="head-top-right">
-        <view class="user-name">
-          {{userInfo.name}}
-        </view>
+        <view class="user-name" wx:if="{{userInfo.name}}">{{userInfo.name}}</view>
+        <view class="user-name login" wx:else bindtap="handleOpenLogin">登录</view>
         <view class="gold">
-          积分 {{userInfo.point}}
+          积分 {{userInfo.point || 0}}
         </view>
       </view>
     </view>
     <view class="head-bottom">
-      <navigator url="../userPage/index?id={{userInfo.id}}">
+      <view bindtap='handleNavigateTo' data-url="../userPage/index?id={{userInfo.id}}" style="display: inline-block">
         <view class="collection">
-        <view class="number">{{userInfo.post_num}}</view>
-        <view>动态</view>
+          <view class="number">{{userInfo.post_num || 0}}</view>
+          <view>动态</view>
+        </view>
       </view>
-      </navigator>
       <view class="line"/>
-      <navigator url="../fans/index?url=focus">
+      <view bindtap='handleNavigateTo' data-url="../fans/index?url=focus" style="display: inline-block">
         <view class="collection">
-        <view class="number">{{userInfo.follow_num}}</view>
-        <view>关注</view>
+          <view class="number">{{userInfo.follow_num || 0}}</view>
+          <view>关注</view>
+        </view>
       </view>
-      </navigator>
       <view class="line"/>
-      <navigator url="../fans/index?url=fans">
+      <view bindtap='handleNavigateTo' data-url="../fans/index?url=fans" style="display: inline-block">
         <view class="collection">
-          <view class="number">{{userInfo.fan_num}}</view>
+          <view class="number">{{userInfo.fan_num || 0}}</view>
           <view>粉丝</view>
         </view>
-      </navigator>
+      </view>
     </view>
   </view>
   <navigator url="../circleList/index">
@@ -46,76 +45,23 @@
   </navigator>
   <view class="circle-join">
     <!-- 加入圈子展示 -->
-    <block wx:if="{{noCircle === false}}">
+    <scroll-view class="scroll" scroll-x  wx:if="{{userInfo.cicles.length > 0}}">
+      <block wx:for="{{userInfo.cicles}}" wx:key="{{item.cg_id}}">
+        <navigator url="../circleDetail/index?id={{item.cg_id}}">
+          <view class="circle-content">
+            <view class="circle">
+              <image src="{{item.icon}}" class="circle-img" />
+            </view>
+            <text>{{item.name}}</text>
+          </view>
+        </navigator>
+      </block>
+    </scroll-view>
+    <!-- 没有加入圈子展示 -->
+    <block wx:else>
       <template is="no-info" data="{{img: '../../images/cry.png', tips: '生活一点乐趣都没有，好桑心', button: '前去找乐子 >>', url: '../circle/index'}}" />
     </block>
-    <!-- 没有加入圈子展示 -->
-    <scroll-view class="scroll" scroll-x  wx:else>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-      <navigator url="../circleDetail/index">
-        <view id="0" class="circle-content">
-          <view class="circle">
-            <image src="src" class="circle-img" />
-          </view>
-          <text>王者荣耀</text>
-        </view>
-      </navigator>
-    </scroll-view>
+    
   </view>
   <view class="usercenter-list">
     <navigator url="../getPhone/index">
@@ -135,3 +81,4 @@
     <view class="list-name">关于我们<image src="../images/next.png" class="next" /></view>
   </view>
 </view>
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

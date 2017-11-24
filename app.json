@@ -2,29 +2,22 @@
   "pages": [
     "pages/container/index/index",
     "pages/container/circle/index",
-    "pages/container/usercenter/index",
-    "pages/container/userPage/index",
     "pages/container/publish/index",
-    "pages/container/activity/integration/index",
-    "pages/container/activity/myIntegration/index",
-    "pages/container/aboutUs/index",
-    "pages/container/leaveMessage/index",
-    "pages/container/getPhone/index",
-    "pages/container/circleDetail/index",
     "pages/container/release/index",
-    "pages/container/discountList/index",
-    "pages/container/focus/index",
+    "pages/container/userPage/index",
+    "pages/container/usercenter/index",
     "pages/container/fans/index",
-    "pages/container/circleList/index",
-    "pages/container/catelogList/index",
+    "pages/container/focus/index",
+    "pages/container/getPhone/index",
+    "pages/container/leaveMessage/index",
     "pages/container/articleDetail/index",
+    "pages/container/catelogList/index",
+    "pages/container/circleDetail/index",
+    "pages/container/circleList/index",
+    "pages/container/discountDetail/index",
+    "pages/container/discountList/index",
     "pages/container/shopList/index",
-    "pages/container/shopDetail/index",
-
-    
-    
-    "pages/logs/logs",
-    "pages/container/discountDetail/index"
+    "pages/container/shopDetail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

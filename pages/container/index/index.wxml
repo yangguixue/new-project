@@ -49,8 +49,10 @@
   <image src="../../images/dajiashuo.png" class="title-img"/>
 </view>
 <message-card />
+
 <block wx:for="{{list}}" wx:key="{{item.id}}">
   <article content="{{item}}" />
-</block> 
+</block>
+<loading isLoading="{{isLoading}}" list="{{list}}" />
+  
 
-<view class="nothing">已经到底了哦~</view>

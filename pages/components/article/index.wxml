@@ -26,7 +26,7 @@
         </block>
       </view>
       <view class="time">{{content.post_date}}</view>   
-      <view class="time" data-id="{{content.id}}" databindtap='handleDelete' wx:if="">删除</view>      
+      <view class="time" data-id="{{content.id}}" bindtap='handleDelete' wx:if="{{content.id_del}}">删除</view>      
     </view>
   </view>
 
@@ -36,11 +36,14 @@
       <image wx:else src="../../images/collection.png" class="button-icon"/>
     </view>
     <navigator url="../../container/articleDetail/index?id={{content.id}}" class="button">
-      <view><image src="../../images/comment.png" class="button-icon"/> {{content.content_count}}</view>
+      <view>
+        <image src="../../images/comment.png" class="button-icon"/>
+        <text wx:if="{{content.comment_count != '0'}}">{{content.comment_count}}</text>
+      </view>
     </navigator>
     <view class="{{content.is_like ? 'button red' : 'button'}}" bindtap="handleZan" data-id="{{content.id}}">
       <image src="../../images/like-fill.png" class="button-icon" wx:if="{{content.is_like}}"/>
       <image src="../../images/like.png" class="button-icon" wx:else/>
-      {{content.post_like}}
+      <text wx:if="{{content.post_like > 0}}">{{content.post_like}}</text>
     </view>
   </view>

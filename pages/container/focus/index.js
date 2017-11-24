@@ -1,5 +1,7 @@
 // pages/container/focus/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
+var app = getApp();
+
 Page({
   data: {
     items: [],
@@ -8,18 +10,18 @@ Page({
 
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=member&a=getFollows',
-      success: function(res) {
+    util.req('&m=info&a=getInfoList', {
+      star: true,
+      session3rd: app.globalData.token
+    }, function(data) {
+      if (data.flag == 1) {
         that.setData({
-          items: res.data
-        })
-      },
-      complete: function() {
-        that.setData({
-          isLoading: false
+          items: data.result
         })
       }
+      that.setData({
+        isLoading: false
+      })
     })
   }
 })

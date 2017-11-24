@@ -1,5 +1,6 @@
 
 .circle-info {
+  display: block;
   background: #fff;
   height: 200rpx;
   padding: 20rpx 30rpx;

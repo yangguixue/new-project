@@ -1,5 +1,5 @@
 // pages/container/shopList/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
 
 Page({
   data: {
@@ -7,72 +7,14 @@ Page({
     isLoading: true
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=shop&a=getShopList',
-      success: function (res) {
-        that.setData({
-          items: res.data.result,
-        })
-      },
-      complete: function() {
-        that.setData({
-          isLoading: false
-        })
-      }
+    util.getReq('&m=shop&a=getShopList', {}, function (data) {
+      that.setData({
+        item: data.result,
+        isLoading: false
+      })
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

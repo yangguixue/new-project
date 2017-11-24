@@ -4,7 +4,7 @@
   <scroll-view scroll-x class="user-list">
     <image src="../../images/userhead.jpg" class="user-img"/>
   </scroll-view>
-  <text class="like-text">{{discountDeatil.post_hits ? discountDeatil.post_hits : '0'}}人感兴趣
+  <text class="like-text">{{discountDetail.post_hits_num || '0'}}人感兴趣
 </text>
 </view>
 <view class="line">
@@ -28,4 +28,11 @@
   <view class="footer-right" bindtap='handleCall'>
     联系商家
   </view>
+</view>
+
+<view wx:if="{{isLoading}}">
+  <image
+    src="../../images/loading.gif"
+    style='width: 100rpx; height: 100rpx; position:fixed; top: 50%; left:50%; margin: -50rpx 0 0 -50rpx'
+  />
 </view>

@@ -1,5 +1,5 @@
 // pages/container/discountList/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
 Page({
   data: {
     discount: [],
@@ -8,22 +8,19 @@ Page({
 
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=ad&a=getAdsList',
-      success: function (res) {
-        if (res.data.flag == 1) {
-          that.setData({
-            discount: res.data.result,
-            isLoading: false
-          })
-        } else {
-          wx.showModal({
-            title: res.data.msg
-          })
-          that.setData({
-            isLoading: false
-          })
-        }
+    util.getReq('&m=ad&a=getAdsList', {}, function(data) {
+      if (data.flag == 1) {
+        that.setData({
+          discount: data.result,
+          isLoading: false
+        })
+      } else {
+        wx.showModal({
+          title: data.msg
+        })
+        that.setData({
+          isLoading: false
+        })
       }
     })
   },

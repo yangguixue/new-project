@@ -18,7 +18,7 @@
         <view id="0" class="scroll-content">
           <image src="{{item.icon}}" class="bg" />
           <view class="text">{{item.name}} </view>
-          <view class="text number">{{item.follow_num}}人关注</view>
+          <view class="text number">{{item.follow_num || 0}}人关注</view>
           <view class="block"></view>
         </view>
       </navigator>

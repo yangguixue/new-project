@@ -1,3 +1,6 @@
+var util = require('../../../utils/util.js');
+var app = getApp();
+
 Component({
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
@@ -23,60 +26,36 @@ Component({
 
     handleCollection: function (event) {
       var that = this;
-      const content = this.data.content;
-      const is_star = content.is_star;
-      const title = content.is_star ? '取消收藏成功' : '收藏成功';      
-      wx.request({
-        url: config.prod + '&m=info&a=setStarStatus',
-        header: { "content-type": "application/x-www-form-urlencoded" },
-        method: "POST",
-        data: {
-          id: content.id,
-          action: !content.is_star
-        },
-        dataType: "json",
-        success: function(res) {
-          if(res.data.flag === 1) {
-            content['is_star'] = !is_star;
-            wx.showToast({
-              title: title,
-              duration: 2000
-            })
-            that.setData({
-              content: content
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              duration: 2000
-            })
-          }
-        }
+      const content = this.data.content; //
+      util.handleCollection(content).then((content) => {
+        this.setData({ content });
       })
-
     },
+
     handleZan: function(event) {
-      const content = this.data.content;
-      const is_like = content.is_like;
-      wx.request({
-        url: 'http://localhost/index.php?g=qmcy&m=info&a=setLike',
-        header: { "content-type": "application/x-www-form-urlencoded" },
-        method: "POST",
-        data: {
-          id: content.id,
-          action: !content.is_like
-        },
-        dataType: "json",
+      var content = this.data.content;
+      util.handleZan(content).then((content) => {
+        this.setData({ content });
+      });
+    },
+
+    handleDelete: function(event) {
+      var that = this;
+      var token = app.globalData.token;
+      wx.showModal({
+        title: '确定要删除吗？',
         success: function (res) {
-          if (res.data.flag === 1) {
-            content['is_like'] = !is_like;
-            that.setData({
-              content: content
-            })
-          } else {
-            wx.showToast({
-              title: res.data.msg,
-              duration: 2000
+          if (res.confirm) {
+            util.req('&m=info&a=delInfo', {
+              id: event.currentTarget.dataset.id,
+              session3rd: token
+            }, function (data) {
+              if (data.flag == 1) {
+                wx.showToast({
+                  title: '删除成功',
+                })
+                that.triggerEvent('delete')
+              }
             })
           }
         }

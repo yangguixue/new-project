@@ -1,22 +1,18 @@
 // pages/container/discountDetail/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
 Page({
   data: {
     discountDetail:　{},
+    isLoading: true,
   },
 
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=ad&a=getAdInfo',
-      data: {
-        id: options.id
-      },
-      success: function (res) {
-        that.setData({
-          discountDetail: res.data.result
-        })
-      }
+    util.getReq('&m=ad&a=getAdInfo', {id: options.id }, function(res) {
+      that.setData({
+        discountDetail: res.result,
+        isLoading: false
+      })
     })
   },
   

@@ -4,7 +4,7 @@
     <image src="../../images/add.png" style="width:50rpx;height:50rpx;" />
   </view>
 </navigator>
-<circle item="{{circle}}"/>
+<circle item="{{circle}}" bind:handleShowLogin="handleShowLogin"/>
 <view class="new-message">
   <image src="../../images/new.png" class="new-icon" style="width:80rpx; height:40rpx;float:left;margin-top:28rpx;" />
   <text>加入圈子才可以发动态哦~~精华动态将被置顶！</text>
@@ -12,4 +12,5 @@
 <block wx:for="{{articleList}}">
   <article content="{{item}}" />
 </block>
-<loading isLoading="{{isLoading}}" list="{{articleList}}"/>
+<loading isLoading="{{isLoading}}" list="{{articleList}}" />
+<noLogin wx:if="{{showLogin}}" bind:handleCloseLogin="handleCloseLogin" />

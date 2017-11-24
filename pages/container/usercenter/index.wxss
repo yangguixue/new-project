@@ -20,7 +20,6 @@ page {
   height: 120rpx;
   float: left;
   border-radius: 50px;
-  background: pink;
   margin-right: 30rpx;
   overflow: hidden;
 }
@@ -35,6 +34,10 @@ page {
   font-size: 36rpx;
   color: #fff;
   float: left;
+}
+
+.login {
+  font-weight: bold;
 }
 
 .leval {
@@ -125,6 +128,7 @@ page {
   border-radius: 50rpx;
   background: blue;
   margin-bottom: 20rpx;
+  overflow: hidden;
 }
 
 .circle-img {

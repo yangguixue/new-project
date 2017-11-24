@@ -39,3 +39,7 @@ navigator {
   color: #fff;
   border-radius: 10rpx;
 }
+
+.blue {
+  color: #4d638c;
+}

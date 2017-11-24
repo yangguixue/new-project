@@ -1,5 +1,10 @@
-var common = require('../../common/common.js');
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
+var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
+var qqmapsdk;
+
+qqmapsdk = new QQMapWX({
+  key: 'AAOBZ-DK53W-TSBR3-ONY3L-474I3-CMFGU'
+});
 
 const app = getApp()
 
@@ -10,89 +15,70 @@ Page({
     banners: [],
     address: '',
     list: [],
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    isLoading: true,
   },
   onLoad: function () {
     var that = this;
-    // 获取地址
-
-    this.setData({
-      address: common.getAddress()
+    
+    // 获取地理位置
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          },
+          success: function (res) {
+            that.setData({ address: res.result.address_component.district })
+          },
+          fail: function (res) {
+          },
+          complete: function (res) {
+          }
+        });
+      }
     })
 
     // 请求banner
-    wx.request({
-      url: config.configUrl + '&m=ad&a=getAdsList',
-      data: {
-        recommended: 1
-      },
-      success: function (res) {
+    util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function(data) {
+      if (data.flag == 1) {
         that.setData({
-          banners: res.data.result
+          banners: data.result
         })
+      } else {
+        util.errorTips(data.msg)
       }
     })
 
     //请求分类
-    wx.request({
-      url: config.configUrl + '&m=category&a=getCgList', 
-      data: {
-        type: 0
-      },
-      success: function (res) {
+    util.getReq('&m=category&a=getCgList', { type: 0 }, function (data) {
+      if (data.flag == 1) {
         that.setData({
-          category: res.data.result
+          category: data.result
         })
+      } else {
+        util.errorTips(data.msg);
       }
     })
-
-    // 获取消息
-    wx.request({
-      url: config.configUrl + '&m=info&a=getInfoList',
-      data: {
-        type: false
-      },
-      success: function(res) {
-        that.setData({
-          list: res.data.result
-        })
-      }
-    })
-
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
   },
 
-  getUserInfo: function(e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+  onShow: function() {
+    var that = this;
+    // 获取消息
+    util.getReq('&m=info&a=getInfoList', {
+      type: false,
+      session3rd: wx.getStorageSync('token')
+    }, function (data) {
+      if (data.flag == 1) {
+        that.setData({
+          list: data.result
+        })
+      } else {
+        util.errorTips(data.msg);
+      }
+      that.setData({ isLoading: false })
     })
   }
+
 })

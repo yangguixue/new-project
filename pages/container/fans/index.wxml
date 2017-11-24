@@ -1,9 +1,9 @@
 <!--pages/container/fans/index.wxml-->
 <import src="../../template/no-info.wxml"/>
 
-<block wx:if="{{!isLoading && items.length == 0}}">
+<!-- <block wx:if="{{!isLoading && items.length == 0}}">
   <template is="no-info" data="{{img: '../../images/cry.png', tips: '魅力值待优化，帖子不给力啊', button: '前去发帖子 >>', url: '../publish/index'}}" />
-</block>
+</block> -->
 
 <view class="fans-list">
   <block wx:for="{{items}}">

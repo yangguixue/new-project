@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
 const app = getApp()
 
 Page({
@@ -12,29 +12,37 @@ Page({
 
   onLoad: function () {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=Category&a=getCgList', 
-      data: {
-        type: 1
-      },
-      success: function (res) {
+    util.req('&m=Category&a=getCgList', { type: 1 }, function(data){
+      if (data.flag == 1) {
         that.setData({
-          items: res.data.result,
+          items: data.result,
+        })
+      } else {
+        wx.showToast({
+          title: data.msg,
+          duration: 2000
         })
       }
     })
+  },
 
-    wx.request({
-      url: config.configUrl + '&m=info&a=getInfoList',
-      data: {
-        type: true
-      },
-      success: function(res) {
+  onShow: function() {
+    var that = this;
+    var token = app.globalData.token;
+    util.req('&m=info&a=getInfoList', { type: true, session3rd: token }, function (data) {
+      if (data.flag == 1) {
         that.setData({
-          articleList: res.data.result,
-          isLoading: false
+          articleList: data.result,
+        })
+      } else {
+        wx.showToast({
+          title: data.msg,
+          duration: 2000
         })
       }
+      that.setData({
+        isLoading: false,
+      })
     })
   }
   

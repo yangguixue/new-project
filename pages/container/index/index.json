@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "banner": "../../components/banner/index",
-    "article": "../../components/article/index"
+    "article": "../../components/article/index",
+    "loading": "../../components/loading/index"
   }
 }

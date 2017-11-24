@@ -1,23 +1,19 @@
 // pages/container/shopDetail/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
 
 Page({
   data: {
-    item: {}
+    item: {},
+    isLoading: true,
   },
 
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=shop&a=getShopDetail',
-      data: {
-        id: options.id
-      },
-      success: function (res) {
-        that.setData({
-          item: res.data.result
-        })
-      }
+    util.getReq('&m=shop&a=getShopDetail', { id: options.id }, function(data) {
+      that.setData({
+        item: data.result,
+        isLoading: false
+      })
     })
   },
 

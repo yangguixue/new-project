@@ -80,3 +80,17 @@ page {
 .hover {
   background: orange;
 }
+
+.noLogin {
+  font-size: 28rpx;
+  padding: 30rpx;
+  color: #ff0033;
+  line-height: 60rpx;
+}
+
+.getUser {
+  font-size: 28rpx;
+  border: 0;
+  display: inline;
+  background: none;
+}
