@@ -3,29 +3,49 @@ var app = getApp();
 
 Component({
   properties: {
-    // 这里定义了innerText属性，属性值可以在组件使用时指定
     item: Object,
+    hasAdd: Boolean
   },
   data: {
     showLogin: false
   },
   methods: {
-    // 这里是一个自定义方法
     handleJoinCircle: function(event) {
+      var that = this;
       var item = event.target.dataset.item;
-      var token = wx.getStorageSync('token');
-      var newItem = {
-        status: !item.status,
-        cg_id: item.cg_id,
-        cg_name: item.name,
-        session3rd: token,
-      };
-      if (token) {
-        console.log('已登录')
-        util.handleJoin(newItem)
+      var is_reg = app.globalData.is_reg;
+
+      if (is_reg) {
+        app.joinCircle(item).then((item) => {
+          that.setData({ item: item })
+        })
       } else {
         this.triggerEvent('handleShowLogin')
       }
+    },
+
+    handleAdd: function (event) {
+      var that = this;
+      var item = event.currentTarget.dataset.item;
+      var is_reg = app.globalData.is_reg;
+
+      if (!is_reg) {
+        this.triggerEvent('handleShowLogin');
+        return;
+      }
+
+      if (!item.status) {
+        wx.showModal({
+          content: '加入圈子才可以发表动态哦~',
+        })
+        return;
+      } else {
+        wx.navigateTo({
+          url: '../release/index?type=' + 1 + '&id=' + item.cg_id
+        })
+      }
     }
-  }
+  },
+
+  
 })

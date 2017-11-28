@@ -6,6 +6,7 @@ Component({
     // 这里定义了innerText属性，属性值可以在组件使用时指定
     content: Object,
     isDetail: Boolean,
+    isShowLogin: Boolean
   },
   data: {
     // 这里是一些组件内部数据
@@ -26,15 +27,23 @@ Component({
 
     handleCollection: function (event) {
       var that = this;
-      const content = this.data.content; //
-      util.handleCollection(content).then((content) => {
+      const content = this.data.content; 
+      if (!app.globalData.is_reg) {
+        this.triggerEvent('openLogin');
+        return;
+      }
+      app.handleCollection(content).then((content) => {
         this.setData({ content });
       })
     },
 
     handleZan: function(event) {
       var content = this.data.content;
-      util.handleZan(content).then((content) => {
+      if (!app.globalData.is_reg) {
+        this.triggerEvent('openLogin');
+        return;
+      }
+      app.handleZan(content).then((content) => {
         this.setData({ content });
       });
     },

@@ -106,37 +106,45 @@ Page({
         var tempFilePaths = res.tempFilePaths;
         var imagesList = that.data.imagesList;
         if (imagesList.length > 0) {
-          console.log('heheh')
           var newList = imagesList.concat(tempFilePaths);
           that.setData({
             imagesList: newList
           })
-          that.handleServerUpload(newList);
         } else {
-          console.log('kkkkkk')
           that.setData({
             imagesList: tempFilePaths
           })
-          that.handleServerUpload(tempFilePaths);
         }
-        
       }
     });
   },
 
-  handleServerUpload: function(list) {
-    util.req('&m=info&a=upPic', list)
-    wx.uploadFile({
-      url: config.configUrl + '&m=info&a=upPic',
-      filePath: list[0],
-      name: 'file',
-      header: { "Content-Type": "multipart/form-data" },
-      success: function (res) {
-        var data = res.data;
-        console.log('到这里')
-        console.log(data);
-      }
+  handleServerUpload: function(item) {
+    return new Promise(function(resolve, reject) {
+      wx.uploadFile({
+        url: config.configUrl + '&m=info&a=upPic',
+        filePath: item,
+        name: 'file',
+        header: { "Content-Type": "multipart/form-data" },
+        success: function (res) {
+          var data = JSON.parse(res.data);
+          resolve(data.file);
+        }
+      })
     })
+  },
+
+  getServerImage: function(list) {
+    var images = '';
+    var that = this;
+    return new Promise(function(resolve, reject) {
+      list.map(item => {
+        that.handleServerUpload(item).then(res => {
+          images = images + ',' + res;
+          resolve(images);
+        })
+      })
+    }) 
   },
 
   handleChange: function(e) {
@@ -165,33 +173,63 @@ Page({
     })
   },
 
-  // handleGetUserInfo: function(event) {
-  //   if (event.detail.userInfo) {
-  //     app.repeatLogin(event.detail, this.callback);
-  //   } else {
-  //     wx.showToast({
-  //       title: '您没有授权，还是不可以发布哦~',
-  //     })
-  //     return;
-  //   }
-  // },
-
-  // callback: function() {
-  //   var that = this;
-  //   wx.showToast({
-  //     title: '登录成功!',
-  //   })
-  //   that.setData({ hasLogin: true })
-  // },
-
   handleSubmit: function() {
     var that = this;
     var item = this.data.item;
+    var imagesList = this.data.imagesList;
+    if (imagesList.length > 0) {
+      this.getServerImage(this.data.imagesList).then(res => {
+        item.smeta = res;
+        console.log(res);
+
+        that.setData({ isSubmiting: true });
+        util.req('&m=info&a=addInfo', util.json2Form(item), function (data) {
+          if (data.flag == 1) {
+            wx.showToast({
+              title: '发布成功',
+              icon: 'success',
+              duration: 2000
+            });
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            wx.showModal({
+              content: '发布失败' + data.msg,
+            })
+          }
+          that.setData({ isSubmiting: false });
+        })
+      });
+    } else {
+      that.setData({ isSubmiting: true });
+      util.req('&m=info&a=addInfo', item, function (data) {
+        if (data.flag == 1) {
+          wx.showToast({
+            title: '发布成功',
+            icon: 'success',
+            duration: 2000
+          });
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          wx.showModal({
+            content: '发布失败' + data.msg,
+          })
+        }
+        that.setData({ isSubmiting: false });
+      })
+    }
+  },
+
+  handleSubmit2: function () {
+    var that = this;
+    var item = this.data.item;
     item.smeta = this.data.imagesList;
-
+    console.log(item.smeta)
     that.setData({ isSubmiting: true });
-
-    util.req('&m=info&a=addInfo', item, function(data) {
+    util.req('&m=info&a=addInfo', item, function (data) {
       if (data.flag == 1) {
         wx.showToast({
           title: '发布成功',

@@ -5,24 +5,29 @@ Component({
     isHide: Boolean,
   },
   data: {
+    isLoading: false
   },
 
   methods: {
     handleGetUserInfo: function (event) {
-      var that = this;
+      var _this = this;
+      this.setData({ isLoading: true });
       if (event.detail.errMsg == 'getUserInfo:ok') {
         // 授权
         if (!app.globalData.is_reg) {
-          console.log(1)
-          var callback = that.hide;  
-          app.registerUser(callback);
+          app.registerUser(event.detail).then(() => {
+            app.login().then(() => {
+              this.setData({ isLoading: false });
+              _this.hide();
+            })
+          });
         }
       } else {
         //取消
         wx.showModal({
           content: '登录失败，您还不可以操作哦',
         })
-        that.hide(false);
+        _this.hide(false);
       }
     },
 

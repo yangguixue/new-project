@@ -19,9 +19,13 @@ Page({
   onShow: function() {
     var that = this;
     var token = app.globalData.token;
+    var item = { session3rd: token };
+    if (this.data.userId) {
+      item.member_id = this.data.userId;
+    }
     
     // 获取用户信息
-    util.req('&m=member&a=getMemberInfo', { session3rd: token }, function(data) {
+    util.req('&m=member&a=getMemberInfo', item, function(data) {
       if (data.flag == 1) {
         that.setData({
           userInfo: data.result
@@ -45,10 +49,16 @@ Page({
     });
   },
 
-  focus: function(event) {
-    if (!is_reg) {
+  handleFocus: function(event) {
+    var item = event.currentTarget.dataset.item;
+    if (!app.globalData.is_reg) {
       this.handleOpenLogin();
+      return;
     }
+
+    app.handleFocus(item).then((data) => {
+      this.setData({ userInfo: data })
+    })
   },
 
   handleOpenLogin: function () {

@@ -14,8 +14,8 @@
         <text>粉丝 {{userInfo.fan_num}}</text>
       </view>
     </view>
-    <view class="focus-button" bindtap="focus" data-is_follow="{{userInfo.is_follow}}" wx:if="{{userInfo.is_follow !== undefined && !userInfo.is_follow}}">+ 关注</view>
-    <view class="focus-button focused" bindtap="focus" data-is_follow="{{userInfo.is_follow}}" wx:if="{{userInfo.is_follow}}">已关注</view>
+    <view class="focus-button" bindtap="handleFocus" data-item="{{userInfo}}" wx:if="{{userInfo.is_follow !== undefined && !userInfo.is_follow}}">+ 关注</view>
+    <view class="focus-button focused" bindtap="handleFocus" data-item="{{userInfo}}" wx:if="{{userInfo.is_follow}}">已关注</view>
   </view>
 </view>
 

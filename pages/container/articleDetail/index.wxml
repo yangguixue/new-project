@@ -1,32 +1,54 @@
-<article content="{{item}}" isDetail="{{true}}" />
+<!-- 没有注册/登陆弹框 -->
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>
+
+<article content="{{content}}" isDetail="{{true}}" />
+
+<!-- 评论 -->
 <view class="comments" id="comment">
   <view class="title">
-    <text class="comment-number">评论 {{item.comment_count}}</text>
+    <text class="comment-number">评论 {{content.comment_count}}</text>
   </view>
   <view class="comment-list">
-    <block wx:for="{{item.comments}}" wx:key="{{item.id}}">
+    <block wx:for="{{content.comments}}" wx:key="{{item.id}}">
       <view class="block">
-        <navigator url="../userPage/index?user_id={{item.from_mid}}">
+        <navigator url="../userPage/index?id={{item.from_mid}}">
           <image src="{{item.from_userphoto}}" class="block-left"/>
         </navigator>
         <view class="block-right">
-          <navigator url="../userPage/index?user_id={{item.from_mid}}">
+          <navigator url="../userPage/index?id={{item.from_mid}}">
             <view class="username">{{item.from_name}}</view>
           </navigator>
-          <view class="context">{{item.content}}</view>
-          <view class="date">{{item.createtime}}  回复</view>
+          <view class="context" wx:if="{{item.to_name}}">
+            <navigator url='../userPage/index?id={{item.to_mid}}'><text class='blue'>回复:  {{item.to_name}}</text></navigator>{{item.content}}
+          </view>
+          <view class="context" wx:else>{{item.content}}</view>
+          <view class="date">{{item.createtime}}  <text class='action' bindtap='handleFocusInput' data-item="{{item}}">回复</text><text class="action" wx:if="{{item.is_del}}" bindtap='handleDelete' data-item="{{item}}">删除</text></view>
         </view>
       </view>
     </block>
   </view>
 </view>
-<view class="nothing">没有更多了</view>
+<loading list="{{content.comments}}"/>
+
 <view style="height: 100rpx;" />
-<view class="comment-input">
-  <input type="text" placeholder="评论" class="input" />
-  <image src="../../images/collection-fill.png" class="input-icon" wx:if="{{true}}" />
-  <image src="../../images/collection.png" class="input-icon" wx:else />
-  <image src="../../images/like-fill.png" class="input-icon" wx:if="{{true}}" />
-  <image src="../../images/like.png" class="input-icon" wx:else />
+
+<!-- 点击评论时input -->
+<view class="comment-input" wx:if="{{focus}}">
+  <input type="text" placeholder="评论" class="input big-input" bindinput="handleChange" focus="{{focus}}" />
+  <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="is_red">发送</text>
+  <text class="send" wx:else>发送</text>
+</view>
+
+<!-- 没有评论时input -->
+<view class="comment-input" wx:else>
+  <input type="text" placeholder="评论" class="input" bindfocus="handleFocusInput" />
+  <view style='display: inline' bindtap="handleCollection" data-action="{{content.is_star}}">
+    <image src="../../images/collection-fill.png" class="input-icon" wx:if="{{content.is_star}}"  />
+    <image src="../../images/collection.png" class="input-icon" wx:else />
+  </view>
+  <view style='display: inline' bindtap="handleZan"  data-id="{{content.is_like}}" >
+    <image src="../../images/like-fill.png" class="input-icon" wx:if="{{content.is_like}}" />
+    <image src="../../images/like.png" class="input-icon" wx:else />
+  </view>
   <image src="../../images/send.png" class="input-icon" />
 </view>

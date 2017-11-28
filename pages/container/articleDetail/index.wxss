@@ -24,6 +24,7 @@ page {
 
 .block-left,.block-right {
   float: left;
+  font-size: 28rpx;
 }
 
 .block-left {
@@ -44,30 +45,54 @@ page {
 
 .date {
   font-size: 24rpx;
+  color: #999;
+}
+
+.action {
+  margin: 0 10rpx;
 }
 
 .comment-input {
   width: 100%;
   height: 60rpx;
-  padding: 20rpx 30rpx;
-  background: #f4f4f4;
+  padding: 18rpx 30rpx;
+  background: #fff;
   position: fixed;
   bottom: 0;
+  border: #f2f2f2;
 }
 
 .input {
-  width: 400rpx;
+  width: 350rpx;
   height: 60rpx;
   float: left;
-  background: #fff;
+  background: #f7f7f7;
+  border: 1px solid #f2f2f2;
   padding: 0 30rpx;
-  font-size: 24rpx;
+  font-size: 26rpx;
+  margin-right: 10rpx;
   border-radius: 60rpx;
 }
 
+.big-input {
+  width: 500rpx;
+}
+
+.send {
+  margin-left: 40rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #999;
+  line-height: 60rpx;
+}
+
+.red {
+  color: #ff0033;
+}
+
 .input-icon {
-  width: 44rpx;
-  height: 44rpx;
+  width: 54rpx;
+  height: 54rpx;
   padding: 0 20rpx;
-  margin-top: 5rpx;
+  margin-top: 6rpx;
 }

@@ -23,12 +23,11 @@ Page({
 
   handleFocus: function(event) {
     var that = this;
-    var item = event.target.dataset.item;
-    util.handleFocus(item, that.afterFocus);
+    var item = event.currentTarget.dataset.item;
+
+    app.handleFocus(item).then((data) => {
+      console.log(data);
+    });
   },
 
-  afterFocus: function() {
-    console.log('毁掉函数')
-  }
-  
 })

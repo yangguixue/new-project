@@ -43,3 +43,7 @@ navigator {
 .blue {
   color: #4d638c;
 }
+
+.red {
+  color: #ff0033;
+}

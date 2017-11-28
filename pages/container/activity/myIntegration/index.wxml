@@ -1,0 +1,53 @@
+<!--pages/container/activity/myIntegration/index.wxml-->
+<view class='bg-box'>
+  <image src='../../../images/bg-jifen02.png' class='bg'/>
+</view>
+
+<view class='content-top'>
+  <view class='total'>总积分</view>
+  <view class='total-num'>{{points.total_point}}</view>
+  <view class='how'>
+    <image src='../../../images/question.png' class='how-img' />
+    <text class='how-text'>如何获取积分?</text>
+  </view>
+</view>
+
+<view class='bg-opacity'></view>
+
+<view class='content-bottom'>
+  <view class='today-num'>
+    <view>今日积分</view>
+    <view class='number'>{{points.daily_point}}</view>
+  </view>
+  <view class='week-num'>
+    <view>本周积分</view>
+    <view class='number'>{{points.weekly_point}}</view>
+  </view>
+</view>
+
+<view class='line'>
+  <image src='../../../images/line-bg.png' />
+</view>
+
+<view class='pd30'>
+  <navigator url="../integration/index">
+    <image src='../../../images/activity-jifen.png' style='height:150rpx;margin-top: -26rpx;'/>
+  </navigator>
+  <view class='list-box'>
+    <view class='title'>
+      <block wx:for="{{tabs}}" wx:key="{{item.id}}"> 
+        <text class="{{item.id == tabId ? 'title-hover' : ''}}" bindtap='handleClickTab' data-id='{{item.id}}'> {{item.name}}</text>
+      </block> 
+    </view>
+     <block wx:for="{{items}}" wx:key="{{item.id}}"> 
+      <view class='list'>
+        <view class='list-left' wx:if="{{tabId == 0}}">{{item.action}}</view>
+        <view class='list-left' wx:else>{{item.addtime}}</view>
+        <view class='list-time' wx:if="{{tabId == 0}}">{{item.addtime}}</view>
+        <view class='list-right'>{{item.point}} 积分</view>
+      </view>
+     </block> 
+  </view>
+</view>
+
+

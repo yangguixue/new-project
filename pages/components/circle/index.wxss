@@ -1,4 +1,16 @@
 
+.add {
+  width: 90rpx;
+  height: 70rpx;
+  background: #ff0033;
+  border-radius: 200rpx;
+  text-align: center;
+  padding-top: 20rpx;
+  position: fixed;
+  bottom: 200rpx;
+  right: 60rpx;
+}
+
 .circle-info {
   display: block;
   background: #fff;

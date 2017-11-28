@@ -52,7 +52,7 @@
 .time{
   font-size: 24rpx;
   color: #999;
-  line-height: 80rpx;
+  margin-bottom: 20rpx;
 }
 
 .button-menu {

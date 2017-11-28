@@ -51,8 +51,8 @@
 <message-card />
 
 <block wx:for="{{list}}" wx:key="{{item.id}}">
-  <article content="{{item}}" />
+  <article content="{{item}}" bind:openLogin="handleOpenLogin" />
 </block>
 <loading isLoading="{{isLoading}}" list="{{list}}" />
-  
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>
 

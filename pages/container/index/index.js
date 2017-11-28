@@ -16,6 +16,7 @@ Page({
     address: '',
     list: [],
     isLoading: true,
+    isShowLogin: false,
   },
   onLoad: function () {
     var that = this;
@@ -79,6 +80,15 @@ Page({
       }
       that.setData({ isLoading: false })
     })
-  }
+  },
 
+
+  handleOpenLogin: function () {
+    var that = this;
+    that.setData({ isShowLogin: true });
+  },
+
+  handleCloseLogin: function (event) {
+    this.setData({ isShowLogin: false });
+  },
 })

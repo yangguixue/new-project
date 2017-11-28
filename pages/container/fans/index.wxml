@@ -12,8 +12,8 @@
       <view class="fans-info">
         <view class="fans-name">
           <text class="name">{{item.name}}</text>
-          <image src="../../images/leval-img.png" class="leval" />
-          <text class="leval-num">3</text>
+          <!-- <image src="../../images/leval-img.png" class="leval" />
+          <text class="leval-num">3</text> -->
         </view>
       </view>
       <view class="button" wx:if="{{item.is_follow}}" bindtap='handleFocus' data-item="{{item}}">+ 关注</view>

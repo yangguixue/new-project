@@ -1,4 +1,7 @@
   <view class="circle-info">
+    <view class="add" bindtap="handleAdd" data-item="{{item}}" wx:if="{{hasAdd}}">
+      <image src="../../images/add.png" style="width:50rpx;height:50rpx;" />
+    </view>
     <navigator url="../../container/circleDetail/index?id={{item.cg_id}}">
       <image class="circle-img" src="{{item.icon}}"/>
     </navigator>
