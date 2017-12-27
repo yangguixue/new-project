@@ -18,6 +18,6 @@
     <view class="circle-focus">
       <text class="number">人数: {{item.follow_num || 0}}人</text>
       <text class="active">动态：{{item.info_num || 0}}条</text>
-      <image src="../../images/share.png" class="share" />
+      <!-- <image src="../../images/share.png" class="share" /> -->
     </view>
   </view>

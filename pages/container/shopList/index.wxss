@@ -1,4 +1,6 @@
 /* pages/container/shopList/index.wxss */
+@import '../../template/catelog.wxss';
+
 page {
   background: #f1f2f2;
 }
@@ -20,7 +22,6 @@ page {
   height: 60rpx;
   padding: 0 20rpx;
   background: #f7f7f7;
-  color: #999;
   font-size: 24rpx;
   float: left;
   border-radius: 4rpx;
@@ -37,5 +38,58 @@ page {
   height: 80rpx;
   font-size: 32rpx;
   font-weight: bold;
+  margin-top: 10rpx;
   line-height: 100rpx;
+}
+
+.menu {
+  position: relative;
+}
+
+.menu-title {
+  background: #fff; 
+  line-height: 90rpx;
+  padding: 0 30rpx;
+  font-size: 32rpx;
+  color: #666;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2rpx solid #e5e5e5;
+}
+
+.line {
+  width: 4rpx;
+  background: #e5e5e5;
+  height: 60rpx;
+  margin-top: 15rpx;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  float: right;
+  margin: 36rpx 0 0 14rpx;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #e5e5e5;
+}
+
+.menu-list {
+  position: absolute;
+  top: 92rpx;
+  left: 0;
+  width: 100%;
+  background: #000;
+  opacity: 0.8;
+  max-height: 355rpx;
+  overflow: scroll;
+}
+
+.menu-item {
+  width: 100%;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  border-bottom: 2rpx solid #333;
+  color: #fff;
+  text-align: center;
 }

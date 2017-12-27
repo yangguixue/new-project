@@ -1,25 +1,23 @@
 <!--pages/container/fans/index.wxml-->
-<import src="../../template/no-info.wxml"/>
-
-<!-- <block wx:if="{{!isLoading && items.length == 0}}">
-  <template is="no-info" data="{{img: '../../images/cry.png', tips: '魅力值待优化，帖子不给力啊', button: '前去发帖子 >>', url: '../publish/index'}}" />
-</block> -->
 
 <view class="fans-list">
-  <block wx:for="{{items}}">
+  <block wx:for="{{list}}" wx:key="{{item.id}}">  
     <view class="fans-content">
-      <image src="{{item.photo}}" class="fans-img" />
-      <view class="fans-info">
-        <view class="fans-name">
-          <text class="name">{{item.name}}</text>
-          <!-- <image src="../../images/leval-img.png" class="leval" />
-          <text class="leval-num">3</text> -->
+      <navigator url="../../container/userPage/index?id={{item.id}}">
+        <image src="{{item.photo}}" class="fans-img" />
+        <view class="fans-info">
+            <view class="fans-name">
+              <text class="name">{{item.name}}</text>
+              <!-- <image src="../../images/leval-img.png" class="leval" />
+              <text class="leval-num">3</text> -->
+            </view>
         </view>
-      </view>
-      <view class="button" wx:if="{{item.is_follow}}" bindtap='handleFocus' data-item="{{item}}">+ 关注</view>
+      </navigator>
+      <view class="button" wx:if="{{!item.is_follow}}" bindtap='handleFocus' data-item="{{item}}">+ 关注</view>
       <view class="button cancelFocus" wx:else bindtap='handleFocus' data-item="{{item}}">取消关注</view>
     </view>  
   </block>
+  <view class='list-footer' wx:if="{{list.length == 0}}">这里啥也没有</view>
 </view>
 
 <loading isLoading="{{isLoading}}" list="{{items}}" />

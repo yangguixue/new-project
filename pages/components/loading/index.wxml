@@ -4,7 +4,3 @@
     style='width: 100rpx; height: 100rpx; position:fixed; top: 50%; left:50%; margin: -50rpx 0 0 -50rpx'
   />
 </view>
-
-<view class="nothing" wx:else>
-  {{list.length > 0 ? '没有更多了' : '这里还啥都没有~'}}
-</view>

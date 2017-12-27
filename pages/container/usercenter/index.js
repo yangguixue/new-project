@@ -7,14 +7,13 @@ Page({
     isShowLogin: false,
   },
 
-  onShow: function () {
+  onLoad: function () {
     this.getUserInfo();
   },
 
   getUserInfo: function() {
     var that = this;
     var token = app.globalData.token;
-    console.log('重新获取')
     util.req('&m=member&a=getMemberInfo', { session3rd: token }, function (data) {
       if (data.flag == 1) {
         that.setData({

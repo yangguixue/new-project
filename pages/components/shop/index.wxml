@@ -1,7 +1,7 @@
 
 <view class="list pd">
   <view class="list-l">
-    <image src="{{item.shop_pic}}"/>
+    <image src="{{item.shop_logo}}" mode='aspectFill'/>
   </view>
   <view class="list-r">
     <view class="shop-title">
@@ -12,10 +12,13 @@
     <view class="shop-intro">
       主营业务： {{item.shop_major}}
     </view>
-    <view>
+    <view wx:if="{{!detail}}">
       <image src="../../images/address.png"  class="address" />
       <text> {{item.shop_addr}} </text>
-      <text> 离您20m</text>
+      <!-- <text> 离您20m</text> -->
+    </view>
+    <view wx:if="{{detail}}">
+      <text>浏览量 33</text> 
     </view>
   </view>
 </view>

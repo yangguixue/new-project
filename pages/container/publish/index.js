@@ -26,6 +26,10 @@ Page({
     }
   },
 
+  onShow: function() {
+    this.getPoint();
+  },
+
   getPoint: function() {
     var _this = this;
     util.getReq('&m=point&a=checkPoint', {

@@ -1,0 +1,142 @@
+<!--pages/container/creatShop/index.wxml-->
+<view class="banner">
+  <image src="../../images/shop-list.jpg" />
+</view>
+<view class='title h90'>填写店铺信息</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class='item h90'>
+    <text>店铺名</text>
+    <input
+      class='item-input'
+      placeholder="不超过12个字"
+      maxlength='12'
+      name="shop_name"
+      value="{{info.shop_name || ''}}"
+    />
+  </view>
+
+  <view class='item h90'>
+    <text>店铺封面图（推荐上传logo, 或者门店图片）</text>
+  </view>
+  <view class='item-detail'>
+    <view class="image-box">
+      <view class="image add" bindtap='chooseLogo'>
+        <image src="{{shopLogo || '../../images/add-img.png'}}" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+
+  <view class='item h90'>
+    <text>营业时间</text>
+  </view>
+  <view class='item-time h90'>
+    <picker mode="time" value="{{startTime}}" start="09:00" end="21:00" bindchange="bindStartTimeChange" class='item-input' name="start_time">
+      <view class="picker">
+        开门时间 {{info.start_time || startTime}}
+      </view>
+    </picker>
+    <picker mode="time" value="{{time}}" start="09:00" end="24:00" bindchange="bindEndTimeChange" class='item-input' name="end_time">
+      <view class="picker">
+        闭店时间 {{info.end_time || endTime}}
+      </view>
+    </picker>
+  </view>
+  <view class='item h90'>
+    <text>联系方式</text>
+    <input
+      class='item-input'
+      placeholder="电话或者手机号，方便用户咨询"
+      type='number'
+      name="shop_phone"
+    />
+  </view>
+  <view class='item h90'>
+    <text>店铺性质</text>
+    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="shop_property" >
+      <label class="radio">
+        <radio value="{{true}}" />实体店
+      </label>
+      <label class="radio">
+        <radio value="{{false}}" />自主经营
+      </label>
+    </radio-group>
+  </view>
+
+  <view class='item h90'>
+    <text>店铺位置</text>
+    <view class="item-input" wx:if="{{info.shop_addr}}" bindtap='openMap'>
+      {{info.shop_addr}}
+    </view>
+  </view>
+
+  <view class='item h90'>
+    <text>店铺分类</text>
+    <picker mode="selector" value="{{category[categoryIndex].cg_id}}" bindchange="bindCategoryChange" class='item-input' range="{{category}}" range-key="name" name="cg_id">
+      <view class="nature" wx:if="{{!categoryIndex}}">
+        所属行业分类
+      </view>
+      <view wx:else>{{category[categoryIndex].name}}</view>
+    </picker>
+  </view>
+  <view class='item h90'>
+    <text>是否为新开店铺</text>
+    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="is_new" >
+      <label class="radio">
+        <radio value="{{true}}" />是
+      </label>
+      <label class="radio">
+        <radio value="{{false}}" />否
+      </label>
+    </radio-group>
+  </view>
+  <view class='item h90'>
+    <text>是否为连锁店</text>
+    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="is_brand" >
+      <label class="radio">
+        <radio value="{{true}}" />是
+      </label>
+      <label class="radio">
+        <radio value="{{false}}" />否
+      </label>
+    </radio-group>
+  </view>
+
+  <view class='item h90'>
+    <text>主营业务</text>
+    <input placeholder="不超过24个字" class='item-input' maxlength="24" name="shop_major" />
+  </view>
+
+  <view class='item-deail h90'>
+    <text>店铺详情</text>
+  </view>
+  <view class='item-detail'>
+    <textarea placeholder="介绍一下店铺有哪些优点，越详细越吸引用户哦" class='textarea' name="shop_detail" /> 
+  </view>
+
+  <view class='item-deail h90'>
+    <text>图片展示</text>
+  </view>
+
+  <view class='item-detail'>
+    <view class="image-box">
+      <block wx:for="{{imagesList}}">
+        <view class="image">
+          <image src="{{item}}" mode="aspectFill" />
+          <text class="delete" bindtap="deleteImage" id="{{index}}">x</text>
+        </view>
+      </block>
+      <view class="image add" bindtap='chooseImage' wx:if="{{imagesList.length < 6}}">
+        <image src="../../images/add-img.png" />
+      </view>
+    </view>
+  </view>
+
+  <view class='submit'>
+    <view class='term'>
+      <checkbox value="{{true}}" checked="{{true}}" class='checkbox'/>
+      已阅读， 并同意 <text class='blue'>发布条款</text>
+    </view>
+    <button class='button' formType="submit">立即发布</button>
+  </view>
+</form>
+

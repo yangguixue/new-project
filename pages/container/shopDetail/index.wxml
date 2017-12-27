@@ -1,18 +1,81 @@
-<!--pages/container/shopDetail/index.wxml-->
+ <!--pages/container/shopDetail/index.wxml-->
 
-<shop item="{{item}}" />
+<shop item="{{info}}" wx:if="{{info.level == 0}}" detail="true" /> 
+<view class='zx-box' wx:if="{{info.level == 1}}">
+  <image src='../../images/zx-background.png' class='zx-img' mode='aspectFit'/>
+  <view class='zx-top'>
+    <view class='shop-name'>
+      <text class='name'> {{info.shop_name}}</text>
+      <image src='../../images/zx.png' class='zx-icon'/>
+      <text class='version'>尊享版</text>
+    </view>
+    <view class='shop-time'>
+      <text class="real-shop" wx:if="{{info.is_shiti}}">实体</text>
+      <text class="new-shop">新店</text>
+      营业时间:{{info.start_time}} - {{info.end_time}}</view>
+    <view class='shop-logo-box'>
+      <image src='{{info.shop_logo}}' class='shop-logo' mode='aspectFill'/>
+    </view>
+  </view>
+  <view class='zx-bottom'>
+    <view class='zx-b-l'>
+      <view class='zx-item'>
+        <view class='lh-36'>{{info.hits}}</view>
+        <view class='lh-36'>浏览量</view>
+      </view>
+      <view class='zx-item'>
+        <view class='lh-36'>{{info.ad_list ? info.ad_list.length : '0'}}</view>
+        <view class='lh-36'>活动</view>
+      </view>
+      <view class='zx-item'>
+        <view class='lh-36'>{{info.is_recruit ? info.recruit_list.length : '0'}}</view>
+        <view class='lh-36'>招聘</view>
+      </view>
+    </view>
+    <view class='zx-b-r'>
+      <image src='../../images/shop-love-num.png' class='heart' />
+      <view class='shop-love'>获赞 99</view>
+    </view>
+  </view>
+</view>
+
+<!-- 领取vip -->
+<view class='warn' wx:if="{{info.is_owner && !info.is_get_vip}}">
+  <view class='warn-left'>
+    <image src='../../images/warning.png' class='warning-img' />
+    <text class='waring-text'>您有一个尊享版店铺免费试用未领取</text>
+  </view>
+  <view class='warn-right'>
+    <view class='warning-btn' bindtap='getFree' data-id="{{info.id}}">立即领取</view>
+  </view>
+</view>
+<!-- END 领取vip -->
+
+<!-- 未缴纳保证金 -->
+<view class='warn' wx:if="{{!info.deposit}}">
+  <view class='warn-left'>
+    <image src='../../images/warning.png' class='warning-img' />
+    <text class='waring-text' wx:if="{{info.is_owner}}">您的店铺暂未缴纳保证金</text>
+    <text class='waring-text' wx:else>该店铺暂未缴纳保证金，真实性有待考察</text>
+  </view>
+  <view class='warn-right'>
+    <view class='next'><image src='../../images/next.png' /></view>
+  </view>
+</view>
+<!-- END 未缴纳保证金 -->
+
 <view class="info-box pd">
-  <view class="shop-info">
-    <image src="../../images/phone.png" class="info-icon" />
-    <text class="info"> {{item.shop_phone}}</text>
+  <view class="shop-info" wx:if="{{info.level == 0}}">
+    <image src="../../images/clock.png" class="info-icon" />
+    <text class="info"> {{info.start_time}} - {{info.end_time}}</text>
   </view>
   <view class="shop-info">
-    <image src="../../images/clock.png" class="info-icon" />
-    <text class="info"> {{item.shop_time}}</text>
+    <image src="../../images/phone.png" class="info-icon" />
+    <text class="info"> {{info.shop_phone}}</text>
   </view>
   <view class="shop-info" style="border: none">
     <image src="../../images/address2.png" class="info-icon" />
-    <text class="info"> {{item.shop_addr}}</text>
+    <text class="info"> {{info.shop_addr}}</text>
   </view>
 </view>
 <!-- <view class="shop-img pd">
@@ -24,16 +87,112 @@
   </view>
 </view> -->
 
-<view class="shop-img pd">
-  <view class="title">商家信息</view>
-  <rich-text nodes="{{item.shop_detail}}" class="explain"></rich-text>
+<!-- 活动列表 -->
+<view wx:if="{{!info.is_sale && !info.is_owner}}"></view>
+<view class="{{moreActive ? 'active-box show-more' : 'active-box'}}" wx:else>
+  <view class='title'>
+    <text>活动列表({{info.ad_list ? info.ad_list.length : 0}})</text>
+    <text class='blue job-add' bindtap='handleShowEditJob'>+ 添加</text> 
+  </view>
+  <view class='no-info' wx:if="{{!info.is_sale}}">
+    <text class='no-info-text'>添加活动优惠，更容易吸引顾客哦~</text>
+    <text class='no-info-btn'>+ 添加活动</text>
+  </view> 
+  <block wx:for="{{info.ad_list}}" wx:key="{{index}}" wx:if="{{info.is_sale}}">
+    <view class='active-list'>
+      <navigator url="{{'../../container/discountDetail/index?id=' + item.id}}">
+        <view class='active-left'>
+          <image class='active-img' src='{{item.smeta}}' />
+        </view>
+        <view class='active-right'>
+          <view class='active-title'>{{item.post_title}}</view>
+          <view class='active-date'>{{item.start_time}}-{{item.end_time}}</view>
+          <view class='active-detail'>查看详情 ></view>
+        </view>
+      </navigator>
+    </view>
+  </block>
+
+  <view class='active-footer' bindtap='showMoreActive' wx:if="{{!moreActive && info.ad_list.length >= 2}}">
+    <text class='active-more'>点击查看更多</text>
+    <image class='' src='../../images/line-gradient.png'/>
+  </view> 
 </view>
 
-<view class="footer" bindtap='handleCall'>拨打电话</view>
+<!-- 招聘 -->
+<view wx:if="{{!info.is_recruit && !info.is_owner}}"></view>
+<view class="{{moreJobs ? 'jobs show-more' : 'jobs'}}" wx:else>
+  <view class='title'>
+    <text>招聘({{info.is_recruit ? info.recruit_list.length : ''}})</text>
+    <text class='blue job-add' bindtap='handleShowEditJob'>+ 添加</text>  
+  </view>
+  <view class='no-info' wx:if="{{info.recruit_list.length == 0}}">
+    <text class='no-info-text'>一键添加， 招人更快速</text>
+    <text class='no-info-btn' bindtap='handleShowEditJob'>+ 添加招聘信息</text>
+  </view>
+  <block wx:for="{{info.recruit_list}}" wx:key="{{info.id}}" wx:if="{{info.is_recruit}}">
+    <view class='job-list'>
+      <view class='job-info'>
+        <text class='job-info-text'>{{item.jd}}</text>
+        <text class='job-info-text'>{{item.num}}人</text>
+        <text class='job-info-text'>{{item.salary}}</text>
+        <view class='job-info-text' wx:if="{{info.is_owner}}"> 
+          <text class='blue' bindtap='handleShowEditJob' data-item='{{item}}'>编辑</text>
+          <text class='blue' bindtap='handleDeleteJob' data-id="{{item.id}}"> 删除</text>
+        </view> 
+      </view>
+      <view class='request'>要求：{{item.demand}}</view>
+      <view class='request'>福利：{{item.benefits}}</view>
+    </view>
+  </block>
+  
+  <view class='active-footer' bindtap='showMoreJobs' wx:if="{{!moreJobs && info.recruit_list.length >= 2}}">
+    <text class='active-more'>点击查看更多</text>
+    <image class='' src='../../images/line-gradient.png'/>
+  </view> 
+</view>
+
+<view class="shop-img pd">
+  <view class="title">商家信息</view>
+  <view class="explain"> {{info.shop_detail}}</view>
+  <view class='shop-img-box'>
+    <block wx:for="{{info.shop_pic}}" wx:key="{{index}}">
+      <image src='{{item}}' alt='' class='shop-images' mode='aspectFill' bindtap='showImage' data-current='{{item}}' />
+    </block>
+  </view>
+</view>
+ 
+<view class="footer" wx:if="{{info.is_owner}}">
+  <navigator url='../creatShop/index?id={{info.id}}'>
+    <text>编辑店铺</text>  
+  </navigator>
+</view>
+
+<view class="footer" wx:else>
+  <!-- 没有登录时 登录时跳转  -->
+   <text>我要开店</text> 
+  <text bindtap='handleCall'>拨打电话</text>
+</view>
 
 <view wx:if="{{isLoading}}">
   <image
     src="../../images/loading.gif"
     style='width: 100rpx; height: 100rpx; position:fixed; top: 50%; left:50%; margin: -50rpx 0 0 -50rpx'
   />
+</view>
+
+<!-- 编辑招聘 -->
+<view class='add-box' wx:if="{{showEditJob}}">
+  <view class='edit-box'>
+    <view class='edit-title'>{{jobInfo.id ? '修改' : '添加'}}招聘信息</view>
+    <form bindsubmit="submitJob">
+      <input placeholder="招聘职位" class='edit-input' name="jd" value="{{jobInfo.jd ? jobInfo.jd : ''}}" />
+      <input placeholder="招聘人数" class='edit-input' name="num" value="{{jobInfo.num ? jobInfo.num : ''}}" />
+      <input placeholder="薪资" class='edit-input' name="salary" value="{{jobInfo.salary ? jobInfo.salary : ''}}" />
+      <textarea placeholder="职位要求" class='edit-input edit-textarea' name="demand" value="{{jobInfo.demand ? jobInfo.demand : ''}}"  />
+      <textarea placeholder="福利"class='edit-input edit-textarea' name="benefits" value="{{jobInfo.benefits ? jobInfo.benefits : ''}}"  />
+      <button class='submit' formType="submit" loading="{{submitJob}}">提交</button>
+    </form>
+  </view>
+  <view class='mask' bindtap='handleHideEditJob' /> 
 </view>

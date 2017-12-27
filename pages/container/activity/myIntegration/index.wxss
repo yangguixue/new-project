@@ -75,7 +75,7 @@ page{
   font-size: 28rpx;
   background: #fff;
   border-radius: 10rpx;
-  padding: 15rpx;
+  padding: 20rpx 30rpx;
 }
 
 .title {

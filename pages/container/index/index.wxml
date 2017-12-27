@@ -1,58 +1,57 @@
 <!--index.wxml-->
-<view class="search">
-  <view class="place"> {{address}}<image src="../../images/placeIcon.png" class="placeIcon"/></view>
-  <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/>
-</view> 
-<banner banners="{{banners}}"/>
-<!-- 分类 -->
-<view class="flex-wrp">
-  <view class="item-box">
-    <block wx:key="{{item.cg_id}}" wx:for="{{category}}">
-      <navigator url="../../container/catelogList/index?id={{item.cg_id}}">
-        <view class="flex-item">
-          <view class="icon">
-            <image src="{{item.icon}}" class="icon-img" mode="widthFix"/>
+<import src="../../template/catelog.wxml"/>
+
+<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower"> 
+  <view>
+    <view class="search">
+      <view class="place"> {{address}}<image src="../../images/placeIcon.png" class="placeIcon"/></view>
+      <!-- <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/> -->
+    </view> 
+    <banner banners="{{banners}}"/>
+    <!-- 分类 -->
+    <template is="catelog" data="{{category}}"/>
+    <!-- 分类END -->
+    <view class="active-entry">
+      <navigator url="../../container/discountList/index">
+        <view class="entry01">
+          <view class="entry01-left">
+            <view class="active-title">热门活动</view>
+            <view class="active-intro">打折,赠品,促销一网打尽</view>
           </view>
-          <text class="text">{{item.name}}</text>
+          <view class="entry01-right">
+            <image src="../../images/sale.png" />
+          </view>
         </view>
       </navigator>
-    </block>
+      
+      <navigator url="../../container/shopList/index">
+        <view class="entry02">
+          <view class="entry01-left">
+            <view class="active-title">全城商家</view>
+            <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
+          </view>
+          <view class="entry01-right">
+            <image src="../../images/shop.png" />
+          </view>
+        </view>
+      </navigator>
+    </view>
+    <view class="title">
+      <image src="../../images/dajiashuo.png" class="title-img"/>
+    </view>
+    <message-card />
+    <view wx:for="{{list}}" wx:key="{{item.id}}">
+      <article content="{{item}}" data-id="{{item.id}}"  bind:openLogin="handleOpenLogin" bind:changeList="changeList" />
+    </view>
   </view>
-</view>
-<!-- 分类END -->
-<view class="active-entry">
-  <navigator url="../../container/discountList/index">
-    <view class="entry01">
-      <view class="entry01-left">
-        <view class="active-title">热门活动</view>
-        <view class="active-intro">打折,赠品,促销一网打尽</view>
-      </view>
-      <view class="entry01-right">
-        <image src="../../images/sale.png" />
-      </view>
-    </view>
-  </navigator>
-  
-  <navigator url="../../container/shopList/index">
-    <view class="entry02">
-      <view class="entry01-left">
-        <view class="active-title">全城商家</view>
-        <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
-      </view>
-      <view class="entry01-right">
-        <image src="../../images/shop.png" />
-      </view>
-    </view>
-  </navigator>
-</view>
-<view class="title">
-  <image src="../../images/dajiashuo.png" class="title-img"/>
-</view>
-<message-card />
+  <view wx:if="{{loadMore}}" class='list-footer'>
+    <image src='../../images/loading.gif' alt="" class='loading-img' />
+  </view>
+  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 
-<block wx:for="{{list}}" wx:key="{{item.id}}">
-  <article content="{{item}}" bind:openLogin="handleOpenLogin" />
-</block>
-<loading isLoading="{{isLoading}}" list="{{list}}" />
+  <text class='addDesk' wx:if="{{isShowAddDesk}}" bindtap='hideAddDesk'>点击"添加到桌面"</text>
+  <text class='single' wx:if="{{isShowAddDesk}}"/>
+</scroll-view> 
+
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>
 

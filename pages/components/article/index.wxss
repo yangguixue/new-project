@@ -1,3 +1,4 @@
+
 .card{
   display: flex;
   flex-direction: row;
@@ -9,12 +10,17 @@
   background: #fff;
 }
 
+.dn {
+  display: none;
+  overflow: hidden;
+}
 .card-left{
   flex: 1;
 }
 
 .user-head{
   width:100rpx;
+  height: 100rpx;
 }
 
 .card-right{

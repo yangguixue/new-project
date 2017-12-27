@@ -4,5 +4,6 @@
     "article": "../../components/article/index",
     "loading": "../../components/loading/index",
     "noLogin": "../../components/noLogin/index"
-  }
+  },
+  "enablePullDownRefresh": "true"
 }

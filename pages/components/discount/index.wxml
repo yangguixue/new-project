@@ -8,8 +8,14 @@
           <text class="detail-left"> {{ items.post_discount }}</text>
           <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
         </view>
+        <view class='triangle active-ing' wx:if="{{items.post_expire == 2}}" />
+        <text class='status' wx:if="{{items.post_expire == 2}}">进行中</text>
+        <view class='triangle active-ed' wx:if="{{items.post_expire == 0}}" />
+        <text class='status' wx:if="{{items.post_expire == 0}}">已结束</text>
+        <view class='triangle active-will' wx:if="{{items.post_expire == 1}}" />
+        <text class='status' wx:if="{{items.post_expire == 1}}">未开始</text>
       </view>
-    </view>
+    </view>   
   </navigator>
 </block>
 
@@ -21,5 +27,11 @@
       <text class="detail-left"> {{ items.post_discount }}</text>
       <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
     </view>
+    <view class='triangle active-ing' wx:if="{{items.post_expire == 2}}" />
+    <text class='status' wx:if="{{items.post_expire == 2}}">进行中</text>
+    <view class='triangle active-ed' wx:if="{{items.post_expire == 0}}" />
+    <text class='status' wx:if="{{items.post_expire == 0}}">已结束</text>
+    <view class='triangle active-will' wx:if="{{items.post_expire == 1}}" />
+    <text class='status' wx:if="{{items.post_expire == 1}}">未开始</text>
   </view>
 </view>

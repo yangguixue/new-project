@@ -1,17 +1,12 @@
 // pages/container/release/index.js
 var config = require('../../common/config.js');
 var util = require('../../../utils/util.js');
-var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
-var qqmapsdk;
-
-qqmapsdk = new QQMapWX({
-  key: 'AAOBZ-DK53W-TSBR3-ONY3L-474I3-CMFGU'
-});
 const app = getApp()
 
 Page({
   data: {
     imagesList:[], //图片；列表
+    serverUrl: [],
     isNull: true, //textarea是否是空
     secondMenus: [], // 二级菜单
     item: {}, // 要提交的对象
@@ -29,6 +24,7 @@ Page({
     item.session3rd = token;
     this.setData({
       item: item,
+      type: options.type
     })
     if (token) {
       this.setData({
@@ -52,34 +48,18 @@ Page({
     }
 
     // 获取地理位置
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (res) {
-            var address = res.result.formatted_addresses.rough
-            item.post_addr = address;
-            that.setData({
-              address: res.result,
-              item: item
-            })
-          },
-          fail: function (res) {
-          },
-          complete: function (res) {
-          }
-        });
-      }
+    app.getLocation(that).then((res) => {
+      var address = res.result.formatted_addresses.rough
+      item.post_addr = address;
+      that.setData({
+        address: res.result,
+        item: item
+      })
     })
   },
 
   openMap: function() {
     var address = this.data.address;
-
     wx.openLocation({
       latitude: address.location.lat,
       longitude: address.location.lng,
@@ -89,9 +69,12 @@ Page({
 
   deleteImage: function(event) {
     var imagesList = this.data.imagesList;
+    var serverUrl = this.data.serverUrl;
     imagesList.splice(event.target.id, 1);
+    serverUrl.splice(event.target.id, 1);
     this.setData({
-      imagesList: imagesList
+      imagesList,
+      serverUrl
     })
   },
 
@@ -105,46 +88,47 @@ Page({
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
         var imagesList = that.data.imagesList;
-        if (imagesList.length > 0) {
-          var newList = imagesList.concat(tempFilePaths);
-          that.setData({
-            imagesList: newList
-          })
-        } else {
-          that.setData({
-            imagesList: tempFilePaths
-          })
+        var serverUrl = that.data.serverUrl; // 存储服务器端url
+        var uploadImgCount = 0;
+        // 遍历循环图片上传到服务器
+        for (var i = 0, h = tempFilePaths.length; i < h; i++) {
+          wx.uploadFile({
+            url: config.configUrl + '&m=info&a=upPic',
+            filePath: tempFilePaths[i],
+            name: 'file',
+            header: {
+              "Content-Type": "multipart/form-data"
+            },
+            success: function (res) {
+              uploadImgCount++;
+              var data = JSON.parse(res.data);
+              serverUrl.push(data.result.file);
+              if (imagesList.length > 0) {
+                var newList = imagesList.concat(tempFilePaths);
+                that.setData({
+                  imagesList: newList,
+                  serverUrl
+                })
+              } else {
+                that.setData({
+                  imagesList: tempFilePaths,
+                  serverUrl
+                })
+              }
+            },
+            fail: function (res) {
+              wx.hideToast();
+              wx.showModal({
+                title: '错误提示',
+                content: res.errMsg,
+                showCancel: false,
+                success: function (res) { }
+              })
+            }
+          });
         }
       }
     });
-  },
-
-  handleServerUpload: function(item) {
-    return new Promise(function(resolve, reject) {
-      wx.uploadFile({
-        url: config.configUrl + '&m=info&a=upPic',
-        filePath: item,
-        name: 'file',
-        header: { "Content-Type": "multipart/form-data" },
-        success: function (res) {
-          var data = JSON.parse(res.data);
-          resolve(data.file);
-        }
-      })
-    })
-  },
-
-  getServerImage: function(list) {
-    var images = '';
-    var that = this;
-    return new Promise(function(resolve, reject) {
-      list.map(item => {
-        that.handleServerUpload(item).then(res => {
-          images = images + ',' + res;
-          resolve(images);
-        })
-      })
-    }) 
   },
 
   handleChange: function(e) {
@@ -176,58 +160,9 @@ Page({
   handleSubmit: function() {
     var that = this;
     var item = this.data.item;
-    var imagesList = this.data.imagesList;
-    if (imagesList.length > 0) {
-      this.getServerImage(this.data.imagesList).then(res => {
-        item.smeta = res;
-        console.log(res);
+    var serverUrl = this.data.serverUrl;
+    item.smeta = serverUrl;
 
-        that.setData({ isSubmiting: true });
-        util.req('&m=info&a=addInfo', util.json2Form(item), function (data) {
-          if (data.flag == 1) {
-            wx.showToast({
-              title: '发布成功',
-              icon: 'success',
-              duration: 2000
-            });
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            wx.showModal({
-              content: '发布失败' + data.msg,
-            })
-          }
-          that.setData({ isSubmiting: false });
-        })
-      });
-    } else {
-      that.setData({ isSubmiting: true });
-      util.req('&m=info&a=addInfo', item, function (data) {
-        if (data.flag == 1) {
-          wx.showToast({
-            title: '发布成功',
-            icon: 'success',
-            duration: 2000
-          });
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          wx.showModal({
-            content: '发布失败' + data.msg,
-          })
-        }
-        that.setData({ isSubmiting: false });
-      })
-    }
-  },
-
-  handleSubmit2: function () {
-    var that = this;
-    var item = this.data.item;
-    item.smeta = this.data.imagesList;
-    console.log(item.smeta)
     that.setData({ isSubmiting: true });
     util.req('&m=info&a=addInfo', item, function (data) {
       if (data.flag == 1) {
@@ -236,6 +171,15 @@ Page({
           icon: 'success',
           duration: 2000
         });
+        if (that.data.type == 1) {
+          wx.navigateBack({
+            delta: 1
+          })
+        } else {
+          wx.reLaunch({
+            url: '../index/index'
+          })
+        }
       } else {
         wx.showModal({
           content: '发布失败' + data.msg,
@@ -243,5 +187,5 @@ Page({
       }
       that.setData({ isSubmiting: false });
     })
-  }
+  },
 })

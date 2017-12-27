@@ -1,11 +1,17 @@
 //app.js
 var config = require('pages/common/config.js');
 var util = require('utils/util.js');
+var QQMapWX = require('utils/qqmap-wx-jssdk.js');
+var qqmapsdk;
+
+qqmapsdk = new QQMapWX({
+  key: 'AAOBZ-DK53W-TSBR3-ONY3L-474I3-CMFGU'
+});
 
 App({
   onLaunch: function () {
     var that = this;
-    that.login();
+    wx.setStorageSync('isShowAddDesk', true);
     // 小程序初始化判断用户是否登录
     // wx.checkSession({
     //   success: function() {
@@ -22,6 +28,7 @@ App({
     //     that.login();
     //   }
     // })
+    // that.login();
   },
 
   login: function () {
@@ -34,6 +41,7 @@ App({
             util.req('&m=member&a=onLogin', { code: res.code }, function (data) {
               if (data.flag == 1) {
                 wx.removeStorageSync('token');
+                console.log(data.reset.session3rd);
                 that.setToken(data.reset.session3rd);
                 that.setIsReg(data.reset.is_reg);
                 resolve();
@@ -49,6 +57,7 @@ App({
 
   // 注册
   registerUser: function(userInfo) {
+    console.log(userInfo)
     var that = this;
     return new Promise(function(resolve, reject) {
       wx.login({
@@ -83,7 +92,6 @@ App({
   setToken: function (data) {
     var _this = this;
     _this.globalData.token = data;
-    console.log(_this.globalData.token)
     wx.setStorage({
       key: "token",
       data: data
@@ -92,6 +100,32 @@ App({
 
   setIsReg: function (data) {
     this.globalData.is_reg = data;
+  },
+
+  // 获取位置
+  getLocation: function(that) {
+    return new Promise(function(resolve, reject) {
+      wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
+          qqmapsdk.reverseGeocoder({
+            location: {
+              latitude: res.latitude,
+              longitude: res.longitude
+            },
+            coord_type: 5,
+            get_poi: 1,
+            success: function (res) {
+              resolve(res);
+            },
+            fail: function (res) {
+            },
+            complete: function (res) {
+            }
+          });
+        }
+      })
+    })
   },
 
   // 文章点赞，取消赞
@@ -224,6 +258,7 @@ App({
   globalData: {
     userInfo: null,
     token: null,
-    is_reg: null
+    is_reg: null,
+    epage: 5,
   }
 })

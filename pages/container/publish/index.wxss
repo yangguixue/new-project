@@ -4,7 +4,7 @@ page {
   text-align: center;
   color: #fff;
   background: #333;
-  font-size: 24rpx;
+  font-size: 28rpx;
   font-family: '微软雅黑';
   border-top: 2rpx solid #636363;
 }

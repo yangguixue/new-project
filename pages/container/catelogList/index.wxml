@@ -1,14 +1,20 @@
 <!--pages/container/catelogList/index.wxml-->
-<banner banners="{{banners}}"/>
-<view class="tab" wx:if="{{menu.length > 0}}">
-  <block wx:for="{{menu}}" >
-    <view class="{{ tabId === item.cg_id  ? 'menu tab-hover' : 'menu' }}"  bindtap="handleClickTab" data-id="{{item.cg_id}}">
-      {{item.name}}
-    </view>
+<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower">
+  <banner banners="{{banners}}"/>
+  <view class="tab" wx:if="{{menu.length > 0}}">
+    <block wx:for="{{menu}}" >
+      <view class="{{ tabId === item.cg_id  ? 'menu tab-hover' : 'menu' }}"  bindtap="handleClickTab" data-id="{{item.cg_id}}">
+        {{item.name}}
+      </view>
+    </block>
+  </view>
+  <block wx:for="{{list}}" wx:key="{{item.id}}">
+    <article content="{{item}}" />
   </block>
-</view>
-<block wx:for="{{list}}">
-  <article content="{{item}}"  />
-</block>
+  <view wx:if="{{loadMore}}" class='list-footer'>
+    <image src='../../images/loading.gif' alt="" class='loading-img' />
+  </view>
+  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+</scroll-view>
 
-<loading isLoading="{{isLoading}}" list="{{list}}" />
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

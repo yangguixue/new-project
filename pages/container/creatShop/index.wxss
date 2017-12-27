@@ -1,0 +1,133 @@
+/* pages/container/creatShop/index.wxss */
+page {
+  background: #f7f7f7;
+  color: #333;
+}
+
+.banner {
+  height: 200rpx;
+  background: red;
+  margin-bottom: 10rpx;
+}
+
+.h90 {
+  font-size: 30rpx;
+  font-weight: bold;
+  background: #fff;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom: 4rpx;
+  padding: 0 30rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.item-input {
+  flex: 1;
+  height: 90rpx;
+  font-weight: normal;
+  line-height: 90rpx;
+  margin-left: 20rpx;
+}
+
+.item-time {
+  display: flex;
+  margin-top: -4rpx;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.nature {
+  color: #999;
+}
+
+.item-detail {
+  font-size: 30rpx;
+  padding: 0 30rpx 30rpx 30rpx;
+  background: #fff;
+  margin-top: -4rpx;
+  margin-bottom: 4rpx;
+}
+
+.textarea {
+  width: auto;
+  height: 140rpx;
+  border: 2rpx solid #e6e6e6;
+  padding: 20rpx;
+  border-radius: 6rpx;
+  font-weight: normal;
+}
+
+/* 上传图片 */
+.image {
+  position: relative;
+  display: inline-block;
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 10rpx;
+}
+
+.delete {
+  position: absolute;
+  top:0;
+  right:0;
+  width: 32rpx;
+  height: 32rpx;
+  background: #eee;
+  line-height: 32rpx;
+  font-size: 26rpx;
+  text-align: center;
+  color: #666;
+}
+
+.add {
+  width: 158rpx;
+  height: 158rpx;
+  border: 1px solid #e5e5e5;
+}
+
+.submit {
+  padding: 0 30rpx 50rpx;
+}
+
+.button {
+  background: #ffc754;
+  border-radius: 6rpx;
+}
+
+.term {
+  padding: 30rpx 0;
+  font-size: 28rpx;
+}
+
+.wx-radio-input {
+  width: 28rpx !important;
+  height: 28rpx !important; 
+} 
+
+.wx-radio-input.wx-radio-input-checked::before {
+  font-size: 30rpx !important;
+} 
+
+.checkbox {
+  float: left;
+  margin-top: -4rpx;
+}
+
+.wx-checkbox-input {
+  width: 28rpx !important;
+  height: 28rpx !important; 
+} 
+
+.wx-checkbox-input.wx-checkbox-input-checked::before {
+  font-size: 30rpx !important;
+} 

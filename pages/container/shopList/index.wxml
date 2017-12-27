@@ -1,23 +1,46 @@
 <!--pages/container/shopList/index.wxml-->
-<view class="search">
-  <view class="search-left">
-    <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" />
-  </view>
-  <view class="search-button">
-    <image src="../../images/search.png" />
-  </view>
-</view>
-<view class="banner">
-  <image src="../../images/shop-list.jpg" />
-</view>
-<view class="list-title pd">
-  商家列表
-</view>
 
-<block wx:for="{{items}}" wx:key="{{item.id}}">
-  <navigator url="../shopDetail/index?id={{item.id}}">
-    <shop item="{{item}}"/>
-  </navigator>
-</block>
+<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower">
+  <view class="search">
+    <view class="search-left">
+      <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' />
+    </view>
+    <view class="search-button">
+      <image src="../../images/search.png" bindtap='handleSearch' />
+    </view>
+  </view>
 
-<loading isLoading="{{isLoading}}" list="{{items}}" />
+  <view class="banner">
+    <image src="../../images/shop-list.jpg" />
+  </view>
+
+  <!-- <view class="list-title pd">
+    商家列表
+  </view> -->
+
+  <view class='menu'>
+    <view class='menu-title'>
+      <view class='category' bindtap='handleFilter' data-id="0">所有分类<text class='triangle' /></view>
+      <view class='line'></view>
+      <view class='filter' bindtap='handleFilter' data-id="1">店铺筛选<text class='triangle' /></view>
+    </view>
+    <view class='menu-list'>
+      <block wx:for="{{menuList}}" wx:key="{{index}}">
+        <view class='menu-item' bindtap='handleFilterSearch' data-id="{{item.cg_id}}">{{item.name}}</view>        
+      </block>
+    </view> 
+  </view>
+
+  <block wx:for="{{list}}" wx:key="{{item.id}}">
+    <navigator url="../shopDetail/index?id={{item.id}}">
+      <shop item="{{item}}"/>
+    </navigator>
+  </block>
+
+  <!-- 加载更多 -->
+  <view wx:if="{{loadMore}}" class='list-footer'>
+    <image src='../../images/loading.gif' alt="" class='loading-img' />
+  </view>
+  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+</scroll-view>
+<!-- <loading isLoading="{{isLoading}}" list="{{items}}" /> -->

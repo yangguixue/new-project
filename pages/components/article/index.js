@@ -3,17 +3,16 @@ var app = getApp();
 
 Component({
   properties: {
-    // 这里定义了innerText属性，属性值可以在组件使用时指定
     content: Object,
     isDetail: Boolean,
     isShowLogin: Boolean
   },
   data: {
     // 这里是一些组件内部数据
+    dn: false
   },
 
   methods: {
-    // 这里是一个自定义方法
     // 图片放大
     handleBigImage: function () {
       wx.previewImage({
@@ -34,6 +33,7 @@ Component({
       }
       app.handleCollection(content).then((content) => {
         this.setData({ content });
+        this.triggerEvent('changeList', content);
       })
     },
 
@@ -45,6 +45,7 @@ Component({
       }
       app.handleZan(content).then((content) => {
         this.setData({ content });
+        this.triggerEvent('changeList', content);
       });
     },
 
@@ -63,7 +64,7 @@ Component({
                 wx.showToast({
                   title: '删除成功',
                 })
-                that.triggerEvent('delete')
+                that.setData({ dn: true }) // 删除成功， 只删除本组件（隐藏）
               }
             })
           }

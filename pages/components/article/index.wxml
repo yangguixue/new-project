@@ -1,48 +1,51 @@
-<view class="card">
-  <view class="card-left">
-    <navigator url="../../container/userPage/index?id={{content.member_id}}">
-      <image class="user-head" src="{{content.userphoto}}" mode="widthFix" />
-    </navigator>
+<view class="{{dn ? 'dn' : ''}}">
+  <view class="card">
+    <view class="card-left">
+      <navigator url="../../container/userPage/index?id={{content.member_id}}">
+        <image class="user-head" src="{{content.userphoto}}" mode="widthFix" />
+      </navigator>
+    </view>
+
+    <view class="card-right">
+      <navigator url="../../container/userPage/index?id={{content.member_id}}">
+        <view class="username">{{ content.username }} </view>
+      </navigator>
+      <view class="position">
+        <image src="../../images/address.png" style="width:20rpx; height:24rpx;margin-right:8rpx" />
+        <text>{{content.post_addr}} </text>
+      </view>
+      <!--  详情页点击内容无链接 -->
+      <navigator wx:if="{{isDetail !== true}}" url="../../container/articleDetail/index?id={{content.id}}">
+        <view class="content-text">{{content.post_content}} </view>
+      </navigator>
+      <view wx:else class="content-text">{{content.post_content}} </view>
+      <!--  详情页点击内容无链接 END -->
+      <view class="content-img">
+        <block wx:for="{{content.smeta}}" wx:key="{{index}}">
+          <image class="article-img" src="{{item}}" bindtap="handleBigImage" />
+        </block>
+      </view>
+      <view class="time"> {{content.post_date}}</view>   
+      <view class="time" data-id="{{content.id}}" bindtap='handleDelete' wx:if="{{content.is_del}}">删除</view>      
+    </view>
   </view>
 
-  <view class="card-right">
-    <navigator url="../../container/userPage/index?id={{content.member_id}}">
-      <view class="username">{{ content.username }} </view>
-    </navigator>
-    <view class="position">
-      <image src="../../images/address.png" style="width:20rpx; height:24rpx;margin-right:8rpx" />
-      <text>{{content.post_addr}} </text>
+  <view wx:if="{{isDetail !== true}}" class="button-menu">
+    <view class="button" bindtap="handleCollection" data-id="{{content.id}}" data-action="{{content.is_star}}">
+      <image wx:if="{{content.is_star}}" src="../../images/collection-fill.png" class="button-icon"/>
+      <image wx:else src="../../images/collection.png" class="button-icon"/>
     </view>
-    <!--  详情页点击内容无链接 -->
-    <navigator wx:if="{{isDetail !== true}}" url="../../container/articleDetail/index?id={{content.id}}">
-      <view class="content-text">{{content.post_content}} </view>
+    <navigator url="../../container/articleDetail/index?id={{content.id}}" class="button">
+      <view>
+        <image src="../../images/comment.png" class="button-icon"/>
+        <text wx:if="{{content.comment_count != '0'}}">{{content.comment_count}}</text>
+      </view>
     </navigator>
-    <view wx:else class="content-text">{{content.post_content}} </view>
-    <!--  详情页点击内容无链接 END -->
-    <view class="content-img">
-      <block wx:for="{{content.smeta}}">
-        <image class="article-img" src="{{item}}" mode="widthFix" bindtap="handleBigImage" />
-      </block>
+    <view class="{{content.is_like ? 'button red' : 'button'}}" bindtap="handleZan" data-id="{{content.id}}">
+      <image src="../../images/like-fill.png" class="button-icon" wx:if="{{content.is_like}}"/>
+      <image src="../../images/like.png" class="button-icon" wx:else/>
+      <text wx:if="{{content.post_like > 0}}">{{content.post_like}}</text>
     </view>
-    <view class="time"> {{content.post_date}}</view>   
-    <view class="time" data-id="{{content.id}}" bindtap='handleDelete' wx:if="{{content.is_del}}">删除</view>      
   </view>
-</view>
+</view> 
 
-<view wx:if="{{isDetail !== true}}" class="button-menu">
-  <view class="button" bindtap="handleCollection" data-id="{{content.id}}" data-action="{{content.is_star}}">
-    <image wx:if="{{content.is_star}}" src="../../images/collection-fill.png" class="button-icon"/>
-    <image wx:else src="../../images/collection.png" class="button-icon"/>
-  </view>
-  <navigator url="../../container/articleDetail/index?id={{content.id}}" class="button">
-    <view>
-      <image src="../../images/comment.png" class="button-icon"/>
-      <text wx:if="{{content.comment_count != '0'}}">{{content.comment_count}}</text>
-    </view>
-  </navigator>
-  <view class="{{content.is_like ? 'button red' : 'button'}}" bindtap="handleZan" data-id="{{content.id}}">
-    <image src="../../images/like-fill.png" class="button-icon" wx:if="{{content.is_like}}"/>
-    <image src="../../images/like.png" class="button-icon" wx:else/>
-    <text wx:if="{{content.post_like > 0}}">{{content.post_like}}</text>
-  </view>
-</view>

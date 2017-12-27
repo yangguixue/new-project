@@ -1,8 +1,11 @@
 {
   "pages": [
     "pages/container/index/index",
+    "pages/container/shopList/index",
+    "pages/container/shopDetail/index",
     "pages/container/articleDetail/index",
-    "pages/container/circle/index",
+    "pages/container/circle/index",    
+    "pages/container/creatShop/index",
     "pages/container/publish/index",
     "pages/container/release/index",
     "pages/container/userPage/index",
@@ -16,16 +19,15 @@
     "pages/container/circleList/index",
     "pages/container/discountDetail/index",
     "pages/container/discountList/index",
-    "pages/container/shopList/index",
-    "pages/container/shopDetail/index",
     "pages/container/activity/myIntegration/index",
     "pages/container/activity/integration/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#333",
-    "navigationBarTitleText": "全民参娱",
-    "navigationBarTextStyle": "#fff"
+    "navigationBarTitleText": "息壤小镇",
+    "navigationBarTextStyle": "#fff",
+    "enablePullDownRefresh": "true"
   },
   "tabBar": {
     "backgroundColor": "#fff",
@@ -39,16 +41,22 @@
         "selectedIconPath": "pages/images/tabbar/icon1-1.png"
       },
       {
-        "pagePath": "pages/container/circle/index",
-        "text": "圈子",
-        "iconPath": "pages/images/tabbar/icon2.png",
-        "selectedIconPath": "pages/images/tabbar/icon2-1.png"
+        "pagePath": "pages/container/shopList/index",
+        "text": "店铺",
+        "iconPath": "pages/images/tabbar/icon5.png",
+        "selectedIconPath": "pages/images/tabbar/icon5-1.png"
       },
       {
         "pagePath": "pages/container/publish/index",
         "text": "发布",
-        "iconPath": "pages/images/tabbar/icon4.png",
-        "selectedIconPath": "pages/images/tabbar/icon4-1.png"
+        "iconPath": "pages/images/tabbar/icon4-2.png",
+        "selectedIconPath": "pages/images/tabbar/icon4-2.png"
+      },
+      {
+        "pagePath": "pages/container/circle/index",
+        "text": "圈子",
+        "iconPath": "pages/images/tabbar/icon2.png",
+        "selectedIconPath": "pages/images/tabbar/icon2-1.png"
       },
       {
         "pagePath": "pages/container/usercenter/index",

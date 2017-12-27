@@ -1,5 +1,5 @@
 <!--pages/container/discountList/index.wxml-->
-<block wx:for="{{discount}}">
+<block wx:for="{{discount}}" wx:key="{{index}}">
   <discount items="{{item}}" isDetail="{{false}}" />
 </block> 
 

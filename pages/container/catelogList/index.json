@@ -2,6 +2,6 @@
   "usingComponents": {
     "banner": "../../components/banner/index",
     "article": "../../components/article/index",
-    "loading": "../../components/loading/index"
+    "noLogin": "../../components/noLogin/index"
   }
 }

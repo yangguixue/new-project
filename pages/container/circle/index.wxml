@@ -1,32 +1,40 @@
 <!--pages/container/circle/index.wxml-->
 <!--pages/circle/index.wxml-->
-<view class="banner">
-  <image src="../../images/quanzi.png" class="banner"/>
-</view>
-<view class="title">
-  <image src="../../images/hot.png" class="hot-icon" />
-  <text>热门圈子</text>
-  <navigator url="../circleList/index">
-    <image src="../../images/next.png" class="next-icon" />
-    <text class="next">更多</text>
-  </navigator>
-</view>
-<view class="scroll-box">
-  <scroll-view class="scroll" scroll-x >
-    <block wx:for="{{items}}" wx:key="{{item.cg_id}}">
-      <navigator url="../circleDetail/index?id={{item.cg_id}}">
-        <view id="0" class="scroll-content">
-          <image src="{{item.icon}}" class="bg" />
-          <view class="text">{{item.name}} </view>
-          <view class="text number">{{item.follow_num || 0}}人关注</view>
-          <view class="block"></view>
-        </view>
+<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower">
+  <view>
+    <view class="banner">
+      <image src="../../images/quanzi.png" class="banner"/>
+    </view>
+    <view class="title">
+      <image src="../../images/hot.png" class="hot-icon" />
+      <text>热门圈子</text>
+      <navigator url="../circleList/index">
+        <image src="../../images/next.png" class="next-icon" />
+        <text class="next">更多</text>
       </navigator>
-    </block>
-  </scroll-view>
-</view>
-<block wx:for="{{articleList}}">
-  <article content="{{item}}" />
-</block> 
+    </view>
+    <view class="scroll-box">
+      <scroll-view class="scroll" scroll-x >
+        <block wx:for="{{items}}" wx:key="{{item.cg_id}}">
+          <navigator url="../circleDetail/index?id={{item.cg_id}}">
+            <view id="0" class="scroll-content">
+              <image src="{{item.icon}}" class="bg" />
+              <view class="text">{{item.name}} </view>
+              <view class="text number">{{item.follow_num || 0}}人关注</view>
+              <view class="block"></view>
+            </view>
+          </navigator>
+        </block>
+      </scroll-view>
+    </view>
+    <view wx:for="{{list}}" wx:key="{{item.id}}">
+      <article content="{{item}}" bind:openLogin="handleOpenLogin" />
+    </view>
+    <view wx:if="{{loadMore}}" class='list-footer'>
+      <image src='../../images/loading.gif' alt="" class='loading-img' />
+    </view>
+    <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+  </view>
+</scroll-view> 
 
-<loading isLoading="{{isLoading}}" list="{{articleList}}" />
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

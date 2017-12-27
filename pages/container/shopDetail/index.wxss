@@ -3,14 +3,254 @@ page {
   background: #f1f2f2;
 }
 
-.info-box {
-  margin: 10rpx 0 8rpx 0;
+/* 
+  公共
+ */
+
+ .no-info {
+   background: #f4f4f4;
+   height: 235rpx;
+   text-align: center;
+   margin-bottom: 10rpx;
+ }
+
+ .no-info-text {
+   font-size: 28rpx;
+   display: block;
+   line-height: 135rpx;
+ }
+
+ .no-info-btn {
+   display: inline-block;
+   color: #fff;
+   font-size: 26rpx;
+   width: 300rpx;
+   height: 50rpx;
+   background: linear-gradient(#ff6382, #ff1a48);
+   line-height: 50rpx;
+   border-radius: 6rpx;
+ }
+
+ .add-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+ }
+
+ .mask {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: #000;
+   opacity: 0.8;
+ }
+
+ .job-add {
+   float: right;
+   font-size: 26rpx;
+   font-weight: normal;
+ }
+
+ /* 公共end */
+
+.zx-box {
+  height: 350rpx;
+  position: relative;
+  padding-top: 50rpx;
+  background: linear-gradient(#ffe971, #ffb848);
+}
+
+.zx-img {
+  height: 207rpx;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+}
+
+.zx-top {
+  height: 176rpx;
+  margin: 0 30rpx 0 30rpx;
+  position: relative;
+}
+
+.shop-logo-box {
+  width: 125rpx;
+  height: 125rpx;
+  display: inline-block;
+  border-radius: 100rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: 5rpx solid #625650;
+}
+
+.shop-logo {
+  border-radius: 100rpx;
+}
+
+.shop-name {
+  height: 70rpx;
+  padding: 0 35rpx 0 70rpx;
+  border-radius: 70rpx;
+  display: inline-block;
+  position: absolute;
+  top: 22rpx;
+  left: 92rpx;
+  z-index: 0;
+  background: linear-gradient(#625650, #432f23);
+}
+
+.name {
+  color: #fff;
+  font-weight: bold;
+  font-size: 30rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  float: left;
+  margin-right: 20rpx;
+}
+
+.zx-icon {
+  width:38rpx;
+  height: 38rpx;
+  float: left;
+  margin: 18rpx 15rpx 0 0;
+}
+
+.version {
+  color: #ffe788;
+  font-size: 30rpx;
+  line-height: 70rpx;
+}
+
+.real-shop, .new-shop {
+  float: left;
+  font-size: 22rpx;
+  padding: 0 5rpx;
+  line-height: 35rpx;
+  margin: 4rpx 5rpx 0 0;
+  border-radius: 4rpx;
+}
+
+.real-shop {
+  color: #664000;
+  background: #fdeb1d;
+}
+
+.new-shop {
+  color: #fff;
+  background: #ff0000;
+}
+
+.shop-time {
   font-size: 24rpx;
+  color: #453226;
+  position: absolute;
+  top:  98rpx;
+  left: 165rpx;
+}
+
+.zx-bottom {
+  padding: 30rpx 0 30rpx 30rpx;
+  position: absolute;
+  bottom: 0;
+}
+
+.zx-b-l {
+  color: #56463e;
+  font-size: 26rpx;
+  float: left;
+}
+
+.zx-item {
+  width: 173rpx;
+  float: left;
+  line-height: 36rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.zx-b-r {
+  text-align: center;
+  float: right;
+  margin-left: 36rpx;
+}
+
+.heart {
+  width: 65rpx;
+  height: 54rpx;
+  margin-bottom: 10rpx;
+}
+
+.shop-love {
+  font-size: 26rpx;
+  color: #ff1846;
+  line-height: 42rpx; 
+  padding: 0 15rpx;
+  border-radius: 6rpx;
+  background: #fff9ee;
+}
+
+.lh-36 {
+  line-height: 50rpx;
+}
+
+.warn {
+  color: #ff0000;
+  height: 80rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  background: #fff;
+  padding: 0 30rpx;
+}
+
+.warn-left {
+  float: left;
+}
+
+.waring-text {
+  line-height: 80rpx;
+}
+
+.warn-right {
+  float: right;
+}
+
+.warning-img {
+  width: 32rpx;
+  height: 32rpx;
+  float: left;
+  margin: 25rpx 23rpx 0 10rpx;
+}
+
+.warning-btn {
+  line-height: 46rpx;
+  color: #fff;
+  font-size: 24rpx;
+  background: #ff5454;
+  border-radius: 6rpx;
+  margin-top: 17rpx;
+  padding: 0 14rpx;
+}
+
+.next {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+}
+
+.info-box {
+  margin: 10rpx 0 10rpx 0;
+  font-size: 26rpx;
 }
 
 .shop-info {
   overflow: hidden;
-  line-height: 70rpx;
+  line-height: 80rpx;
   border-bottom: 2rpx solid #f1f2f2;
 }
 
@@ -19,17 +259,115 @@ page {
 }
 
 .info-icon {
-  width: 34rpx;
-  height: 34rpx;
-  margin: 18rpx 15rpx 0 0;
+  width: 40rpx;
+  height: 40rpx;
+  margin: 20rpx 15rpx 0 0;
 }
 
 .title {
-  line-height: 70rpx;
-  font-size: 26rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
   font-weight: bold;
 }
 
+/* 活动列表 */
+.active-box {
+  overflow: hidden;
+  max-height: 330rpx;
+  background: #fff;
+  padding: 0 30rpx 10rpx 30rpx;
+  position: relative;
+  margin-bottom: 10rpx;
+}
+
+.active-left {
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 20rpx;
+}
+
+.active-right {
+  float: left;
+}
+
+.active-list {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+
+.active-title {
+  font-size: 30rpx;
+}
+
+.active-detail {
+  height: 50rpx;
+  color: #fff;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 50rpx;
+  border-radius: 6rpx;
+  padding: 0 10rpx;
+  background: linear-gradient(#ff6382, #ff1a48);
+}
+
+.active-date {
+  font-size: 26rpx;
+  color: #999999;
+  line-height: 65rpx;
+}
+
+.active-footer {
+  width: 100%;
+  height: 95rpx;
+  position: absolute;
+  bottom: 0;
+  left: -15rpx; 
+}
+
+.active-more {
+  position: absolute;
+  bottom: 10rpx;
+  font-size: 26rpx;
+  color: #005896;
+  text-align: center;
+  width: 100%;
+}
+
+/* 招聘 */
+.jobs {
+  max-height: 330rpx;  
+  background: #fff;
+  padding: 0 30rpx 20rpx 30rpx;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.show-more {
+  max-height: none;  
+  height: auto;
+}
+
+.job-info {
+  display: flex;
+  font-size: 30rpx;
+  justify-content: space-between;
+}
+
+.job-info-text {
+  line-height: 50rpx;
+}
+
+.request {
+  color: #999;
+  line-height: 50rpx;
+  font-size: 28rpx;
+}
+
+/* 商家信息 */
 .images-box {
   width: 100%;
   height: 150rpx;
@@ -43,12 +381,24 @@ page {
 }
 
 .explain {
-  font-size: 24rpx;
+  font-size: 30rpx;
   margin-bottom: 20rpx;
 }
 
 .shop-img {
-  padding-bottom: 30rpx;
+  padding-bottom: 110rpx;
+}
+
+.shop-img-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shop-images {
+  width: 320rpx;
+  height: 320rpx;
+  margin-bottom: 20rpx;
 }
 
 .footer {
@@ -57,8 +407,54 @@ page {
   color: #fff;
   line-height: 90rpx;
   text-align: center;
-  background: orange;
+  background: #ffc754;
   font-size: 30rpx;
   position: fixed;
   bottom: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-box {
+  background: #fff;
+  width: 510rpx;
+  max-height: 850rpx; 
+  position: fixed;
+  top: 200rpx;
+  left: 50%;
+  margin-left: -285rpx;
+  border-radius: 20rpx;
+  z-index: 4;
+  overflow: scroll;
+  padding: 0 30rpx 30rpx 30rpx;
+}
+
+.edit-title {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+}
+
+.edit-input {
+  height: 60rpx;
+  border: 2rpx solid #dfdfdf;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+
+.edit-textarea {
+  width: auto;
+  padding: 20rpx;
+  height: 120rpx;
+}
+
+.submit {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: linear-gradient(#ff6382, #ff1a48);
 }

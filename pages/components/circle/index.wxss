@@ -27,7 +27,7 @@
   margin-right: 20rpx;
 }
 
-.info-r-t,.circle-intro,.circle-focus{
+.info-r-t,.circle-focus{
   float: left;
 }
 

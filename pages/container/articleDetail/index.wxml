@@ -41,7 +41,7 @@
 
 <!-- 没有评论时input -->
 <view class="comment-input" wx:else>
-  <input type="text" placeholder="评论" class="input" bindfocus="handleFocusInput" />
+  <text class="input" bindtap="handleFocusInput">评论</text>
   <view style='display: inline' bindtap="handleCollection" data-action="{{content.is_star}}">
     <image src="../../images/collection-fill.png" class="input-icon" wx:if="{{content.is_star}}"  />
     <image src="../../images/collection.png" class="input-icon" wx:else />

@@ -20,8 +20,8 @@
   </scroll-view> 
 </view>
 
-<view class="tip01">您拥有{{info.point}}个积分</view>
+<view class="tip01" wx:if="{{info.point}}">您拥有{{info.point}}个积分</view>
 <view class="tip01">没有找到所需标签？</view>
-<view>联系小娱：微信 yangguixue1204</view>
+<view>联系客服：微信 xirang_tuntun</view>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

@@ -59,7 +59,6 @@ Page({
     util.req('&m=point&a=getPointsOverview', {
       session3rd: app.globalData.token
     }, function (data) {
-      console.log(data)
       that.setData({
         points: data.result
       })

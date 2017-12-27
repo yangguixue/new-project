@@ -64,13 +64,22 @@
     
   </view>
   <view class="usercenter-list">
+    <navigator url="../shopDetail/index?id={{userInfo.shop_id}}" wx:if="{{userInfo.shop_id}}">
+      <view class="list-name">我的店铺<image src="../../images/next.png" class="next" /></view>
+    </navigator>
+    <navigator url="../creatShop/index" wx:else>
+      <view class="list-name">上传我的店铺信息<image src="../../images/next.png" class="next" /></view>
+    </navigator>
     <navigator url="../getPhone/index">
       <view class="list-name">绑定手机<image src="../../images/next.png" class="next" /></view>
     </navigator>
-    <navigator url="../focus/index">
+    <navigator url="../focus/index" wx:if="{{userInfo.name}}">
       <view class="list-name">我的收藏<image src="../../images/next.png" class="next" /></view>
     </navigator>
-    <navigator url="../activity/myIntegration/index">
+    <navigator url="../activity/myIntegration/index" wx:if="{{userInfo.name}}">
+      <view class="list-name">我的积分<image src="../../images/next.png" class="next" /></view>
+    </navigator>
+    <navigator url="../activity/integration/index">
       <view class="list-name">积分排名<image src="../../images/next.png" class="next" /></view>
     </navigator>
     <navigator url="../leaveMessage/index">
