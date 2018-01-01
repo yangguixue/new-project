@@ -28,7 +28,7 @@ App({
     //     that.login();
     //   }
     // })
-    // that.login();
+    that.login();
   },
 
   login: function () {
@@ -41,7 +41,6 @@ App({
             util.req('&m=member&a=onLogin', { code: res.code }, function (data) {
               if (data.flag == 1) {
                 wx.removeStorageSync('token');
-                console.log(data.reset.session3rd);
                 that.setToken(data.reset.session3rd);
                 that.setIsReg(data.reset.is_reg);
                 resolve();
@@ -205,24 +204,17 @@ App({
         content: content,
         success: function (res) {
           if (res.confirm) {
-            wx.request({
-              url: config.configUrl + '&m=member&a=setRelationship',
-              data: newItem,
-              success: function (res) {
-                if (res.data.flag == 1) {
-                  if (newItem.is_follow) {
-                    newItem.fan_num = parseInt(newItem.fan_num) + 1;
-                  } else {
-                    newItem.fan_num = parseInt(newItem.fan_num) - 1;
-                  }
-                  resolve(newItem);
+            util.req('&m=member&a=setRelationship', newItem, function(data) {
+              if (data.flag == 1) {
+                if (newItem.is_follow) {
+                  newItem.fan_num = parseInt(newItem.fan_num) + 1;
+                } else {
+                  newItem.fan_num = parseInt(newItem.fan_num) - 1;
                 }
-              },
-              fail: function (res) {
+                resolve(newItem);
+              } else {
                 wx.showToast({
-                  title: res.data.msg,
-                  icon: 'success',
-                  duration: 2000
+                  title: data.msg,
                 })
               }
             })

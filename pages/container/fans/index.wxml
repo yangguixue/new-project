@@ -17,6 +17,7 @@
       <view class="button cancelFocus" wx:else bindtap='handleFocus' data-item="{{item}}">取消关注</view>
     </view>  
   </block>
+  <view class='list-footer' wx:if="{{list.length > 0}}">没有更多了</view>
   <view class='list-footer' wx:if="{{list.length == 0}}">这里啥也没有</view>
 </view>
 

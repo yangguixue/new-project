@@ -1,18 +1,21 @@
 /* pages/container/usercenter/index.wxss */
 @import '../../template/no-info.wxss';
+@import '../../lib/iconfont/stylesheet.wxss';
+
 page {
   font-family: '微软雅黑';
-  background: #f2f6f9;
+  background: #f7f7f7;
 }
 
 .head{
-  height: 300rpx;
-  background: #333;
-  padding: 60rpx 30rpx 0 30rpx;
+  background: #ff5d2e;
+  padding: 0 30rpx;
+  margin-bottom: 10rpx;
 }
 
 .head-top {
   overflow: hidden;
+  padding: 50rpx 0;
 }
 
 .head-top-left {
@@ -22,6 +25,7 @@ page {
   border-radius: 50px;
   margin-right: 30rpx;
   overflow: hidden;
+  border: 5rpx solid #ff9e82;
 }
 
 .user-img {
@@ -56,21 +60,32 @@ page {
   font-size: 28rpx;
 }
 
+.gold2 {
+  background: #ff9e82;
+  padding: 0 20rpx;
+  line-height: 50rpx;
+  border-radius: 6rpx;
+}
+
 .head-bottom {
   font-size: 24rpx;
   color: #999;
 }
 
+.head-block {
+  display: inline-block;
+  padding-bottom: 40rpx;  
+}
+
 .collection {
   width: 228rpx;
   height: 52rpx;
-  padding-top: 50rpx;
   display: inline-block;
   text-align: center;
+  color: #fff;
 }
 
 .number {
-  color: #fff;
   margin-bottom: 10rpx;
   font-size: 36rpx;
 }
@@ -79,7 +94,38 @@ page {
   width: 2rpx;
   height: 67rpx;
   display: inline-block;
-  background: #545454;
+  background: #ff9e82;
+}
+
+.entry {
+  background: #fff;
+  height: 155rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.entry-item {
+  text-align: center;
+  font-size: 24rpx;
+  position: relative;
+  color: #484848;
+}
+
+.dot {
+  width: 25rpx;
+  height: 25rpx;
+  display: inline-block;
+  background: red;
+  position: absolute;
+  top: -5rpx;
+  right: 0;
+  border-radius: 25rpx;
+}
+
+.entry-icon {
+  width: 64rpx;
+  height: 64rpx;
+  margin: 25rpx 0 20rpx 0;
 }
 
 .circle-title {

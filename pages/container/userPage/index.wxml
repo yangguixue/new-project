@@ -24,10 +24,10 @@
     <article content="{{item}}" bind:openLogin="handleOpenLogin" />
   </block>
 
-  <view wx:if="{{loadMore}}" class='loading'>
+  <view wx:if="{{loadMore}}" class='list-footer'>
     <image src='../../images/loading.gif' alt="" class='loading-img' />
   </view>
-  <view wx:if="{{listStatus}}" class='loading'>{{listStatus}}</view>
+  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 </scroll-view>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

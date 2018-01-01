@@ -74,6 +74,16 @@ page {
   border-top: 6px solid #e5e5e5;
 }
 
+.triangle2 {
+  width: 0;
+  height: 0;
+  float: right;
+  margin: 36rpx 0 0 14rpx;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid #e5e5e5;
+}
+
 .menu-list {
   position: absolute;
   top: 92rpx;
@@ -83,6 +93,10 @@ page {
   opacity: 0.8;
   max-height: 355rpx;
   overflow: scroll;
+}
+
+.dn {
+  display: none;
 }
 
 .menu-item {

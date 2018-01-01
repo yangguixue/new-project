@@ -29,7 +29,6 @@
 }
 
 .username {
-  width: 200rpx;
   color:#4d638c;
 }
 
@@ -51,7 +50,12 @@
 
 .article-img{
   width: 176rpx;
-  flex: auto;
+  height: 176rpx;
+  margin: 0 10rpx 10rpx 0;
+}
+
+.article-img2{
+  width: 300rpx;
   margin: 0 10rpx 10rpx 0;
 }
 

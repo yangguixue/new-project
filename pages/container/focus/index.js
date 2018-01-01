@@ -4,7 +4,6 @@ var app = getApp();
 
 Page({
   data: {
-    items: [],
     isLoading: true
   },
 

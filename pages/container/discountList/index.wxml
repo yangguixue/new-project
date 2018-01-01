@@ -1,6 +1,11 @@
 <!--pages/container/discountList/index.wxml-->
-<block wx:for="{{discount}}" wx:key="{{index}}">
+<discount isDetail="{{false}}" />
+<!-- <block wx:for="{{list}}" wx:key="{{index}}">
   <discount items="{{item}}" isDetail="{{false}}" />
-</block> 
+</block>  -->
 
-<loading isLoading="{{isLoading}}" list="{{discount}}" />
+
+<view class='list-footer' wx:if="{{list.length > 0}}">没有更多了</view>
+<view class='list-footer' wx:if="{{list.length == 0}}">这里啥也没有</view>
+
+<loading isLoading="{{isLoading}}" list="{{list}}" />

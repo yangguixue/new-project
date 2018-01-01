@@ -1,5 +1,7 @@
 // pages/container/circleList/index.js
-var config = require('../../common/config.js');
+const util = require('../../../utils/util.js');
+const app = getApp();
+
 Page({
   data: {
     items: [],
@@ -8,17 +10,14 @@ Page({
 
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: config.configUrl + '&m=Category&a=getCgList',
-      data: {
-        type: 1,
-      },
-      success: function(res) {
-        that.setData({
-          items: res.data.result,
-          isLoading: false
-        })
-      }
+    util.req('&m=Category&a=getCgList', {
+      type: 1,
+      session3rd: app.globalData.token
+    }, function(data) {
+      that.setData({
+        items: data.result,
+        isLoading: false
+      })
     })
   },
 

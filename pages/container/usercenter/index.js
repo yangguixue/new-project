@@ -5,9 +5,25 @@ Page({
   data: {
     userInfo: {},
     isShowLogin: false,
+    entry: [{
+      id: 2,
+      name: '钱包'
+    }, {
+      id: 3,
+      url: 'message',
+      name: '消息'
+    }, {
+      id: 4,
+      url: 'activity/myIntegration',
+      name: '积分'
+    }, {
+      id: 5,
+      url: 'focus',
+      name: '收藏'
+    }]
   },
 
-  onLoad: function () {
+  onShow: function () {
     this.getUserInfo();
   },
 
@@ -34,16 +50,36 @@ Page({
     }
   },
 
-  handleNavigateTo: function(event) {
-    var is_reg = app.globalData.is_reg;
-    if (is_reg) {
+  handleShop: function(event) {
+    var id = event.currentTarget.dataset.shopId;
+    if (id) {
       wx.navigateTo({
-        url: event.currentTarget.dataset.url
+        url: '../shopDetail/index?id=' + id,
       })
     } else {
-      this.handleOpenLogin();
+      wx.showModal({
+        content: '您还没有店铺，现在要添加吗？',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../creatShop/index'
+            })
+          }
+        }
+      })
     }
   }
+
+  // handleNavigateTo: function(event) {
+  //   var is_reg = app.globalData.is_reg;
+  //   if (is_reg) {
+  //     wx.navigateTo({
+  //       url: event.currentTarget.dataset.url
+  //     })
+  //   } else {
+  //     this.handleOpenLogin();
+  //   }
+  // }
 
 })
 

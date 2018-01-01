@@ -206,6 +206,7 @@ page {
   overflow: hidden;
   background: #fff;
   padding: 0 30rpx;
+  margin-bottom: 2rpx;
 }
 
 .warn-left {
@@ -215,6 +216,22 @@ page {
 .waring-text {
   line-height: 80rpx;
 }
+
+
+/* 保证金 */
+.waring-text2 {
+  line-height: 80rpx;
+  color: #ffaa00;
+}
+
+.warning-img2 {
+  width: 40rpx;
+  height: 40rpx;
+  float: left;
+  margin: 18rpx 18rpx 0 0;
+}
+
+/* END保证金 */
 
 .warn-right {
   float: right;
@@ -404,7 +421,7 @@ page {
 .footer {
   width: 100%;
   height: 90rpx;
-  color: #fff;
+  color: #333;
   line-height: 90rpx;
   text-align: center;
   background: #ffc754;

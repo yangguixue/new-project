@@ -1,6 +1,6 @@
 .flex-wrp{
   height: 300rpx;
-  background: #fff;
+  background: #fff; 
   padding: 16rpx 30rpx 0 30rpx; 
 } 
 

@@ -2,7 +2,6 @@
 var util = require('../../../utils/util.js');
 Page({
   data: {
-    discount: [],
     isLoading: true
   },
 
@@ -11,7 +10,7 @@ Page({
     util.getReq('&m=ad&a=getAdsList', {}, function(data) {
       if (data.flag == 1) {
         that.setData({
-          discount: data.result,
+          list: data.result,
           isLoading: false
         })
       } else {

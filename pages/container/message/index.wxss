@@ -1,0 +1,49 @@
+/* pages/container/message/index.wxss */
+
+page {
+  background: #f7f7f7;
+}
+
+.item {
+  padding: 20rpx 30rpx;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 2rpx solid #dadada;
+}
+
+.item-l {
+  width: 100rpx;
+  height: 100rpx;
+  float: left;
+  margin-right: 20rpx;
+}
+
+.item-c {
+  width: 451rpx;
+  float: left;
+}
+
+.username {
+  font-size: 26rpx;
+}
+
+.message {
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+
+.time {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.item-r {
+  width: 125rpx;
+  height: 125rpx;
+  float: left;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 125rpx;
+  text-align: center;
+  background: #efefef;
+}

@@ -15,29 +15,31 @@
       <navigator url="../../container/discountList/index">
         <view class="entry01">
           <view class="entry01-left">
-            <view class="active-title">热门活动</view>
-            <view class="active-intro">打折,赠品,促销一网打尽</view>
+            <view class="active-title">小镇公告</view>
+            <view class="active-intro">小镇攻略，挣钱快人一步</view>
           </view>
           <view class="entry01-right">
             <image src="../../images/sale.png" />
           </view>
         </view>
       </navigator>
-      
-      <navigator url="../../container/shopList/index">
-        <view class="entry02">
-          <view class="entry01-left">
-            <view class="active-title">全城商家</view>
-            <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
-          </view>
-          <view class="entry01-right">
-            <image src="../../images/shop.png" />
-          </view>
+
+      <view class="entry02" bindtap='creatShop'>
+        <view class="entry01-left">
+          <view class="active-title">我要开店</view>
+          <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
         </view>
-      </navigator>
+        <view class="entry01-right">
+          <image src="../../images/shop.png" />
+        </view>
+      </view>
+    </view>
+
+    <view class='active-img'>
+      <image src="../../images/active-img.png" mode="widthFix" />
     </view>
     <view class="title">
-      <image src="../../images/dajiashuo.png" class="title-img"/>
+      //////  大家说  //////
     </view>
     <message-card />
     <view wx:for="{{list}}" wx:key="{{item.id}}">
@@ -49,8 +51,11 @@
   </view>
   <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 
-  <text class='addDesk' wx:if="{{isShowAddDesk}}" bindtap='hideAddDesk'>点击"添加到桌面"</text>
+  <text class='addDesk' wx:if="{{isShowAddDesk}}" bindtap='hideAddDesk'>点击"添加到桌面"，发布信息更方便</text>
   <text class='single' wx:if="{{isShowAddDesk}}"/>
+
+  <text class='messageTips' wx:if="{{isShowAddDesk}}" bindtap='hideAddDesk'>您有新的评论了</text>
+  <text class='single2' wx:if="{{isShowAddDesk}}"/>
 </scroll-view> 
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

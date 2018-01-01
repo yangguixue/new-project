@@ -1,0 +1,19 @@
+<!--pages/container/message/index.wxml-->
+<view class='list-box'>
+  <view class='item'>
+    <view class='item-l'>
+      <image src='../../images/userhead.jpg' class='userhead' />
+    </view>
+    <view class='item-c'>
+      <view class='username blue'>大葱</view>
+      <view class='message'>大葱</view>
+      <view class='time'>昨天 13:00</view>
+    </view>
+    <view class='item-r'>的海景房活动经费活动经费还打分</view>
+  </view>
+  <view wx:if="{{loadMore}}" class='list-footer'>
+    <image src='../../images/loading.gif' alt="" class='loading-img' />
+  </view>
+  <view wx:if="{{list.length > 1}}" class='list-footer'>没有更多了</view>
+  <view wx:if="{{list.length == 0}}" class='list-footer'>这里啥也没有</view>
+</view>

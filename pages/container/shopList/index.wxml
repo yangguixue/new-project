@@ -20,13 +20,26 @@
 
   <view class='menu'>
     <view class='menu-title'>
-      <view class='category' bindtap='handleFilter' data-id="0">所有分类<text class='triangle' /></view>
+      <view class='category' bindtap='handleFilter' data-id="0">
+        {{filter.name ? filter.name : '所有分类' }}
+        <text class='triangle' wx:if="{{!isShowCate}}" />
+        <text class='triangle2' wx:else /> 
+      </view>
       <view class='line'></view>
-      <view class='filter' bindtap='handleFilter' data-id="1">店铺筛选<text class='triangle' /></view>
+      <view class='filter' bindtap='handleFilter' data-id="1">
+        {{filter1.name ? filter1.name : '店铺筛选' }}
+        <text class='triangle' wx:if="{{!isShowFilter}}" />
+        <text class='triangle2' wx:else />
+      </view>  
     </view>
-    <view class='menu-list'>
-      <block wx:for="{{menuList}}" wx:key="{{index}}">
-        <view class='menu-item' bindtap='handleFilterSearch' data-id="{{item.cg_id}}">{{item.name}}</view>        
+    <view class="{{isShowCate ? 'menu-list' : 'menu-list dn'}}">
+      <block wx:for="{{category}}" wx:key="{{index}}">
+        <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="0">{{item.name}}</view>
+      </block>
+    </view> 
+    <view class="{{isShowFilter ? 'menu-list' : 'menu-list dn'}}">
+      <block wx:for="{{category2}}" wx:key="{{index}}">
+        <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="1">{{item.name}}</view>
       </block>
     </view> 
   </view>

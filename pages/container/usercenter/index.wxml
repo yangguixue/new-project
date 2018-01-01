@@ -8,28 +8,31 @@
       </view>
       <view class="head-top-right">
         <view class="user-name" wx:if="{{userInfo.name}}">{{userInfo.name}}</view>
-        <view class="user-name login" wx:else bindtap="handleOpenLogin">登录</view>
-        <view class="gold">
+        <view class="user-name login" wx:else bindtap="handleOpenLogin">登录/注册</view>
+        <view class="gold" wx:if="{{userInfo.name}}">
           积分 {{userInfo.point || 0}}
+        </view>
+        <view class="gold gold2" wx:else>
+          登录即送2000积分
         </view>
       </view>
     </view>
-    <view class="head-bottom">
-      <view bindtap='handleNavigateTo' data-url="../userPage/index?id={{userInfo.id}}" style="display: inline-block">
+    <view class="head-bottom" wx:if="{{userInfo.name}}">
+      <view bindtap='handleNavigateTo' data-url="../userPage/index?id={{userInfo.id}}" class='head-block'>
         <view class="collection">
           <view class="number">{{userInfo.post_num || 0}}</view>
           <view>动态</view>
         </view>
       </view>
       <view class="line"/>
-      <view bindtap='handleNavigateTo' data-url="../fans/index?url=focus" style="display: inline-block">
+      <view bindtap='handleNavigateTo' data-url="../fans/index?url=focus" class='head-block'>
         <view class="collection">
           <view class="number">{{userInfo.follow_num || 0}}</view>
           <view>关注</view>
         </view>
       </view>
       <view class="line"/>
-      <view bindtap='handleNavigateTo' data-url="../fans/index?url=fans" style="display: inline-block">
+      <view bindtap='handleNavigateTo' data-url="../fans/index?url=fans" class='head-block'>
         <view class="collection">
           <view class="number">{{userInfo.fan_num || 0}}</view>
           <view>粉丝</view>
@@ -37,47 +40,59 @@
       </view>
     </view>
   </view>
-  <navigator url="../circleList/index">
-    <view class="circle-title">
-      <text>我加入的圈子</text>
-      <image src="../../images/next.png" class="next" />
+
+  <view class='entry' wx:if="{{userInfo.name}}">
+    <view class='entry-item' bindtap="handleShop" data-shopId="{{userInfo.shop_id}}">
+      <view class='entry-icon'>
+        <image src='../../images/user-icon01.png' />
+      </view>
+      <view>店铺</view>
     </view>
-  </navigator>
-  <view class="circle-join">
-    <!-- 加入圈子展示 -->
-    <scroll-view class="scroll" scroll-x  wx:if="{{userInfo.cicles.length > 0}}">
-      <block wx:for="{{userInfo.cicles}}" wx:key="{{item.cg_id}}">
-        <navigator url="../circleDetail/index?id={{item.cg_id}}">
-          <view class="circle-content">
-            <view class="circle">
-              <image src="{{item.icon}}" class="circle-img" />
-            </view>
-            <text>{{item.name}}</text>
+    <block wx:for="{{entry}}" wx:key="{{index}}">
+      <navigator url="../{{item.url}}/index">
+        <view class='entry-item'>
+          <text class='dot'/>
+          <view class='entry-icon'>
+            <image src='../../images/user-icon0{{item.id}}.svg' />
           </view>
-        </navigator>
-      </block>
-    </scroll-view>
-    <!-- 没有加入圈子展示 -->
-    <block wx:else>
-      <template is="no-info" data="{{img: '../../images/cry.png', tips: '生活一点乐趣都没有，好桑心', button: '前去找乐子 >>', url: '../circle/index'}}" />
+          <view>{{item.name}}</view>
+        </view> 
+      </navigator>
     </block>
-    
   </view>
+
+  <view wx:if="{{userInfo.name}}">
+    <navigator url="../circleList/index">
+      <view class="circle-title">
+        <text>我加入的圈子</text>
+        <image src="../../images/next.png" class="next" />
+      </view>
+    </navigator>
+    <view class="circle-join">
+      <!-- 加入圈子展示 -->
+      <scroll-view class="scroll" scroll-x  wx:if="{{userInfo.cicles.length > 0}}">
+        <block wx:for="{{userInfo.cicles}}" wx:key="{{item.cg_id}}">
+          <navigator url="../circleDetail/index?id={{item.cg_id}}">
+            <view class="circle-content">
+              <view class="circle">
+                <image src="{{item.icon}}" class="circle-img" />
+              </view>
+              <text>{{item.name}}</text>
+            </view>
+          </navigator>
+        </block>
+      </scroll-view>
+      <!-- 没有加入圈子展示 -->
+      <block wx:else>
+        <template is="no-info" data="{{img: '../../images/cry.png', tips: '生活一点乐趣都没有，好桑心', button: '前去找乐子 >>', url: '../circle/index'}}" />
+      </block>
+    </view>
+  </view>
+  
+
   <view class="usercenter-list">
-    <navigator url="../shopDetail/index?id={{userInfo.shop_id}}" wx:if="{{userInfo.shop_id}}">
-      <view class="list-name">我的店铺<image src="../../images/next.png" class="next" /></view>
-    </navigator>
-    <navigator url="../creatShop/index" wx:else>
-      <view class="list-name">上传我的店铺信息<image src="../../images/next.png" class="next" /></view>
-    </navigator>
     <navigator url="../getPhone/index">
       <view class="list-name">绑定手机<image src="../../images/next.png" class="next" /></view>
-    </navigator>
-    <navigator url="../focus/index" wx:if="{{userInfo.name}}">
-      <view class="list-name">我的收藏<image src="../../images/next.png" class="next" /></view>
-    </navigator>
-    <navigator url="../activity/myIntegration/index" wx:if="{{userInfo.name}}">
-      <view class="list-name">我的积分<image src="../../images/next.png" class="next" /></view>
     </navigator>
     <navigator url="../activity/integration/index">
       <view class="list-name">积分排名<image src="../../images/next.png" class="next" /></view>

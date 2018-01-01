@@ -10,8 +10,8 @@
       <text class='version'>尊享版</text>
     </view>
     <view class='shop-time'>
-      <text class="real-shop" wx:if="{{info.is_shiti}}">实体</text>
-      <text class="new-shop">新店</text>
+      <text class="real-shop" wx:if="{{info.shop_property == 0}}">实体</text>
+      <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
       营业时间:{{info.start_time}} - {{info.end_time}}</view>
     <view class='shop-logo-box'>
       <image src='{{info.shop_logo}}' class='shop-logo' mode='aspectFill'/>
@@ -32,15 +32,15 @@
         <view class='lh-36'>招聘</view>
       </view>
     </view>
-    <view class='zx-b-r'>
-      <image src='../../images/shop-love-num.png' class='heart' />
-      <view class='shop-love'>获赞 99</view>
+    <view class='zx-b-r'> 
+      <image src='../../images/shop-love-num.png' class='heart' bindtap='handleZan' />
+      <view class='shop-love'>获赞 {{info.star_num}}</view>
     </view>
   </view>
 </view>
 
 <!-- 领取vip -->
-<view class='warn' wx:if="{{info.is_owner && !info.is_get_vip}}">
+<view class='warn' wx:if="{{info.is_owner && !info.probation}}">
   <view class='warn-left'>
     <image src='../../images/warning.png' class='warning-img' />
     <text class='waring-text'>您有一个尊享版店铺免费试用未领取</text>
@@ -63,6 +63,18 @@
   </view>
 </view>
 <!-- END 未缴纳保证金 -->
+
+<!-- 已缴纳保证金 -->
+<view class='warn' wx:else >
+  <view class='warn-left'>
+    <image src='../../images/baozhengjin.png' class='warning-img2' />
+    <text class='waring-text2'>已缴纳保证金，平台保障店铺</text>
+  </view>
+  <view class='warn-right'>
+    <view class='next'><image src='../../images/next.png' /></view>
+  </view>
+</view>
+<!-- END 已缴纳保证金 -->
 
 <view class="info-box pd">
   <view class="shop-info" wx:if="{{info.level == 0}}">
@@ -92,7 +104,7 @@
 <view class="{{moreActive ? 'active-box show-more' : 'active-box'}}" wx:else>
   <view class='title'>
     <text>活动列表({{info.ad_list ? info.ad_list.length : 0}})</text>
-    <text class='blue job-add' bindtap='handleShowEditJob'>+ 添加</text> 
+    <text class='blue job-add' bindtap='handleShowEditJob' wx:if="{{info.is_owner}}">+ 添加</text> 
   </view>
   <view class='no-info' wx:if="{{!info.is_sale}}">
     <text class='no-info-text'>添加活动优惠，更容易吸引顾客哦~</text>
@@ -124,7 +136,7 @@
 <view class="{{moreJobs ? 'jobs show-more' : 'jobs'}}" wx:else>
   <view class='title'>
     <text>招聘({{info.is_recruit ? info.recruit_list.length : ''}})</text>
-    <text class='blue job-add' bindtap='handleShowEditJob'>+ 添加</text>  
+    <text class='blue job-add' bindtap='handleShowEditJob' wx:if="{{info.is_owner}}">+ 添加</text>  
   </view>
   <view class='no-info' wx:if="{{info.recruit_list.length == 0}}">
     <text class='no-info-text'>一键添加， 招人更快速</text>

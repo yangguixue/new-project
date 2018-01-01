@@ -64,3 +64,49 @@
   height: 24rpx;
   margin-right: 10rpx;
 }
+
+.address-box {
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.line {
+  padding-top: 20rpx;
+  border-top: 2rpx dashed #e5e5e5;
+}
+
+.bzj {
+  float: left;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+  margin-left: -5rpx;
+}
+
+.bzj-text {
+  float: left;
+  line-height: 40rpx;
+  color: #ffaa00;
+}
+
+.others {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.others-logo {
+  width: 35rpx;
+  height: 35rpx;
+  display: inline-block;
+  line-height: 35rpx;
+  text-align: center;
+  margin-right: 10rpx;
+  color: #ff0000;
+  border: 2rpx solid #ff0000;
+}
+
+.join {
+  color: #00a0e9;
+  border: 2rpx solid #00a0e9;
+}

@@ -46,8 +46,12 @@ Page({
         }
       })
     }
+  },
 
+  onShow: function () {
     // 获取地理位置
+    const that = this;
+    const item = this.data.item;
     app.getLocation(that).then((res) => {
       var address = res.result.formatted_addresses.rough
       item.post_addr = address;
@@ -172,8 +176,8 @@ Page({
           duration: 2000
         });
         if (that.data.type == 1) {
-          wx.navigateBack({
-            delta: 1
+          wx.reLaunch({
+            url: '../circle/index'
           })
         } else {
           wx.reLaunch({

@@ -85,7 +85,6 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
-        console.log(333)
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
@@ -148,14 +147,18 @@ Page({
     }
   },
 
-  // handleDelete: function (event) {
-  //   var that = this;
-  //   var items = this.data.list;
-  //   var id = event.target.dataset.id;
-  //   var index = items.findIndex(item => item.id == id)
-  //   items.splice(index, 1);
-  //   this.setData({ list: items });
-  // },
+  // 开店
+
+  creatShop: function() {
+    const that = this;
+    if (!app.globalData.is_reg) {
+      that.handleOpenLogin();
+      return;
+    }
+    wx.navigateTo({
+      url: '../creatShop/index'
+    })
+  },
 
   //滚动到底部触发事件  
   searchScrollLower: function (event) {
@@ -174,7 +177,6 @@ Page({
     var id = event.detail.id;
     var index = list.findIndex(item => item.id == id);
     list[index] = event.detail;
-    console.log(list)
     this.setData({ list });
   },  
 

@@ -4,7 +4,6 @@ var app = getApp();
 
 Page({
   data: {
-    list: [],
     url: '',
     isLoading: true,
   },

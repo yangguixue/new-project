@@ -10,7 +10,8 @@ var fetchInfoList = function (that, lastid, cg_id) {
   util.req('&m=info&a=getInfoList', {
     lastid,
     epage,
-    cg_id: cg_id
+    cg_id: cg_id,
+    session3rd: app.globalData.token
   }, function (data) {
     var list = that.data.list;
     if (data.flag == 1) {

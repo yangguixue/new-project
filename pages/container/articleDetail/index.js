@@ -100,7 +100,9 @@ Page({
   },
 
   handleBlurInput: function(event) {
-    this.setData({ focus: false });
+    setTimeout(() => {
+      this.setData({ focus: false, is_red: false });
+    }, 100);
   },
 
   handleChange: function(event) {

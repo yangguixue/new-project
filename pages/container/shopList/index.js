@@ -43,13 +43,27 @@ var fetchShopList = function (that, lastid) {
 
 Page({
   data: {
-    menuList: [], //分类
+    isShowCate: false, //是否展示所有分类
+    isShowFilter: false, 
     category: [], //分类
     isLoading: true,
     scrollTop: 0,
     scrollHeight: 0,
     loadMore: false,
     searchValue: '', //搜索商家
+    filter: {},
+    filter1: {},
+    filters: {}, // 需要提交的筛选条件
+    category2: [{
+      id: 0,
+      name: '所有'
+    }, {
+      id: 1,
+      name: '有活动'
+    }, {
+      id: 2,
+      name: '有招聘'
+    }]
   },
 
   onLoad: function (options) {
@@ -68,8 +82,10 @@ Page({
     // 获取分类
     util.getReq('&m=category&a=getCgList', { type: 0 }, function (data) {
       if (data.flag == 1) {
+        const category = data.result;
+        category.unshift({ cg_id: 0, name: '所有分类' });
         that.setData({
-          category: data.result
+          category
         })
       } else {
         util.errorTips(data.msg);
@@ -111,16 +127,49 @@ Page({
   },
 
   handleFilter: function(event) {
-    var id = event.target.dataset.id;
-    if (this.data.menuList.length != 0) {
-      this.setData({ menuList: [] });
-      return;
-    }
+    const isShowCate = this.data.isShowCate;
+    const isShowFilter = this.data.isShowFilter;
+    const id = event.target.dataset.id;
     if (id == 0) {
-      this.setData({ menuList: this.data.category });
+      if (isShowFilter) {
+        this.setData({ isShowFilter: !isShowFilter });
+      }
+      this.setData({ isShowCate: !isShowCate });
     } else {
-      const menuList = [{ id: 0, name: '有活动'}, { id: 1, name: '有招聘'}]
-      this.setData({ menuList });
+      if (isShowCate) {
+        this.setData({ isShowCate: !isShowCate });
+      }
+      this.setData({ isShowFilter: !isShowFilter });
     }
+    
+  },
+
+  handleFilterSearch: function(event) {
+    const that = this;
+    const item = event.target.dataset.item;
+    const id = event.target.dataset.id;
+    const filters = this.data.filters;
+
+    if (id == 0) {
+      const filter = this.data.filter;
+      filters.cg_id = filter.cg_id;
+      this.setData({ filter: item }); //下拉框改变文字
+    } else {
+      const filter1 = this.data.filter1;      
+      this.setData({ filter1: item }); //下拉框改变文字
+    }
+
+    that.handleFilter(event);
+
+    return;
+    
+    util.req('&m=shop&a=getShopList', {
+      session3rd: app.globalData.token,
+      cg_id: item.cg_id
+    }, function(data) {
+      if (data.flag == 1) {
+        that.setData({ list: data.result });
+      }
+    })
   }
 })                                                                                                                                                                                                                                                                                                                                        

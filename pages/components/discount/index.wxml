@@ -1,4 +1,30 @@
-<block wx:if="{{isDetail === false}}">
+<view class='box'>
+  <view class='shop'>
+    <view class='shop-l'>
+      <image src='../../images/userhead.jpg' />
+    </view>
+    <view class='shop-c'>
+      <view class='shop-name'>庆丰包子</view>
+      <view class='shop-addr'>离你33米</view>
+    </view>
+    <navigator url='../shopDetail/index'>
+      <view class='shop-r'>进入店铺</view>
+    </navigator>
+  </view>
+  <view class='img-box'>
+    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
+    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
+    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
+  </view>
+  <view class='discount-title'>
+    <text class='sign'>优惠</text>
+    <text>肯德基买一送一啦，先到先得，哈哈哈哈哈点就晒得慌阿荒岛惊魂 的就是看会电视s</text>
+  </view>
+</view>
+
+
+
+<!-- <block wx:if="{{isDetail === false}}">
   <navigator url="{{'../../container/discountDetail/index?id=' + items.id}}">
     <view class="box">
       <view class="content">
@@ -34,4 +60,4 @@
     <view class='triangle active-will' wx:if="{{items.post_expire == 1}}" />
     <text class='status' wx:if="{{items.post_expire == 1}}">未开始</text>
   </view>
-</view>
+</view> -->

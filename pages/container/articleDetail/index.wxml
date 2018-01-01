@@ -26,6 +26,8 @@
         </view>
       </view>
     </block>
+    <view class='list-footer' wx:if="{{content.comment_count > 0}}">没有更多了</view>
+    <view class='list-footer' wx:if="{{content.comment_count == 0}}">暂无评论</view>
   </view>
 </view>
 <loading list="{{content.comments}}"/>
@@ -34,9 +36,9 @@
 
 <!-- 点击评论时input -->
 <view class="comment-input" wx:if="{{focus}}">
-  <input type="text" placeholder="评论" class="input big-input" bindinput="handleChange" focus="{{focus}}" />
-  <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="is_red">发送</text>
-  <text class="send" wx:else>发送</text>
+  <input type="text" placeholder="评论" class="input big-input" bindinput="handleChange" focus="{{focus}}" bindconfirm="handleSend" data-items="{{content}}" confirm-type="done" bindblur="handleBlurInput" />
+   <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="{{is_red}}">发送</text>
+  <text class="send" wx:else>发送</text> 
 </view>
 
 <!-- 没有评论时input -->

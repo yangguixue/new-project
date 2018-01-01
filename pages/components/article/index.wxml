@@ -21,9 +21,10 @@
       <view wx:else class="content-text">{{content.post_content}} </view>
       <!--  详情页点击内容无链接 END -->
       <view class="content-img">
-        <block wx:for="{{content.smeta}}" wx:key="{{index}}">
-          <image class="article-img" src="{{item}}" bindtap="handleBigImage" />
+        <block wx:for="{{content.smeta}}" wx:key="{{index}}" wx:if="{{content.smeta.length > 1}}" >
+          <image class="article-img" src="{{item}}" mode="aspectFill" bindtap="handleBigImage" />
         </block>
+        <image wx:if="{{content.smeta.length == 1}}" class="article-img2" src="{{content.smeta[0]}}" mode="widthFix" bindtap="handleBigImage" />
       </view>
       <view class="time"> {{content.post_date}}</view>   
       <view class="time" data-id="{{content.id}}" bindtap='handleDelete' wx:if="{{content.is_del}}">删除</view>      

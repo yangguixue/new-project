@@ -30,9 +30,9 @@ Page({
     if (options.id) {
       util.getReq('&m=shop&a=getShopDetail', { id: options.id }, function (data) {
         that.setData({
-          info: data.result
+          info: data.result,
+          imagesList: data.result.shop_pic,
         })
-        console.log(data.result)
       })
     }
 
@@ -179,16 +179,24 @@ Page({
   },
 
   formSubmit: function(e) {
-    var info = e.detail.value;
-    info.shop_logo = this.data.serverLogo;
-    info.shop_pic = this.data.serverUrl;
-    info.session3rd = app.globalData.token;
-    info.start_time = this.data.startTime;
-    info.end_time = this.data.endTime;
-    info.shop_addr = this.data.info.shop_addr;
+    const newInfo = e.detail.value;
+    const info = this.data.info;
+    if (info.id) {
+      newInfo.id = info.id;
+      newInfo.shop_logo = this.data.serverLogo ? this.data.serverLogo : info.shop_logo;
+      newInfo.start_time = this.data.startTime ? this.data.startTime : info.start_time;
+      newInfo.end_time = this.data.endTime ? this.data.endTime : info.end_time;
+      newInfo.shop_pic = this.data.serverUrl;
+      console.log(newInfo);
+    }
+    // console.log(value);
+    // return;
+    // info.shop_logo = this.data.serverLogo;
+    // info.shop_pic = this.data.serverUrl;
+    newInfo.session3rd = app.globalData.token;
+    // info.shop_addr = this.data.info.shop_addr;
 
     util.req('&m=shop&a=editshop', info, function(data) {
-      console.log(data)
       if (data.flag == 1) {
         wx.showToast({
           title: '提交成功',
@@ -199,6 +207,10 @@ Page({
             url: '../shopList/index'
           })
         }, 3000)
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
       }
     })
   }

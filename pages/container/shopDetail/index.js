@@ -34,6 +34,29 @@ Page({
     })
   },
 
+  // 赞店铺
+  handleZan: function(event) {
+    const that = this;
+    const shop_id = this.data.info.id;
+    const action = !this.data.info.is_star;
+    util.req('&m=shop&a=setRelationship', {
+      shop_id,
+      action,
+      session3rd: app.globalData.token
+    }, function(data) {
+      if (data.flag == 1) {
+        wx.showToast({
+          title: '赞 +1',
+        })
+        that.fetchDetail(that, shop_id);
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
+      }
+    })
+  },
+
   showImage: function(event) {
     const data = event.currentTarget.dataset;
     const current = data.current;
