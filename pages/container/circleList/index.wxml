@@ -6,4 +6,4 @@
 <view class='list-footer' wx:if="{{items.length > 0}}">没有更多了</view>
 <view class='list-footer' wx:if="{{items.length == 0}}">这里啥也没有</view>
 
-<loading isLoading="{{isLoading}}" list="{{items}}" /> 
+<loading isLoading="{{isLoading}}" /> 

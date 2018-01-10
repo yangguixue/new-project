@@ -9,30 +9,79 @@ qqmapsdk = new QQMapWX({
 });
 
 App({
-  onLaunch: function () {
+  onLaunch: function (options) {
     var that = this;
     wx.setStorageSync('isShowAddDesk', true);
-    // 小程序初始化判断用户是否登录
-    // wx.checkSession({
-    //   success: function() {
-    //     wx.getStorage({
-    //       key: 'token',
-    //       success: function(res) {
-    //         var token = res.data;
-    //         that.globalData.token = token;
-    //       }
-    //     })
-    //   },
-    //   fail: function() {
-    //     //登录态过期
-    //     that.login();
-    //   }
-    // })
-    that.login();
+    wx.setStorageSync('isShowZan', true);
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          // 获取新的token
+          util.req('&m=member&a=onLogin', { code: res.code }, function (data) {
+            if (data.flag == 1) {
+              wx.removeStorageSync('token');
+              that.setToken(data.reset.session3rd);
+              that.setIsReg(data.reset.is_reg);
+
+              if (that.userInfoReadyCallback) {
+                that.userInfoReadyCallback(data)
+              }
+
+              //是否有新消息
+              util.req('&m=member&a=isUnread', {
+                session3rd: data.reset.session3rd
+              }, function (data) {
+                if (data.flag == 1 && data.unread_num > 0) {
+                  that.globalData.hasUnread = true;
+                } else {
+                  that.globalData.hasUnread = false;
+                }
+
+                if (that.isUnreadReadyCallback) {
+                  that.isUnreadReadyCallback(that.globalData.hasUnread)
+                }
+              })
+
+              wx.hideLoading();
+            }
+          });
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      }
+    })
+
+    //用户通过卡片点击
+    if (options.query.userId) {
+      wx.setStorageSync('from_user', options.query.userId);
+    }
+
+    // 获取地理位置
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        qqmapsdk.reverseGeocoder({
+          location: {
+            latitude: res.latitude,
+            longitude: res.longitude
+          },
+          success: function (res) {
+            that.globalData.address = res.result;
+          },
+          fail: function (res) {
+          },
+          complete: function (res) {
+          }
+        });
+      }
+    })
   },
 
   login: function () {
     var that = this;
+    wx.showLoading({
+      title: '请稍等...',
+    })
     return new Promise(function(resolve, reject){
       wx.login({
         success: function (res) {
@@ -43,6 +92,28 @@ App({
                 wx.removeStorageSync('token');
                 that.setToken(data.reset.session3rd);
                 that.setIsReg(data.reset.is_reg);
+
+                if (that.userInfoReadyCallback) {
+                  that.userInfoReadyCallback(data)
+                }
+
+                //是否有新消息
+                util.req('&m=member&a=isUnread', {
+                  session3rd: data.reset.session3rd
+                }, function (data) {
+                  if (data.flag == 1 && data.unread_num > 0) {
+                    that.globalData.hasUnread = true;
+                  } else {
+                    that.globalData.hasUnread = false;
+                  }
+
+                  if (that.isUnreadReadyCallback) {
+                    that.isUnreadReadyCallback(that.globalData.hasUnread)
+                  }
+                })
+
+                wx.hideLoading();
+
                 resolve();
               }
             });
@@ -56,8 +127,8 @@ App({
 
   // 注册
   registerUser: function(userInfo) {
-    console.log(userInfo)
     var that = this;
+    var from_user = wx.getStorageSync('from_user');
     return new Promise(function(resolve, reject) {
       wx.login({
         success: function (res) {
@@ -66,6 +137,11 @@ App({
             "encryptedData": userInfo.encryptedData,
             "iv": userInfo.iv
           };
+
+          if (from_user) {
+            item.from_user = from_user;
+          }
+          
           util.req('&m=member&a=onReg', item, function (data) {
             if (data.flag == 1) {
               resolve();
@@ -247,10 +323,18 @@ App({
     })
   },
 
+  //分享小程序
+  shareApp: function() {
+
+  },
+
   globalData: {
     userInfo: null,
     token: null,
     is_reg: null,
     epage: 5,
+    hasUnread: false,
+    qqmapsdk,
+    address: null
   }
 })

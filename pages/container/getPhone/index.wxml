@@ -1,20 +1,26 @@
 <!--pages/container/getPhone/index.wxml-->
-<view class="box">
-  <view class='phone'>
-    <view class='name'>手机号</view>
-    <view class='input'>
-      <input type='phone' placeholder='请输入手机号' style='height: 100%'/>
+<form bindsubmit="formSubmit">
+  <view class="box">
+    <view class='phone'>
+      <view class='name'>手机号</view>
+      <view class='input'>
+        <input type='phone' name="phone" placeholder='请输入手机号' style='height: 100%' bindinput="handleChange"/>
+      </view>
+      <view class='code-button' wx:if="{{!isSending}}" bindtap='getCode'>获取验证码</view>
+      <view class='code-button button-disabled' wx:else>{{second}}s后重新获取</view>
     </view>
-    <view class='code-button'>获取验证码</view>
-  </view>
-  <view class='code'>
-    <view class='name'>验证码</view>
-    <view class='input'>
-      <input type='number' placeholder='请输入验证码' style='height: 100%'/>
+    <view class='code'>
+      <view class='name'>验证码</view>
+      <view class='input'>
+        <input type='number' name="validcode" placeholder='请输入验证码' style='height: 100%'/>
+      </view>
     </view>
   </view>
-</view>
 
-<view class="submit-button">
-  <view class="button">提交</view>
-</view>
+  <view class="submit-button">
+    <button class="button" formType="submit" loading='{{isLoading}}'>提交</button>
+  </view>
+</form>
+
+
+

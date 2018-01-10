@@ -19,7 +19,7 @@
             <view class="username">{{item.from_name}}</view>
           </navigator>
           <view class="context" wx:if="{{item.to_name}}">
-            <navigator url='../userPage/index?id={{item.to_mid}}'><text class='blue'>回复:  {{item.to_name}}</text></navigator>{{item.content}}
+            <navigator url='../userPage/index?id={{item.to_mid}}'><text class='blue'>回复:  {{item.to_name}}</text></navigator> {{item.content}}
           </view>
           <view class="context" wx:else>{{item.content}}</view>
           <view class="date">{{item.createtime}}  <text class='action' bindtap='handleFocusInput' data-item="{{item}}">回复</text><text class="action" wx:if="{{item.is_del}}" bindtap='handleDelete' data-item="{{item}}">删除</text></view>
@@ -45,12 +45,14 @@
 <view class="comment-input" wx:else>
   <text class="input" bindtap="handleFocusInput">评论</text>
   <view style='display: inline' bindtap="handleCollection" data-action="{{content.is_star}}">
-    <image src="../../images/collection-fill.png" class="input-icon" wx:if="{{content.is_star}}"  />
-    <image src="../../images/collection.png" class="input-icon" wx:else />
+    <image src="../../images/collection-fill.svg" class="input-icon" wx:if="{{content.is_star}}"  />
+    <image src="../../images/collection.svg" class="input-icon" wx:else />
   </view>
   <view style='display: inline' bindtap="handleZan"  data-id="{{content.is_like}}" >
-    <image src="../../images/like-fill.png" class="input-icon" wx:if="{{content.is_like}}" />
-    <image src="../../images/like.png" class="input-icon" wx:else />
+    <image src="../../images/like-fill.svg" class="input-icon" wx:if="{{content.is_like}}" />
+    <image src="../../images/like.svg" class="input-icon" wx:else />
   </view>
-  <image src="../../images/send.png" class="input-icon" />
+  <button open-type='share'  options="{from: 'button'}" class='share-btn'>
+    <view class="input-icon" ><image src="../../images/send.svg"  /></view>
+  </button>
 </view>

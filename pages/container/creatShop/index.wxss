@@ -99,11 +99,6 @@ page {
   padding: 0 30rpx 50rpx;
 }
 
-.button {
-  background: #ffc754;
-  border-radius: 6rpx;
-}
-
 .term {
   padding: 30rpx 0;
   font-size: 28rpx;

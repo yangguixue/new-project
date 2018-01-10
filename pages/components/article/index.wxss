@@ -90,3 +90,8 @@
 .red {
   color: #ff0033;
 }
+
+.report {
+  margin-left: 30rpx;
+  color: #4d638c;
+}

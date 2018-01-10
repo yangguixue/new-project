@@ -67,12 +67,10 @@ Page({
   },
 
   onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-    }
+    const id = this.data.content.id;
     return {
-      title: '我是内容内容',
-      imageUrl: '../../images/banner01.jpg',
+      title: '这个信息你肯定用得着，分享给你',
+      path: '/pages/container/articleDetail/index?id=' + id + '&userId=' + app.globalData.session3rd,
       success: function (res) {
         // 转发成功
       },
@@ -102,7 +100,7 @@ Page({
   handleBlurInput: function(event) {
     setTimeout(() => {
       this.setData({ focus: false, is_red: false });
-    }, 100);
+    }, 200);
   },
 
   handleChange: function(event) {

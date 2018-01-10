@@ -1,5 +1,6 @@
 <!--pages/container/discountDetail/index.wxml-->
-<discount items="{{discountDetail}}" isDetail />
+<import src="../../../wxParse/wxParse.wxml"/>
+<discount info="{{discountDetail}}" isDetail />
 <view class="like">
   <scroll-view scroll-x class="user-list">
     <image src="../../images/userhead.jpg" class="user-img"/>
@@ -8,19 +9,55 @@
 </text>
 </view>
 <view class="line">
-  <image src="../../images/clock.png" class="icon"/>
+  <image src="../../images/clock.svg" class="icon"/>
   <text class="text"> {{discountDetail.store_time}}</text>
 </view>
 <view class="line" bindtap='handleCall'>
-  <image src="../../images/phone.png" class="icon"/>
+  <image src="../../images/phone.svg" class="icon"/>
   <text class="text" > {{discountDetail.store_phone}}</text>
 </view>
 
 <view class="pd intro">
-  <rich-text nodes="{{discountDetail.post_content}}" class="intro-title"></rich-text>
+  <template is="wxParse" data="{{wxParseData:post_content.nodes}}"/>
+  <!-- <rich-text nodes="{{discountDetail.post_content}}" class="intro-title"></rich-text> -->
 </view>
 
-<view class="footer">
+<view class='footer'>
+  <view class='footer-l'>
+    <navigator url='../index/index' open-type="switchTab">
+      <view class='item'>
+        <view class='icon2'>
+          <image src='../../images/homepage.svg' />
+        </view>
+        <view>首页</view>
+      </view>
+    </navigator>
+    <navigator url='../shopDetail/index?id={{discountDetail.shop_id}}'>
+      <view class='item' bindtap='handleCollection'> 
+        <view class='icon2'> 
+          <image src='../../images/shop2.svg' />
+        </view>
+        <view>进店</view>
+      </view>
+    </navigator>
+    <view class='item' bindtap='handleSend' data-id="">
+      <view class='icon2'>
+        <image src='../../images/send.svg' />
+      </view>
+      <view>转发</view>
+    </view>
+  </view>
+  <view class='footer-c footer-btn' bindtap='handleCall'>
+    联系商家
+  </view>
+  <navigator url='../discountList/index'>
+    <view class='footer-r footer-btn'>
+      更多活动
+    </view>
+  </navigator>
+</view>
+
+<!-- <view class="footer">
   <view class="footer-left">
     <navigator url='../discountList/index'>更多优惠活动</navigator>
   </view>
@@ -28,7 +65,7 @@
   <view class="footer-right" bindtap='handleCall'>
     联系商家
   </view>
-</view>
+</view> -->
 
 <view wx:if="{{isLoading}}">
   <image

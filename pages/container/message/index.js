@@ -27,7 +27,6 @@ Page({
 
   onLoad: function (options) {
     const that = this;
-
     fetchMessage(that);
   },
 
@@ -64,7 +63,6 @@ Page({
    */
   onPullDownRefresh: function () {
     const that = this;
-
     fetchMessage(that);
   },
 
@@ -74,11 +72,4 @@ Page({
   onReachBottom: function () {
   
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

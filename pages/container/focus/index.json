@@ -1,6 +1,8 @@
 {
   "usingComponents": {
+    "shop": "../../components/shop/index",
     "article": "../../components/article/index",
     "loading": "../../components/loading/index"
-  }
+  },
+  "enablePullDownRefresh": false
 }

@@ -2,5 +2,6 @@
   "usingComponents": {
     "shop": "../../components/shop/index",
     "loading": "../../components/loading/index"
-  }
+  },
+  "enablePullDownRefresh": "true"
 }

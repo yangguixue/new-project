@@ -1,0 +1,15 @@
+/* pages/container/rules/index.wxss */
+page {
+  background: #fffaf1;
+}
+
+.box {
+  padding: 20rpx 30rpx;
+}
+
+.content {
+  padding: 30rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}

@@ -11,11 +11,13 @@ Page({
     nature: ['实体店', '自主经营'],
     imagesList: [], //图片；列表
     category: [], //分类
-    serverUrl: []
+    serverUrl: [],
+    hasRead: true //同意条款
   },
 
   onLoad: function (options) {
     var that = this;
+    // 请求店铺分类
     util.getReq('&m=category&a=getCgList', { type: 1 }, function (data) {
       if (data.flag == 1) {
         that.setData({
@@ -28,32 +30,45 @@ Page({
 
     // 编辑时请求
     if (options.id) {
-      util.getReq('&m=shop&a=getShopDetail', { id: options.id }, function (data) {
+      util.getReq('&m=shop&a=getShopDetail', {
+        id: options.id,
+        session3rd: app.globalData.token
+      }, function (data) {
         that.setData({
           info: data.result,
-          imagesList: data.result.shop_pic,
+          imagesList: data.result.shop_pic_show,
+          serverUrl: data.result.shop_pic
         })
       })
     }
 
     // 获取位置
-    app.getLocation(that).then((res) =>{
-      var address = res.result.formatted_addresses.rough;
-      var info = this.data.info;
-      info.shop_addr = address;
-      that.setData({
-        info,
-        address: res.result
+    if (!options.id) {
+      app.getLocation(that).then((res) => {
+        var address = res.result.formatted_addresses.rough;
+        var info = this.data.info;
+        info.shop_addr_name = address;
+        that.setData({
+          info,
+          address: res.result
+        })
       })
-    })
+    }
   },
 
   openMap: function () {
-    var address = this.data.address;
-    wx.openLocation({
-      latitude: address.location.lat,
-      longitude: address.location.lng,
-      scale: 28
+    const info = this.data.info;
+    const that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        info.shop_addr = res.address;
+        info.shop_addr_name = res.name;
+        info.lat = res.latitude;
+        info.lng = res.longitude;
+        that.setData({
+          info
+        })
+      }
     })
   },
 
@@ -66,12 +81,6 @@ Page({
   bindEndTimeChange: function (e) {
     this.setData({
       endTime: e.detail.value
-    })
-  },
-
-  bindNatureChange: function(e) {
-    this.setData({
-      natureIndex: e.detail.value
     })
   },
 
@@ -113,7 +122,6 @@ Page({
     })
   },
 
-
   deleteImage: function (event) {
     var imagesList = this.data.imagesList;
     var serverUrl = this.data.serverUrl;
@@ -132,10 +140,9 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
-        var imagesList = that.data.imagesList;
-        var serverUrl = that.data.serverUrl; // 存储服务器端url
+        var imagesList = that.data.imagesList; //创建时是空数组，修改时是线上的链接
+        var serverUrl = that.data.serverUrl; // 创建时是空数组，修改时是线上的链接 存储服务器端url
         var uploadImgCount = 0;
         // 遍历循环图片上传到服务器
         for (var i = 0, h = tempFilePaths.length; i < h; i++) {
@@ -178,34 +185,53 @@ Page({
     });
   },
 
+  // 同意发布条款
+  checkboxChange: function(e) {
+    const len = e.detail.value.length;
+    if (len > 0) {
+      this.setData({ hasRead: true });
+    } else {
+      this.setData({ hasRead: false });
+    }
+  },
+
   formSubmit: function(e) {
     const newInfo = e.detail.value;
     const info = this.data.info;
+
     if (info.id) {
       newInfo.id = info.id;
       newInfo.shop_logo = this.data.serverLogo ? this.data.serverLogo : info.shop_logo;
       newInfo.start_time = this.data.startTime ? this.data.startTime : info.start_time;
       newInfo.end_time = this.data.endTime ? this.data.endTime : info.end_time;
-      newInfo.shop_pic = this.data.serverUrl;
-      console.log(newInfo);
+    } else {
+      newInfo.shop_logo = this.data.serverLogo;
+      newInfo.start_time = this.data.startTime;
+      newInfo.end_time = this.data.endTime;
     }
-    // console.log(value);
-    // return;
-    // info.shop_logo = this.data.serverLogo;
-    // info.shop_pic = this.data.serverUrl;
+    newInfo.shop_pic = this.data.serverUrl;
+    newInfo.shop_addr = info.shop_addr;
+    newInfo.shop_addr_name = info.shop_addr_name;
+    newInfo.lat = info.lat;
+    newInfo.lng = info.lng;
     newInfo.session3rd = app.globalData.token;
-    // info.shop_addr = this.data.info.shop_addr;
 
-    util.req('&m=shop&a=editshop', info, function(data) {
+    util.req('&m=shop&a=editshop', newInfo, function(data) {
       if (data.flag == 1) {
         wx.showToast({
           title: '提交成功',
         })
 
         setTimeout(function() {
-          wx.reLaunch({
-            url: '../shopList/index'
-          })
+          if (info.id) {
+            wx.navigateBack({
+              delta: 1
+            })
+          } else {
+            wx.reLaunch({
+              url: '../shopList/index'
+            })
+          }
         }, 3000)
       } else {
         wx.showToast({

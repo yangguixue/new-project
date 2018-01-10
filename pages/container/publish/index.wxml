@@ -9,7 +9,7 @@
 <view class="warning">用户数量无上限</view>
 <view class="catelog">
   <scroll-view scroll-y class="scroll">
-    <block wx:for="{{items}}">
+    <block wx:for="{{items}}" wx:key="{{index}}">
       <view bindtap='handleNavigateTo' data-url="../release/index?type={{0}}&id={{item.cg_id}}" style="display: inline-block">
         <view class="item">
           <image src="{{item.icon}}"  class="catelog-img" />
@@ -20,7 +20,6 @@
   </scroll-view> 
 </view>
 
-<view class="tip01" wx:if="{{info.point}}">您拥有{{info.point}}个积分</view>
 <view class="tip01">没有找到所需标签？</view>
 <view>联系客服：微信 xirang_tuntun</view>
 

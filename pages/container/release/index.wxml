@@ -2,7 +2,7 @@
 <view class="text-box">
   <textarea placeholder="发布消息" class="content" maxlength="-1" bindinput="handleChange" />
   <view class="image-box">
-    <block wx:for="{{imagesList}}">
+    <block wx:for="{{imagesList}}" wx:key="{{index}}">
       <view class="image">
         <image src="{{item}}" mode="aspectFill" />
         <text class="delete" bindtap="deleteImage" id="{{index}}">x</text>
@@ -13,22 +13,33 @@
     </view>
   </view>
   <view class="address" bindtap="openMap">
-    <image src="../../images/address.png" class="address-img" />
-    <text>{{address.formatted_addresses.rough}}</text>
+    <image src="../../images/address.svg" class="address-img" />
+    <text>{{item.post_addr_name}}</text> 
   </view>
   <view class='cg_tips' wx:if="{{secondMenus.length > 0}}">*该分类下需要选择一个二级分类~</view>
   <radio-group class="radio-group" bindchange="radioChange">
-    <label wx:for="{{secondMenus}}">
+    <label wx:for="{{secondMenus}}" wx:key="{{index}}">
       <radio value="{{item.cg_id}}" />{{item.name}}
     </label>
   </radio-group>
 </view>
 
-<view class="publish-button">
-  <button class="button" wx:if="{{isNull || !hasLogin}}">立即发布</button>
-  <button class="button hover" wx:else bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
+<view class='term'>
+  <checkbox-group bindchange="checkboxChange">
+    <checkbox value="{{hasRead}}" checked="{{true}}" class='checkbox'/>
+  </checkbox-group>
+  已阅读， 并同意 
+  <navigator url='../rules/index?name=fbtk'>
+    <text class='blue'>发布条款</text>
+  </navigator>
 </view>
 
-<!-- <view class='noLogin' wx:if="{{!hasLogin}}">
-  您现在处于游客状态，不可以发布消息哦~<button class='getUser blue' bindgetuserinfo="handleGetUserInfo" open-type="getUserInfo">登录</button>
-</view> -->
+<view class="publish-button">
+  <button class="button button-disabled" wx:if="{{isNull || !hasLogin || !hasRead}}">立即发布</button>
+  <button class="button" wx:else bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
+</view>
+
+<view class='term'>
+  <image src='../../images/warning.svg' class='term-img' />
+  <text class='term-text'>发布违规，不良信息，或同一信息刷屏操作，将扣除1000积分；违规3次以上者，将被管理员拉黑，且不可发布任何信息</text> 
+</view>

@@ -18,22 +18,19 @@ var fetchInfoList = function (that, lastid) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有' });
-        } else {
-          that.setData({ listStatus: '没有更多了' });
+          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          return;
         }
-        that.setData({ list: data.result, loadMore: false })
-        return;
+        that.setData({ list: data.result });
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
         }
-        that.setData({
-          list,
-          listStatus: '没有更多了',
-          loadMore: false
-        })
+        that.setData({ list })
         page++
+      }
+      if (len < epage) {
+        that.setData({ listStatus: '我是有底线的' });        
       }
     }
     that.setData({
@@ -56,23 +53,11 @@ Page({
     var that = this;
     var id = options.id;
     this.setData({ userId: id });
-
-    // 获取文章列表
     fetchInfoList(that, 0);
-
-    // 获取屏幕宽度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
-      }
-    });
   },
 
   onShow: function() {
     var that = this;
-    // var lastid = this.data.lastid ? this.data.lastid : 0;
     var token = app.globalData.token;
     var item = { session3rd: token };
     if (this.data.userId) {
@@ -89,9 +74,6 @@ Page({
         qpp.login();
       }
     });
-
-    // 获取文章
-    // fetchInfoList(that, lastid);
   },
 
   handleFocus: function(event) {
@@ -114,7 +96,13 @@ Page({
     this.setData({ isShowLogin: false });
   },
 
-  searchScrollLower: function (event) {
+  onPullDownRefresh: function () {
+    const that = this;
+    that.setData({ listStatus: '' });
+    fetchInfoList(that, 0);
+  },
+
+  onReachBottom: function (event) {
     let that = this;
     var list = this.data.list;
     var id = list[list.length - 1].id;

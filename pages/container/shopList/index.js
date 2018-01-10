@@ -15,24 +15,20 @@ var fetchShopList = function (that, lastid) {
     if (data.flag == 1) {
       var len = data.result.length;
       if (lastid == 0) {
-        var len = data.result.length;
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有' });
-        } else {
-          that.setData({ listStatus: '没有更多了' });
+          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          return;
         }
-        that.setData({ list: data.result, loadMore: false })
-        return;
+        that.setData({ list: data.result });
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
         }
-        that.setData({
-          list,
-          listStatus: '没有更多了',
-          loadMore: false
-        })
+        that.setData({ list })
         page++
+      }
+      if (len < epage) {
+        that.setData({ listStatus: '我是有底线的' });
       }
     }
     that.setData({
@@ -46,9 +42,6 @@ Page({
     isShowCate: false, //是否展示所有分类
     isShowFilter: false, 
     category: [], //分类
-    isLoading: true,
-    scrollTop: 0,
-    scrollHeight: 0,
     loadMore: false,
     searchValue: '', //搜索商家
     filter: {},
@@ -70,15 +63,6 @@ Page({
     var that = this;
     fetchShopList(that, 0);
 
-    // 获取屏幕宽度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
-      }
-    });
-
     // 获取分类
     util.getReq('&m=category&a=getCgList', { type: 0 }, function (data) {
       if (data.flag == 1) {
@@ -96,7 +80,6 @@ Page({
 
   // 搜索商家
   handleChange: function(event) {
-    const searchValue = event.detail.value;
     this.setData({ searchValue });
   },
 
@@ -113,17 +96,6 @@ Page({
       }
       wx.hideLoading()
     })
-  },
-
-  searchScrollLower: function (event) {
-    let that = this;
-    var list = this.data.list;
-    var id = list[list.length - 1].id;
-    this.setData({ lastid: id });
-    if (this.data.listStatus) return; // 没有更多了
-    if (this.data.loadMore) return; // 禁止重复请求
-
-    fetchShopList(that, id);
   },
 
   handleFilter: function(event) {
@@ -160,8 +132,6 @@ Page({
     }
 
     that.handleFilter(event);
-
-    return;
     
     util.req('&m=shop&a=getShopList', {
       session3rd: app.globalData.token,
@@ -171,5 +141,24 @@ Page({
         that.setData({ list: data.result });
       }
     })
+  },
+
+
+  onPullDownRefresh: function () {
+    const that = this;
+    this.setData({ listStatus: '' });
+    fetchShopList(that, 0);
+  },
+
+
+  onReachBottom: function (event) {
+    let that = this;
+    var list = this.data.list;
+    var id = list[list.length - 1].id;
+    this.setData({ lastid: id });
+    if (this.data.listStatus) return; // 没有更多了
+    if (this.data.loadMore) return; // 禁止重复请求
+
+    fetchShopList(that, id);
   }
 })                                                                                                                                                                                                                                                                                                                                        

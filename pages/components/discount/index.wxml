@@ -1,63 +1,41 @@
 <view class='box'>
   <view class='shop'>
     <view class='shop-l'>
-      <image src='../../images/userhead.jpg' />
+      <image src='{{info.shop_logo}}' />
     </view>
     <view class='shop-c'>
-      <view class='shop-name'>庆丰包子</view>
+      <view class='shop-name'>{{info.shop_name}}</view>
       <view class='shop-addr'>离你33米</view>
     </view>
-    <navigator url='../shopDetail/index'>
+    <navigator url='../shopDetail/index?id={{info.shop_id}}'>
       <view class='shop-r'>进入店铺</view>
     </navigator>
   </view>
-  <view class='img-box'>
-    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
-    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
-    <image src='../../images/userhead.jpg' mode="aspectFill" class='discount-img' />
-  </view>
-  <view class='discount-title'>
-    <text class='sign'>优惠</text>
-    <text>肯德基买一送一啦，先到先得，哈哈哈哈哈点就晒得慌阿荒岛惊魂 的就是看会电视s</text>
-  </view>
-</view>
+  
+   <!-- 详情页 -->
+  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="2000" class='img-box2' wx:if="{{isDetail}}">
+    <block wx:for="{{info.altas}}" wx:key="{{index}}">
+      <swiper-item>
+        <image src='{{item}}' mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
 
+  <navigator url='../discountDetail/index?id={{info.id}}'>
+    <!-- 列表页 非detail 无banner -->
+    <view class='img-box' wx:if="{{!isDetail && !info.smeta}}">
+      <block wx:for="{{info.altas}}" wx:key="{{info.id}}">
+        <image src='{{item}}' mode="aspectFill" class='discount-img' />
+      </block>
+    </view> 
+    <!-- 有banner -->
+    <view class='img-box3' wx:if="{{info.smeta && !isDetail}}">
+      <image src='{{info.smeta}}' mode="aspectFill" />
+    </view>  
 
-
-<!-- <block wx:if="{{isDetail === false}}">
-  <navigator url="{{'../../container/discountDetail/index?id=' + items.id}}">
-    <view class="box">
-      <view class="content">
-        <image src="{{items.smeta}}" class="discount-img" />
-        <view class="title"> {{ items.post_title }}</view>
-        <view class="detail">
-          <text class="detail-left"> {{ items.post_discount }}</text>
-          <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
-        </view>
-        <view class='triangle active-ing' wx:if="{{items.post_expire == 2}}" />
-        <text class='status' wx:if="{{items.post_expire == 2}}">进行中</text>
-        <view class='triangle active-ed' wx:if="{{items.post_expire == 0}}" />
-        <text class='status' wx:if="{{items.post_expire == 0}}">已结束</text>
-        <view class='triangle active-will' wx:if="{{items.post_expire == 1}}" />
-        <text class='status' wx:if="{{items.post_expire == 1}}">未开始</text>
-      </view>
-    </view>   
-  </navigator>
-</block>
-
-<view class="box" wx:else>
-  <view class="content">
-    <image src="{{items.smeta}}" class="discount-img" />
-    <view class="title"> {{ items.post_title }}</view>
-    <view class="detail">
-      <text class="detail-left"> {{ items.post_discount }}</text>
-      <text class="detail-right"> {{ items.start_time }} 到 {{ items.end_time }}</text>
+    <view class='discount-title'>
+      <text class='sign'>优惠</text>
+      <text> {{info.post_title}}</text>
     </view>
-    <view class='triangle active-ing' wx:if="{{items.post_expire == 2}}" />
-    <text class='status' wx:if="{{items.post_expire == 2}}">进行中</text>
-    <view class='triangle active-ed' wx:if="{{items.post_expire == 0}}" />
-    <text class='status' wx:if="{{items.post_expire == 0}}">已结束</text>
-    <view class='triangle active-will' wx:if="{{items.post_expire == 1}}" />
-    <text class='status' wx:if="{{items.post_expire == 1}}">未开始</text>
-  </view>
-</view> -->
+  </navigator>
+</view>

@@ -13,17 +13,28 @@ Component({
   },
 
   methods: {
-    // 图片放大
-    handleBigImage: function () {
-      wx.previewImage({
-        current: '../../images/userhead.jpg',
-        urls: [
-          '../../images/userhead.jpg',
-          '../../images/userhead.jpg',
-          '../../images/userhead.jpg',] // 需要预览的图片http链接列表
+    openMap: function () {
+      const info = this.data.content;
+      var latitude = parseInt(info.lat);
+      var longitude = parseInt(info.lng);
+      wx.openLocation({
+        latitude,
+        longitude,
+        scale: 28
       })
     },
 
+    // 图片放大
+    handleBigImage: function (event) {
+      const data = event.currentTarget.dataset;
+      const current = data.current;
+      const urls = this.data.content.smeta;
+      wx.previewImage({
+        current,
+        urls,
+      })
+    },
+    
     handleCollection: function (event) {
       var that = this;
       const content = this.data.content; 
@@ -69,6 +80,18 @@ Component({
             })
           }
         }
+      })
+    },
+
+    // 举报
+    handleReport: function(event) {
+      const content = this.data.content;
+      if (!app.globalData.is_reg) {
+        this.triggerEvent('openLogin');
+        return;
+      }
+      wx.navigateTo({
+        url: '/pages/container/report/index?type=info&id=' + content.id
       })
     }
   }

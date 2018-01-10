@@ -22,7 +22,15 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "群聊转发",
+					"pathName": "pages/container/shopDetail/index",
+					"query": "userId=\"ddd\"",
+					"scene": "1008"
+				}
+			]
 		}
 	}
 }

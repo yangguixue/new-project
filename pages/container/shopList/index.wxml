@@ -1,59 +1,58 @@
 <!--pages/container/shopList/index.wxml-->
 
-<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower">
-  <view class="search">
-    <view class="search-left">
-      <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' />
+<view class="search">
+  <view class="search-left">
+    <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' />
+  </view>
+  <view class="search-button">
+    <image src="../../images/search.svg" bindtap='handleSearch' />
+  </view>
+</view>
+
+<view class="banner">
+  <image src="https://www.qmjoin.com/data/upload/xrxz/mfrz.jpg" />
+</view>
+
+<!-- <view class="list-title pd">
+  商家列表
+</view> -->
+
+<view class='menu'>
+  <view class='menu-title'>
+    <view class='category' bindtap='handleFilter' data-id="0">
+      {{filter.name ? filter.name : '所有分类' }}
+      <text class='triangle' wx:if="{{!isShowCate}}" />
+      <text class='triangle2' wx:else /> 
     </view>
-    <view class="search-button">
-      <image src="../../images/search.png" bindtap='handleSearch' />
-    </view>
+    <view class='line'></view>
+    <view class='filter' bindtap='handleFilter' data-id="1">
+      {{filter1.name ? filter1.name : '店铺筛选' }}
+      <text class='triangle' wx:if="{{!isShowFilter}}" />
+      <text class='triangle2' wx:else />
+    </view>  
   </view>
+  <view class="{{isShowCate ? 'menu-list' : 'menu-list dn'}}">
+    <block wx:for="{{category}}" wx:key="{{index}}">
+      <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="0">{{item.name}}</view>
+    </block>
+  </view> 
+  <view class="{{isShowFilter ? 'menu-list' : 'menu-list dn'}}">
+    <block wx:for="{{category2}}" wx:key="{{index}}">
+      <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="1">{{item.name}}</view>
+    </block>
+  </view> 
+</view>
 
-  <view class="banner">
-    <image src="../../images/shop-list.jpg" />
-  </view>
+<block wx:for="{{list}}" wx:key="{{item.id}}">
+  <navigator url="../shopDetail/index?id={{item.id}}">
+    <shop item="{{item}}"/>
+  </navigator>
+</block>
 
-  <!-- <view class="list-title pd">
-    商家列表
-  </view> -->
+<!-- 加载更多 -->
+<view wx:if="{{loadMore}}" class='list-footer'>
+  <image src='../../images/loading.gif' alt="" class='loading-img' />
+</view>
+<view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 
-  <view class='menu'>
-    <view class='menu-title'>
-      <view class='category' bindtap='handleFilter' data-id="0">
-        {{filter.name ? filter.name : '所有分类' }}
-        <text class='triangle' wx:if="{{!isShowCate}}" />
-        <text class='triangle2' wx:else /> 
-      </view>
-      <view class='line'></view>
-      <view class='filter' bindtap='handleFilter' data-id="1">
-        {{filter1.name ? filter1.name : '店铺筛选' }}
-        <text class='triangle' wx:if="{{!isShowFilter}}" />
-        <text class='triangle2' wx:else />
-      </view>  
-    </view>
-    <view class="{{isShowCate ? 'menu-list' : 'menu-list dn'}}">
-      <block wx:for="{{category}}" wx:key="{{index}}">
-        <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="0">{{item.name}}</view>
-      </block>
-    </view> 
-    <view class="{{isShowFilter ? 'menu-list' : 'menu-list dn'}}">
-      <block wx:for="{{category2}}" wx:key="{{index}}">
-        <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="1">{{item.name}}</view>
-      </block>
-    </view> 
-  </view>
-
-  <block wx:for="{{list}}" wx:key="{{item.id}}">
-    <navigator url="../shopDetail/index?id={{item.id}}">
-      <shop item="{{item}}"/>
-    </navigator>
-  </block>
-
-  <!-- 加载更多 -->
-  <view wx:if="{{loadMore}}" class='list-footer'>
-    <image src='../../images/loading.gif' alt="" class='loading-img' />
-  </view>
-  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
-</scroll-view>
 <!-- <loading isLoading="{{isLoading}}" list="{{items}}" /> -->

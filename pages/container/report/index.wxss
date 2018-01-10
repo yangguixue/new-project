@@ -1,0 +1,17 @@
+/* pages/container/report/index.wxss */
+page {
+  background: #f7f7f7;
+}
+
+.report-box {
+  padding: 30rpx;
+}
+
+.report-input {
+  height: 60rpx;
+  background: #fff;
+  padding: 20rpx;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}

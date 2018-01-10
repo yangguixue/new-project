@@ -1,11 +1,10 @@
 <!--pages/container/discountList/index.wxml-->
-<discount isDetail="{{false}}" />
-<!-- <block wx:for="{{list}}" wx:key="{{index}}">
-  <discount items="{{item}}" isDetail="{{false}}" />
-</block>  -->
+<block wx:for="{{list}}" wx:key="{{index}}">
+  <discount info="{{item}}" isDetail="{{false}}" />
+</block>  
 
+<view wx:if="{{loadMore}}" class='list-footer'>
+  <image src='../../images/loading.gif' alt="" class='loading-img' />
+</view>
+<view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 
-<view class='list-footer' wx:if="{{list.length > 0}}">没有更多了</view>
-<view class='list-footer' wx:if="{{list.length == 0}}">这里啥也没有</view>
-
-<loading isLoading="{{isLoading}}" list="{{list}}" />

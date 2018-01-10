@@ -20,22 +20,19 @@ var fetchInfoList = function (that, lastid) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有' });
-        } else {
-          that.setData({ listStatus: '没有更多了' });
+          that.setData({ listStatus: '这里啥也没有', loadMore: false  });
+          return;
         }
-        that.setData({ list: data.result, loadMore: false })
-        return;
+        that.setData({ list: data.result});
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
         }
-        that.setData({
-          list,
-          listStatus: '没有更多了',
-          loadMore: false
-        })
+        that.setData({ list })
         page++
+      }
+      if (len < epage) {
+        that.setData({ listStatus: '我是有底线的' });
       }
     }
     that.setData({
@@ -49,23 +46,12 @@ Page({
     circle: {},
     isLoadding: true,
     isShowLogin: false,
-    scrollTop: 0,
-    scrollHeight: 0,
     loadMore: false, // 加载更多
   },
 
   onLoad: function (options) {
     var that = this;
     fetchInfoList(that, 0);
-    
-    // 获取屏幕宽度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
-      }
-    });
 
     //获取圈子列表
     util.req('&m=Category&a=getCicleInfo', {
@@ -92,7 +78,14 @@ Page({
     }
   },
   
-  searchScrollLower: function (event) {
+  onPullDownRefresh: function () {
+    const that = this;
+    that.setData({ listStatus: '' });
+    fetchInfoList(that, 0);
+  },
+
+  //滚动到底部触发事件
+  onReachBottom: function () {
     let that = this;
     var list = this.data.list;
     var id = list[list.length - 1].id;
@@ -100,6 +93,5 @@ Page({
     if (this.data.listStatus) return; // 没有更多了
     if (this.data.loadMore) return; // 禁止重复请求
     fetchInfoList(that, id);
-  }
-
+  },
 })

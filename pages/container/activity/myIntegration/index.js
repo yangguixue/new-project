@@ -6,7 +6,6 @@ Page({
   data: {
     dayItems: [],
     weekItems: [],
-    items:[],
     tabId: '0',
     tabs: [{
       id: 0,
@@ -73,5 +72,19 @@ Page({
       tabId: event.target.dataset.id,
       items: items
     })
+  },
+
+  // 分享
+  onShareAppMessage: function (res) {
+    return {
+      title: '这个信息发布平台不错，推荐给大家',
+      path: '/pages/container/index/index',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   }
 })

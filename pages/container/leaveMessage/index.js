@@ -1,4 +1,6 @@
 // pages/container/leaveMessage/index.js
+var util = require('../../../utils/util.js');
+var app = getApp();
 Page({
 
   /**
@@ -15,52 +17,36 @@ Page({
   
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  formSubmit: function (e) {
+    const info = e.detail.value;
+    info.session3rd = app.globalData.token;
+    if (!app.globalData.token) {
+      wx.showModal({
+        content: '请登录后操作',
+      })
+      return;
+    }
+
+    if (!info.info) {
+      wx.showToast({
+        title: '请输入信息',
+        image: '../../images/fail.svg'
+      })
+      return;
+    }
+
+    util.req('&m=feedback&a=addFeedback', info, function(data) {
+      if (data.flag == 1) {
+        wx.showModal({
+          title: '提交成功',
+          content: '谢谢您的反馈，被采纳建议将会收到红包哦~',
+        })
+      } else {
+        wx.showModal({
+          content: data.msg
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

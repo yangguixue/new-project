@@ -17,7 +17,8 @@ page{
 
 .bg {
   width: 100%;
-  height: 690rpx
+  height: 690rpx;
+
 }
 
 .content-top {
@@ -32,10 +33,20 @@ page{
   font-weight: bold;
 }
 
+.how {
+  overflow: hidden;
+  padding: 10rpx 0;
+}
+
 .how-img {
   width: 29rpx;
   height: 29rpx;
-  margin-right: 10rpx;
+  float: left;
+  margin: 5rpx 10rpx 10rpx 225rpx;
+}
+
+.how-text {
+  text-decoration: underline;
 }
 
 .number {
@@ -110,4 +121,51 @@ page{
 
 .list-right {
   float: right;
+}
+
+.tips {
+  padding: 0 30rpx;
+  color: #fff;
+}
+
+.tips-title {
+  width: 100%;
+  height: 50rpx;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30rpx;
+  border-bottom: 2rpx solid #ffb4bc;
+}
+
+.tips-t-t {
+  margin: 32rpx 0 0 235rpx;
+  padding: 0 20rpx;
+  float: left;
+  background: #fa8c8c;
+} 
+
+.tips-content {
+  padding: 40rpx 0;
+}
+
+.tip-item {
+  font-size: 26rpx;
+  line-height: 60rpx;
+}
+
+.tips-btn {
+  float: right;
+  font-size: 24rpx;
+  width: 120rpx;
+  height: 40rpx;
+  border-radius: 6rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(#fff400, #ff9c00);
+}
+
+.yellow {
+  color: #fff400;
 }

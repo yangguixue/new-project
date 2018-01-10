@@ -10,7 +10,7 @@ qqmapsdk = new QQMapWX({
 });
 
 // 获取消息
-var fetchInfoList = function(that, lastid) {
+var fetchInfoList = function (that, lastid) {
   that.setData({ loadMore: true });
   util.req('&m=info&a=getInfoList', {
     lastid,
@@ -23,26 +23,22 @@ var fetchInfoList = function(that, lastid) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有' });
-        } else {
-          that.setData({ listStatus: '没有更多了' });
+          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          return;
         }
-        that.setData({ list: data.result, loadMore: false })
-        return;
+        that.setData({ list: data.result })
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
         }
-        that.setData({
-          list,
-          listStatus: '没有更多了',
-          loadMore: false
-        })
+        that.setData({ list })
         page++
+      }
+      if (len < epage) {
+        that.setData({ listStatus: '我是有底线的' });
       }
     }
     that.setData({
-      isLoading: false,
       loadMore: false
     })
   })
@@ -56,8 +52,6 @@ Page({
     isLoading: false, // 是否正在加载
     isShowLogin: false,
     loadMore: false,
-    scrollTop: 0,
-    scrollHeight: 0,
   },
   onLoad: function (options) {
     var that = this;
@@ -65,41 +59,40 @@ Page({
     // 展示添加桌面气泡
     this.setData({
       isShowAddDesk: wx.getStorageSync('isShowAddDesk'),
+      // address: app.globalData.address.address_component.district
     });
 
-    // 登录成功之后再请求列表
-    app.login().then((res) => {
-      fetchInfoList(that, 0);
-    })
+    app.isUnreadReadyCallback = res => {
+      that.setData({ hasUnread: res });
+    }
 
-    // 获取屏幕宽度
-    wx.getSystemInfo({
-      success:function(res) {
-        that.setData({
-          scrollHeight:res.windowHeight
-        });
+    if (app.globalData.token) {
+      fetchInfoList(that, 0, app.globalData.token);
+    } else {
+      app.userInfoReadyCallback = res => {
+        fetchInfoList(that, 0, res.reset.session3rd);
       }
-    });
+    }
     
     // 获取地理位置
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (res) {
-            that.setData({ address: res.result.address_component.district })
-          },
-          fail: function (res) {
-          },
-          complete: function (res) {
-          }
-        });
-      }
-    })
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success: function (res) {
+    //     qqmapsdk.reverseGeocoder({
+    //       location: {
+    //         latitude: res.latitude,
+    //         longitude: res.longitude
+    //       },
+    //       success: function (res) {
+    //         that.setData({ address: res.result.address_component.district })
+    //       },
+    //       fail: function (res) {
+    //       },
+    //       complete: function (res) {
+    //       }
+    //     });
+    //   }
+    // })
 
     // 请求banner
     util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function(data) {
@@ -124,15 +117,39 @@ Page({
     })
   },
 
-  onPullDownRefresh: function () {
-    // do somthing
+  onShow: function() {
     var that = this;
+    if (app.globalData.token) {
+      util.req('&m=member&a=isUnread', {
+        session3rd: app.globalData.token
+      }, function (data) {
+        if (data.flag == 1 && data.unread_num > 0) {
+          app.globalData.hasUnread = true;
+          that.setData({ hasUnread: true });
+        } else {
+          app.globalData.hasUnread = false;
+          that.setData({ hasUnread: false });
+        }
+      })
+    }
+  },
+
+  onPullDownRefresh: function () {
+    var that = this;
+    that.setData({ listStatus: '' });
     fetchInfoList(that, 0) 
-    wx.startPullDownRefresh({
-      success: function() {
-        wx.stopPullDownRefresh()
-      }
-    })
+  },
+
+
+  //滚动到底部触发事件  
+  onReachBottom: function (event) {
+    let that = this;
+    var list = this.data.list;
+    var id = list[list.length - 1].id;
+    this.setData({ lastid: id });
+    if (this.data.listStatus) return; // 没有更多了
+    if (this.data.loadMore) return; // 禁止重复请求
+    fetchInfoList(that, id);
   },
 
   handleOpenLogin: function () {
@@ -148,27 +165,38 @@ Page({
   },
 
   // 开店
-
   creatShop: function() {
     const that = this;
+    wx.showLoading({
+      title: '请稍等...',
+    })
     if (!app.globalData.is_reg) {
       that.handleOpenLogin();
+      wx.hideLoading();
       return;
     }
-    wx.navigateTo({
-      url: '../creatShop/index'
-    })
-  },
 
-  //滚动到底部触发事件  
-  searchScrollLower: function (event) {
-    let that = this;
-    var list = this.data.list;
-    var id = list[list.length-1].id;
-    this.setData({ lastid: id });
-    if (this.data.listStatus) return; // 没有更多了
-    if (this.data.loadMore) return; // 禁止重复请求
-    fetchInfoList(that, id);
+    util.req('&m=shop&a=getShopId', {
+      session3rd: app.globalData.token
+    }, function (data) {
+      if (data.flag == 1) {
+        if (data.result) {
+          wx.navigateTo({
+            url: '../shopDetail/index?id=' + data.result,
+          })
+        } else {
+          wx.navigateTo({
+            url: '../creatShop/index',
+          })
+        }
+      } else {
+        wx.showToast({
+          title: data.msg,
+          image: '../../images/fail.svg'
+        })
+      }
+      wx.hideLoading();
+    })
   },
 
   // 点赞或者收藏文章的回调
@@ -186,5 +214,19 @@ Page({
     this.setData({
       isShowAddDesk: false
     });
-  }
+  },
+
+  onShareAppMessage: function (res) {
+    const id = this.data.content.id;
+    return {
+      title: '这个信息发布平台不错，推荐给大家',
+      path: '/pages/container/index/index' + '&userId=' + app.globalData.session3rd,
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
+  },
 })

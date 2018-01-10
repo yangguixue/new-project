@@ -36,57 +36,62 @@
       <image src='../../images/shop-love-num.png' class='heart' bindtap='handleZan' />
       <view class='shop-love'>获赞 {{info.star_num}}</view>
     </view>
+    <text class='messageTips' wx:if="{{isShowZan}}" bindtap='hideZan'>赞越多，店铺展示越往前哦~</text>
+    <text class='single2' wx:if="{{isShowZan}}"/>
   </view>
 </view>
 
 <!-- 领取vip -->
-<view class='warn' wx:if="{{info.is_owner && !info.probation}}">
+<view class='warn' wx:if="{{info.is_owner&& !info.probation}}" >
   <view class='warn-left'>
-    <image src='../../images/warning.png' class='warning-img' />
+    <image src='../../images/gift3.svg' class='warning-img' />
     <text class='waring-text'>您有一个尊享版店铺免费试用未领取</text>
   </view>
   <view class='warn-right'>
-    <view class='warning-btn' bindtap='getFree' data-id="{{info.id}}">立即领取</view>
+    <view class='warning-btn' bindtap='handleShowHaoHua'>立即领取</view>
   </view>
 </view>
 <!-- END 领取vip -->
 
-<!-- 未缴纳保证金 -->
-<view class='warn' wx:if="{{!info.deposit}}">
-  <view class='warn-left'>
-    <image src='../../images/warning.png' class='warning-img' />
-    <text class='waring-text' wx:if="{{info.is_owner}}">您的店铺暂未缴纳保证金</text>
-    <text class='waring-text' wx:else>该店铺暂未缴纳保证金，真实性有待考察</text>
+<navigator url='../rules/index?name=bzj&hasPay={{info.deposit}}&is_owner={{info.is_owner}}'>
+  <!-- 未缴纳保证金 -->
+  <view class='warn' wx:if="{{!info.deposit}}">
+    <view class='warn-left'>
+      <image src='../../images/warning.svg' class='warning-img' />
+      <text class='waring-text' wx:if="{{info.is_owner}}">您的店铺暂未缴纳保证金</text>
+      <text class='waring-text' wx:else>该店铺暂未缴纳保证金，真实性有待考察</text>
+    </view>
+    <view class='warn-right'>
+      <view class='next'><image src='../../images/next.svg' /></view>
+    </view>
   </view>
-  <view class='warn-right'>
-    <view class='next'><image src='../../images/next.png' /></view>
-  </view>
-</view>
-<!-- END 未缴纳保证金 -->
+  <!-- END 未缴纳保证金 -->
 
-<!-- 已缴纳保证金 -->
-<view class='warn' wx:else >
-  <view class='warn-left'>
-    <image src='../../images/baozhengjin.png' class='warning-img2' />
-    <text class='waring-text2'>已缴纳保证金，平台保障店铺</text>
+  <!-- 已缴纳保证金 -->
+  <view class='warn' wx:else >
+    <view class='warn-left'>
+      <image src='../../images/baozhengjin.png' class='warning-img2' />
+      <text class='waring-text2'>已缴纳保证金，平台保障店铺</text>
+    </view>
+    <view class='warn-right'>
+      <view class='next'><image src='../../images/next.svg' /></view>
+    </view>
   </view>
-  <view class='warn-right'>
-    <view class='next'><image src='../../images/next.png' /></view>
-  </view>
-</view>
-<!-- END 已缴纳保证金 -->
+  <!-- END 已缴纳保证金 -->
+</navigator>
+
 
 <view class="info-box pd">
   <view class="shop-info" wx:if="{{info.level == 0}}">
-    <image src="../../images/clock.png" class="info-icon" />
+    <image src="../../images/clock.svg" class="info-icon" />
     <text class="info"> {{info.start_time}} - {{info.end_time}}</text>
   </view>
-  <view class="shop-info">
-    <image src="../../images/phone.png" class="info-icon" />
+  <view class="shop-info" bindtap='handleCall'>
+    <image src="../../images/phone.svg" class="info-icon"  />
     <text class="info"> {{info.shop_phone}}</text>
   </view>
-  <view class="shop-info" style="border: none">
-    <image src="../../images/address2.png" class="info-icon" />
+  <view class="shop-info" style="border: none" bindtap='openMap'>
+    <image src="../../images/address2.svg" class="info-icon" />
     <text class="info"> {{info.shop_addr}}</text>
   </view>
 </view>
@@ -100,15 +105,15 @@
 </view> -->
 
 <!-- 活动列表 -->
-<view wx:if="{{!info.is_sale && !info.is_owner}}"></view>
-<view class="{{moreActive ? 'active-box show-more' : 'active-box'}}" wx:else>
+<view wx:if="{{(!info.is_owner && !info.is_sale) || info.level == 0}}"></view>
+<view class="{{moreActive ? 'active-box show-more' : 'active-box'}}"  wx:else>
   <view class='title'>
     <text>活动列表({{info.ad_list ? info.ad_list.length : 0}})</text>
-    <text class='blue job-add' bindtap='handleShowEditJob' wx:if="{{info.is_owner}}">+ 添加</text> 
+    <text class='blue job-add' bindtap='handleShowActive' wx:if="{{info.is_owner}}">+ 添加</text> 
   </view>
-  <view class='no-info' wx:if="{{!info.is_sale}}">
+  <view class='no-info' wx:if="{{!info.is_sale && info.is_owner}}">
     <text class='no-info-text'>添加活动优惠，更容易吸引顾客哦~</text>
-    <text class='no-info-btn'>+ 添加活动</text>
+    <text class='no-info-btn' bindtap='handleShowActive'>+ 添加活动</text>
   </view> 
   <block wx:for="{{info.ad_list}}" wx:key="{{index}}" wx:if="{{info.is_sale}}">
     <view class='active-list'>
@@ -132,16 +137,17 @@
 </view>
 
 <!-- 招聘 -->
-<view wx:if="{{!info.is_recruit && !info.is_owner}}"></view>
+<view wx:if="{{(!info.is_owner && !info.is_recruit) || info.level == 0}}"></view>
 <view class="{{moreJobs ? 'jobs show-more' : 'jobs'}}" wx:else>
   <view class='title'>
-    <text>招聘({{info.is_recruit ? info.recruit_list.length : ''}})</text>
+    <text>招聘({{info.is_recruit ? info.recruit_list.length : '0'}})</text>
     <text class='blue job-add' bindtap='handleShowEditJob' wx:if="{{info.is_owner}}">+ 添加</text>  
   </view>
-  <view class='no-info' wx:if="{{info.recruit_list.length == 0}}">
+  <view class='no-info' wx:if="{{!info.is_recruit && info.is_owner}}">
     <text class='no-info-text'>一键添加， 招人更快速</text>
     <text class='no-info-btn' bindtap='handleShowEditJob'>+ 添加招聘信息</text>
   </view>
+
   <block wx:for="{{info.recruit_list}}" wx:key="{{info.id}}" wx:if="{{info.is_recruit}}">
     <view class='job-list'>
       <view class='job-info'>
@@ -157,40 +163,79 @@
       <view class='request'>福利：{{item.benefits}}</view>
     </view>
   </block>
-  
+
   <view class='active-footer' bindtap='showMoreJobs' wx:if="{{!moreJobs && info.recruit_list.length >= 2}}">
     <text class='active-more'>点击查看更多</text>
     <image class='' src='../../images/line-gradient.png'/>
   </view> 
 </view>
 
+<!-- 店铺升级 -->
+<view class='warn' wx:if="{{info.is_owner && info.level == 0 && info.probation}}">
+  <view class='warn-left'>
+    <image src='../../images/up.svg' class='warning-img' />
+    <text class='waring-text yellow'>店铺升级，功能更强大</text>
+  </view>
+  <view class='warn-right'>
+    <view class='warning-btn' bindtap='handleShowHaoHua'>立即升级</view>
+  </view>
+</view>
+
+<!-- 详细信息 -->
 <view class="shop-img pd">
   <view class="title">商家信息</view>
   <view class="explain"> {{info.shop_detail}}</view>
   <view class='shop-img-box'>
-    <block wx:for="{{info.shop_pic}}" wx:key="{{index}}">
-      <image src='{{item}}' alt='' class='shop-images' mode='aspectFill' bindtap='showImage' data-current='{{item}}' />
+    <block wx:for="{{info.shop_pic_show}}" wx:key="{{index}}">
+      <image src='{{item}}' alt='' class='shop-images' mode='aspectFill' bindtap='showImage' data-current='{{item}}'  />
     </block>
   </view>
 </view>
- 
-<view class="footer" wx:if="{{info.is_owner}}">
-  <navigator url='../creatShop/index?id={{info.id}}'>
-    <text>编辑店铺</text>  
-  </navigator>
-</view>
 
-<view class="footer" wx:else>
-  <!-- 没有登录时 登录时跳转  -->
-   <text>我要开店</text> 
-  <text bindtap='handleCall'>拨打电话</text>
-</view>
+<navigator url='../report/index?type=shop&id={{info.id}}'>       
+  <view class='report'>
+    <view class='report-box'>
+      <image src='../../images/report.svg' class='report-img' />
+      <text class='report-text'>举报不良商家</text>
+    </view>
+  </view>        
+</navigator>  
 
-<view wx:if="{{isLoading}}">
-  <image
-    src="../../images/loading.gif"
-    style='width: 100rpx; height: 100rpx; position:fixed; top: 50%; left:50%; margin: -50rpx 0 0 -50rpx'
-  />
+<view class='block'></view>
+
+<view class='footer'>
+  <view class='footer-l'>
+    <navigator url='../index/index' open-type="switchTab">
+      <view class='item'>
+        <view class='icon'>
+          <image src='../../images/homepage.svg' />
+        </view>
+        <view>首页</view>
+      </view>
+    </navigator>
+    <view class='item' bindtap='handleCollection'> 
+      <view class='icon'> 
+        <image src='../../images/collection.svg' wx:if="{{!info.is_star}}" />
+        <image src='../../images/collection-fill.svg' wx:else />
+      </view>
+      <view>收藏</view>
+    </view>
+    <button class='item item-btn' open-type="share" options="{from: 'button'}">
+      <view class='icon'>
+        <image src='../../images/send.svg' />
+      </view>
+      <view class='send'>分享</view>
+    </button>
+  </view>
+  <view class='footer-c footer-btn' bindtap='handleCall'>
+    联系商家
+  </view>
+  <view class='footer-r footer-btn' bindtap='handleOpenShop' wx:if="{{info.is_owner}}">
+    编辑店铺
+  </view>
+  <view class='footer-r footer-btn' bindtap='handleOpenShop' wx:else>
+    我要开店
+  </view>
 </view>
 
 <!-- 编辑招聘 -->
@@ -208,3 +253,39 @@
   </view>
   <view class='mask' bindtap='handleHideEditJob' /> 
 </view>
+
+<!-- 领取豪华版弹框 -->
+<view class='add-box' wx:if="{{isShowHaoHua}}">
+  <view class='hao-box'>
+    <view class='hao-title'>
+      <image src='../../images/haohua.png' />
+    </view>
+    <view class='hao-content'>
+      <rich-text nodes="{{nodes}}"></rich-text> 
+    </view>
+    <button class='button' bindtap='getFree' wx:if="{{!info.probation}}">立即领取</button>
+    <button class='button' bindtap='getUp' wx:else>立即升级</button>
+  </view>
+  <view class='mask' bindtap='handleHideHaoHua' />
+</view>
+
+<!-- 领取豪华版弹框 -->
+<view class='add-box' wx:if="{{isAddActive}}">
+  <view class='activity'>
+    <view class='activity-tit'>
+      <image src='../../images/huodong.png' />
+    </view>
+    <view class='activity-box'>
+      <view>为确保活动的真实性，暂不支持自主填写，请联系客服</view>
+      <view class='activity-text'>微信号： <text class='blue'>xirang_tuntun</text></view>
+      <view>大家好，你们可以叫我屯屯~</view>
+      <view class='activity-code'>
+        <image src='../../images/erweima.png' mode="widthFix" />
+      </view>
+    </view>
+  </view>
+  <view class='mask' bindtap='handleHideActive' />
+</view>
+
+<loading isLoading="{{isLoading}}" />
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

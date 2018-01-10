@@ -180,6 +180,32 @@ page {
   margin-left: 36rpx;
 }
 
+.messageTips {
+  position: absolute;
+  top: -45rpx;
+  right: 0rpx;
+  padding: 0 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #000;
+  opacity: 0.6;
+  border-radius: 10rpx;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.single2 {
+  width:0;
+  height:0;
+  transform:rotate(-45deg);
+  opacity: 0.6;
+  position: absolute;
+  top: 0rpx;
+  right: 40rpx;
+  border-bottom: 8px solid #000;
+  border-right: 8px solid transparent; 
+}
+
 .heart {
   width: 65rpx;
   height: 54rpx;
@@ -206,7 +232,7 @@ page {
   overflow: hidden;
   background: #fff;
   padding: 0 30rpx;
-  margin-bottom: 2rpx;
+  margin-bottom: 10rpx;
 }
 
 .warn-left {
@@ -261,7 +287,7 @@ page {
 }
 
 .info-box {
-  margin: 10rpx 0 10rpx 0;
+  margin: 0 0 10rpx 0;
   font-size: 26rpx;
 }
 
@@ -292,7 +318,7 @@ page {
   overflow: hidden;
   max-height: 330rpx;
   background: #fff;
-  padding: 0 30rpx 10rpx 30rpx;
+  padding: 0 30rpx 20rpx 30rpx;
   position: relative;
   margin-bottom: 10rpx;
 }
@@ -320,6 +346,7 @@ page {
 }
 
 .active-detail {
+  width: 250rpx;
   height: 50rpx;
   color: #fff;
   font-size: 26rpx;
@@ -403,7 +430,7 @@ page {
 }
 
 .shop-img {
-  padding-bottom: 110rpx;
+  padding-bottom: 20rpx;
 }
 
 .shop-img-box {
@@ -418,7 +445,7 @@ page {
   margin-bottom: 20rpx;
 }
 
-.footer {
+/* .footer {
   width: 100%;
   height: 90rpx;
   color: #333;
@@ -430,6 +457,66 @@ page {
   bottom: 0;
   display: flex;
   justify-content: space-around;
+} */
+
+.footer {
+  width: 100%;
+  height: 100rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  border-top: 2rpx solid #e5e5e5;
+}
+
+.footer-l {
+  float: left;
+  width: 270rpx;
+  display: flex;
+  justify-content: space-around;
+  font-size: 22rpx;
+  color: #666;
+}
+
+.footer-btn {
+  float: left;
+  line-height: 100rpx;
+  color: #fff;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.footer-c {
+  background: #ff7d75;
+  width: 210rpx;
+}
+
+.footer-r {
+  background: #e32a1f;
+  width: 270rpx;
+}
+
+.item {
+  margin-top: 10rpx;
+  text-align: center;
+}
+
+.item-btn {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  color: #666;
+  font-size: 22rpx;
+  background: #fff;
+  margin-top: 10rpx;
+}
+
+button::after{
+  border: none;
+}
+
+.icon {
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .edit-box {
@@ -474,4 +561,112 @@ page {
   font-size: 28rpx;
   color: #fff;
   background: linear-gradient(#ff6382, #ff1a48);
+}
+
+
+/* 豪华版遮罩层 */
+
+.hao-box {
+  width: 615rpx;
+  height: 800rpx;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -450rpx;
+  margin-left: -315rpx;
+  background: #df0b3b;
+  z-index: 4;
+  padding: 115rpx 15rpx 15rpx 15rpx;
+  border-radius: 30rpx;
+}
+
+.hao-title {
+  height: 203rpx;
+  width: 683rpx;
+  position: absolute;
+  top: -100rpx;
+}
+
+.hao-content {
+  border-radius: 10rpx;
+  background: #fff;
+  overflow: scroll;
+  padding: 20rpx;
+  font-size: 26rpx;
+  height: 650rpx;
+  margin-bottom: 20rpx;
+}
+
+.button {
+  background: linear-gradient(#fbcb00, #ea9400);
+}
+
+.activity { 
+  width: 590rpx;
+  background: #ee1435;
+  padding: 30rpx 30rpx 30rpx 30rpx;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -325rpx;
+  margin-top: -465rpx;
+  z-index: 4;
+  border-radius: 30rpx;
+}
+
+.activity-tit {
+  width: 750rpx;
+  height: 194rpx;
+  margin-left: -70rpx;
+  margin-top: -120rpx;
+}
+
+.activity-box {
+  padding: 20rpx 60rpx 30rpx;
+  background: #fff;
+  font-size: 30rpx;
+}
+
+.activity-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 75rpx;
+}
+
+.activity-code {
+  width: 100%;
+  height: auto;
+  margin-top: 20rpx;
+}
+
+.report {
+  width: 750rpx;
+  display : table-cell;               
+  text-align: center;
+  vertical-align: middle;
+  color: #666;
+  height: 80rpx;
+  font-size: 28rpx;
+}
+
+.report-box {
+  overflow: hidden;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.report-img {
+  width: 31rpx;
+  height: 31rpx;
+  float: left;
+  margin-right: 10rpx;
+}
+
+.report-text {
+  float: left;
+}
+
+.block {
+  height: 90rpx;
+  width: 100%;
 }

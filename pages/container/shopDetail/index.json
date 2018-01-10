@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "shop": "../../components/shop/index"
+    "shop": "../../components/shop/index",
+    "loading": "../../components/loading/index",
+    "noLogin": "../../components/noLogin/index"
   }
 }

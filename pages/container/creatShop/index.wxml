@@ -1,6 +1,6 @@
 <!--pages/container/creatShop/index.wxml-->
 <view class="banner">
-  <image src="../../images/shop-list.jpg" />
+  <image src="https://www.qmjoin.com/data/upload/xrxz/mfrz.jpg" />
 </view>
 <view class='title h90'>填写店铺信息</view>
 <form bindsubmit="formSubmit" bindreset="formReset">
@@ -22,7 +22,7 @@
     <view class="image-box">
       <view class="image add" bindtap='chooseLogo'>
         <image src="{{shopLogo ? shopLogo : info.shop_logo}}" mode="aspectFill" wx:if="{{info.shop_logo || shopLogo}}"/>
-        <image src="../../images/add-img.png" wx:if="{{!shopLogo && !info.shop_logo}}" mode="aspectFill" />
+        <image src="../../images/add-img.png" wx:else mode="aspectFill" />
       </view>
     </view>
   </view>
@@ -72,18 +72,18 @@
 
   <view class='item h90'>
     <text>店铺位置</text>
-    <view class="item-input" wx:if="{{info.shop_addr}}" bindtap='openMap'>
-      {{info.shop_addr}}
+    <view class="item-input" bindtap='openMap'>
+      {{info.shop_addr_name || '请选择位置'}}
     </view>
   </view>
 
   <view class='item h90'>
     <text>店铺分类</text>
     <picker mode="selector" value="{{info.cg_id ? info.cg_id : category[categoryIndex].cg_id}}" bindchange="bindCategoryChange" class='item-input' range="{{category}}" range-key="name" name="cg_id">
-      <view class="nature" wx:if="{{!categoryIndex}}">
-        所属行业分类
+      <view class="nature" wx:if="{{categoryIndex}}">
+        {{category[categoryIndex].name}}
       </view>
-      <view wx:else>{{category[categoryIndex].name}}</view>
+      <view wx:else>{{info.cg_name ? info.cg_name : '所属行业分类'}}</view>
     </picker>
   </view>
   <view class='item h90'>
@@ -93,7 +93,7 @@
         <radio value="{{true}}" checked='{{info.is_new}}'/>是
       </label>
       <label class="radio">
-        <radio value="{{false}}" checked='{{info.is_new}}' />否
+        <radio value="{{false}}" checked='{{!info.is_new}}' />否
       </label>
     </radio-group>
   </view>
@@ -104,7 +104,7 @@
         <radio value="{{true}}" checked='{{info.is_brand}}' />是
       </label>
       <label class="radio">
-        <radio value="{{false}}" checked='{{info.is_brand}}' />否
+        <radio value="{{false}}" checked='{{!info.is_brand}}' />否
       </label>
     </radio-group>
   </view>
@@ -127,7 +127,7 @@
 
   <view class='item-detail'>
     <view class="image-box">
-      <block wx:for="{{imagesList}}">
+      <block wx:for="{{imagesList}}" wx:key="{{index}}">
         <view class="image">
           <image src="{{item}}" mode="aspectFill" />
           <text class="delete" bindtap="deleteImage" id="{{index}}">x</text>
@@ -141,10 +141,16 @@
 
   <view class='submit'>
     <view class='term'>
-      <checkbox value="{{true}}" checked="{{true}}" class='checkbox'/>
-      已阅读， 并同意 <text class='blue'>发布条款</text>
+      <checkbox-group bindchange="checkboxChange">
+        <checkbox value="{{hasRead}}" checked="{{true}}" class='checkbox'/>
+      </checkbox-group>
+      已阅读， 并同意 
+      <navigator url='../rules/index?name=fbtk'>
+        <text class='blue'>发布条款</text>
+      </navigator>
     </view>
-    <button class='button' formType="submit">立即发布</button>
+    <button class='button' formType="submit" wx:if="{{hasRead}}">立即发布</button>
+    <button class='button button-disabled' wx:else>立即发布</button>
   </view>
 </form>
 

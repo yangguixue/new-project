@@ -18,22 +18,20 @@ var fetchInfoList = function (that, lastid, cg_id) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有' });
-        } else {
-          that.setData({ listStatus: '没有更多了' });
+          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          return;
         }
-        that.setData({ list: data.result, loadMore: false })
-        return;
+        that.setData({ list: data.result });
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
         }
-        that.setData({
-          list,
-          listStatus: '没有更多了',
-          loadMore: false
-        })
+
+        that.setData({ list })
         page++
+      }
+      if (len < epage) {
+        that.setData({ listStatus: '我可是有底线的' });
       }
     }
     that.setData({
@@ -47,9 +45,6 @@ Page({
     menu: [],
     tabId: '',
     banners: [],
-    isLoading: true,
-    scrollTop: 0,
-    scrollHeight: 0,
     loadMore: false, // 加载更多
   },
 
@@ -57,22 +52,14 @@ Page({
     var id = options.id;
     var that = this;
 
-    // 获取屏幕宽度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          scrollHeight: res.windowHeight
-        });
-      }
-    });
-
     // 获取banner
-    util.req('&m=ad&a=getAdsList', {
-      cg_id: id,
-      istop: 1
-    }, function(data) {
+    util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function (data) {
       if (data.flag == 1) {
-        that.setData({ banners: data.result })
+        that.setData({
+          banners: data.result
+        })
+      } else {
+        util.errorTips(data.msg)
       }
     })
 
@@ -90,24 +77,21 @@ Page({
         })
 
         // 获取信息
-        var lastid = that.data.lastid ? that.data.lastid : 0;
-        fetchInfoList(that, lastid, cg_id);
+        fetchInfoList(that, 0, cg_id);
       }
     })
   },
 
-  handleClickTab: function(event) {
-    var id = event.target.dataset.id;
+  // 下拉刷新
+  onPullDownRefresh: function () {
     var that = this;
-    this.setData({
-      tabId: id,
-      isLoading: true
-    })
-    fetchInfoList(that, 0, id);
+    var tabId = this.data.tabId;
+    that.setData({ listStatus: '' });
+    fetchInfoList(that, 0, tabId)
   },
 
   //滚动到底部触发事件  
-  searchScrollLower: function (event) {
+  onReachBottom: function (event) {
     let that = this;
     var list = this.data.list;
     var tabId = this.data.tabId;
@@ -117,5 +101,16 @@ Page({
     if (this.data.loadMore) return; // 禁止重复请求
 
     fetchInfoList(that, id, tabId);
-  } 
+  }, 
+
+  handleClickTab: function(event) {
+    var id = event.target.dataset.id;
+    var that = this;
+    this.setData({
+      tabId: id,
+      listStatus: '',
+      list: []
+    })
+    fetchInfoList(that, 0, id);
+  }
 })

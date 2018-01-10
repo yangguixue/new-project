@@ -1,1 +1,4 @@
 /* pages/container/discountList/index.wxss */
+page {
+  background: #f1f2f2;
+}

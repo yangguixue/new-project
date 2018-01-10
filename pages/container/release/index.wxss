@@ -68,17 +68,6 @@ page {
   padding: 20rpx 30rpx;
 }
 
-.button {
-  background: #cacaca;
-  border: none;
-  color: #fff;
-  font-size: 32rpx;
-}
-
-.hover {
-  background: orange;
-}
-
 .noLogin {
   font-size: 28rpx;
   padding: 30rpx;
@@ -92,3 +81,42 @@ page {
   display: inline;
   background: none;
 }
+
+.term {
+  padding: 30rpx;
+  font-size: 28rpx;
+}
+
+.term-img {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+
+.term-text {
+  color: #666;
+  font-size: 24rpx;
+}
+
+.wx-radio-input {
+  width: 28rpx !important;
+  height: 28rpx !important; 
+} 
+
+.wx-radio-input.wx-radio-input-checked::before {
+  font-size: 30rpx !important;
+} 
+
+.checkbox {
+  float: left;
+  margin-top: -4rpx;
+}
+
+.wx-checkbox-input {
+  width: 28rpx !important;
+  height: 28rpx !important; 
+} 
+
+.wx-checkbox-input.wx-checkbox-input-checked::before {
+  font-size: 30rpx !important;
+} 

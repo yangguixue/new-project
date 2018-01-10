@@ -1,4 +1,4 @@
-/**app.wxss**/
+/**app.wxss**/ 
 page {
   width: 100%;
   font-family: '微软雅黑';
@@ -34,22 +34,16 @@ navigator {
   padding:0 30rpx;
 }
 
-.button {
-  width: 100%;
-  line-height: 80rpx;
-  text-align: center;
-  font-size: 32rpx;
-  background: orange;
-  color: #fff;
-  border-radius: 10rpx;
-}
-
 .blue {
   color: #4d638c;
 }
 
 .red {
   color: #ff0033;
+}
+
+.yellow {
+  color: #faa603;
 }
 
 .loading-img {
@@ -66,3 +60,18 @@ navigator {
   font-size: 28rpx;
 }
 
+
+/* button */
+.button {
+  background: #fd450f;
+  color: #fff;
+  font-size: 32rpx;
+}
+
+.button-disabled {
+  background: #cacaca;
+}
+
+button::after{
+  border: none;
+}

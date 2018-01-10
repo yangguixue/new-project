@@ -1,17 +1,15 @@
 <!--pages/container/circleDetail/index.wxml-->
-<scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" bindscrolltolower="searchScrollLower">
-  <circle item="{{circle}}" bind:handleShowLogin="handleOpenLogin" hasAdd="{{true}}"/>
-  <view class="new-message">
-    <image src="../../images/new.png" class="new-icon" style="width:80rpx; height:40rpx;float:left;margin-top:28rpx;" />
-    <text>加入圈子才可以发动态哦~~精华动态将被置顶！</text>
-  </view>
-  <block wx:for="{{list}}" wx:key="{{item.id}}">
-    <article content="{{item}}" bind:delete="handleDelete" data-id="{{item.id}}"   bind:openLogin="handleOpenLogin" />
-  </block>
-  <view wx:if="{{loadMore}}" class='list-footer'>
-    <image src='../../images/loading.gif' alt="" class='loading-img' />
-  </view>
-  <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
-</scroll-view>
+<circle item="{{circle}}" bind:handleShowLogin="handleOpenLogin" hasAdd="{{true}}"/>
+<view class="new-message">
+  <image src="../../images/new.svg" class="new-icon" style="width:80rpx; height:40rpx;float:left;margin-top:28rpx;" />
+  <text>加入圈子才可以发动态哦~~精华动态将被置顶！</text>
+</view>
+<block wx:for="{{list}}" wx:key="{{item.id}}">
+  <article content="{{item}}" bind:delete="handleDelete" data-id="{{item.id}}"   bind:openLogin="handleOpenLogin" />
+</block>
+<view wx:if="{{loadMore}}" class='list-footer'>
+  <image src='../../images/loading.gif' alt="" class='loading-img' />
+</view>
+<view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin" />

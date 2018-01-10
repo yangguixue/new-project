@@ -1,27 +1,29 @@
-
 <view class="list pd">
   <view class="list-l">
     <image src="{{item.shop_logo}}" mode='aspectFill'/>
   </view>
   <view class="list-r">
-    <view class="shop-title">
-      <text class="real-shop" wx:if="{{item.shop_property == 0}}">实体</text>
-      <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
-      <text class="shop-name"> {{item.shop_name}}</text>
+    <view class="{{detail || (!item.ad_list && !item.recruit_num) ? '' : 'line'}}">
+      <view class="shop-title">
+        <text class="real-shop" wx:if="{{item.shop_property == 0}}">实体</text>
+        <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
+        <text class="shop-name"> {{item.shop_name}}</text>
+      </view>
+      <view class="shop-intro">
+        主营业务： {{item.shop_major}}
+      </view>
+      <view wx:if="{{!detail}}" class='address-box'>
+        <image src="../../images/address.svg"  class="address" />
+        <text> {{item.shop_addr_name}} </text>
+        <!-- <text> 离您20m</text> -->
+      </view>
+      <view class='address-box' wx:if="{{!detail && item.deposit}}">
+        <image src="../../images/baozhengjin.png"  class="bzj" />
+        <text class='bzj-text'>已缴纳保证金，平台保障店铺</text>
+      </view>
     </view>
-    <view class="shop-intro">
-      主营业务： {{item.shop_major}}
-    </view>
-    <view wx:if="{{!detail}}" class='address-box'>
-      <image src="../../images/address.png"  class="address" />
-      <text> {{item.shop_addr}} </text>
-      <!-- <text> 离您20m</text> -->
-    </view>
-    <view class='address-box' wx:if="{{!detail && item.deposit}}">
-      <image src="../../images/baozhengjin.png"  class="bzj" />
-      <text class='bzj-text'>已缴纳保证金，平台保障店铺</text>
-    </view>
-    <view class="others line" wx:if="{{!detail && item.ad_list}}">
+    
+    <view class="others" wx:if="{{!detail && item.ad_list}}">
       <text class='others-logo'>惠</text>
       <text>{{item.ad_list[0].post_title}}</text>
     </view>
@@ -30,7 +32,7 @@
       <text>该店铺在招 {{item.recruit_num}} 个职位</text>
     </view>
     <view wx:if="{{detail}}">
-      <text>浏览量 {{item.hits}}</text> 
+      <text>浏览量 {{item.hits}}</text>
     </view>
   </view>
 </view>

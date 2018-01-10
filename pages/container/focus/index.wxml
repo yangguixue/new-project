@@ -1,8 +1,26 @@
 <!--pages/container/focus/index.wxml-->
-<block wx:for="{{items}}" wx:key="{{item.id}}">
-  <article content="{{item}}" />
-</block>
+<view class="tab">
+  <block wx:for="{{menu}}" wx:key="{{item.id}}">
+    <view class="{{ tabId === item.id  ? 'menu tab-hover' : 'menu' }}"  bindtap="handleClickTab" data-id="{{item.id}}">
+      {{item.name}}
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{tabId == 0}}">
+  <block wx:for="{{items}}" wx:key="{{item.id}}" >
+    <article content="{{item}}" wx:if="{{tabId == 0}}"  />
+  </block> 
+</view>
+
+<view wx:else>
+  <block wx:for="{{items}}" wx:key="{{item.id}}">
+    <shop item="{{item}}" wx:if="{{tabId == 1}}" />
+  </block> 
+</view>
+
 <view class='list-footer' wx:if="{{items.length > 0}}">没有更多了</view>
 <view class='list-footer' wx:if="{{items.length == 0}}">这里啥也没有</view>
-<!-- <loading isLoading="{{isLoading}}" list="{{items}}" /> -->
+
+<loading isLoading="{{isLoading}}" /> 
 

@@ -1,67 +1,89 @@
 // pages/container/getPhone/index.js
-var config = require('../../common/config.js');
+var util = require('../../../utils/util.js');
+var app = getApp();
+
+function countdown(that) {
+  var second = that.data.second;
+  if (second == 0) {
+    that.setData({
+      isSending: false,
+      second: 60,
+    });
+    return;
+  }
+  var time = setTimeout(function () {
+    that.setData({
+      second: second - 1
+    });
+    countdown(that);
+  }
+    , 1000)
+}
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    second: 60,
+    isSending: false,
+    isLoading: false,
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  handleChange: function(e) {
+    const phone = e.detail.value;
+    this.setData({ phone });
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+  getCode: function() {
+    const phone = this.data.phone;
+    const that = this;
+    util.req('&m=member&a=sendSms', {
+      session3rd: app.globalData.token,
+      phone
+    }, function(data) {
+      if (data.flag == 1) {
+        that.setData({ isSending: true });
+        countdown(this);      
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+  formSubmit: function(e) {
+    const info = e.detail.value;
+    info.session3rd = app.globalData.token;
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+    if (!info.phone) {
+      wx.showModal({
+        content: '请输入手机号',
+      })
+      return;
+    }
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+    if (!info.validcode) {
+      wx.showModal({
+        content: '请输入验证码',
+      })
+      return;
+    }
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
+    this.setData({ isLoading: true });
+    util.req('&m=member&a=checkVaild', info, function(data) {
+      if (data.flag == 1) {
+        wx.showToast({
+          title: '绑定成功',
+        })
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        wx.showModal({
+          content: data.msg,
+        })
+      }
+      that.setData({ isLoading: false });
+    })
   }
 })

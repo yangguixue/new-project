@@ -6,9 +6,6 @@ Page({
     userInfo: {},
     isShowLogin: false,
     entry: [{
-      id: 2,
-      name: '钱包'
-    }, {
       id: 3,
       url: 'message',
       name: '消息'
@@ -51,7 +48,7 @@ Page({
   },
 
   handleShop: function(event) {
-    var id = event.currentTarget.dataset.shopId;
+    var id = event.currentTarget.dataset.shopid;
     if (id) {
       wx.navigateTo({
         url: '../shopDetail/index?id=' + id,
@@ -69,17 +66,5 @@ Page({
       })
     }
   }
-
-  // handleNavigateTo: function(event) {
-  //   var is_reg = app.globalData.is_reg;
-  //   if (is_reg) {
-  //     wx.navigateTo({
-  //       url: event.currentTarget.dataset.url
-  //     })
-  //   } else {
-  //     this.handleOpenLogin();
-  //   }
-  // }
-
 })
 

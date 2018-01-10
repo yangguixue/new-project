@@ -1,5 +1,7 @@
 // pages/container/discountDetail/index.js
 var util = require('../../../utils/util.js');
+var WxParse = require('../../../wxParse/wxParse.js');
+
 Page({
   data: {
     discountDetail:　{},
@@ -13,7 +15,9 @@ Page({
         discountDetail: res.result,
         isLoading: false
       })
+      WxParse.wxParse('post_content', 'html', res.result.post_content, that, 5);
     })
+
   },
   
   handleCall: function() {

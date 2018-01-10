@@ -9,11 +9,34 @@ Page({
     jobInfo: {}, // 编辑招聘信息
     isLoading: true,
     moreActive: false,
+    isShowLogin: false,
+    isShowHaoHua: false,
+    isAddActive: false
   },
 
   onLoad: function (options) {
     var that = this;
-    this.fetchDetail(that, options.id);
+    this.setData({
+      isShowZan: wx.getStorageSync('isShowZan'),
+      shopId: options.id,
+    });
+
+    // 获取规则
+    util.req('&m=ad&a=getIll', { name: 'haohua' }, function (data) {
+      if (data.flag == 1) {
+        that.setData({ nodes: data.result.content });
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
+      }
+    })
+  },
+
+  onShow: function() {
+    const that = this;
+    const id = this.data.shopId;
+    this.fetchDetail(that, id);
   },
 
   fetchDetail: function(that, id) {
@@ -28,18 +51,54 @@ Page({
     })
   },
 
+  openMap: function() {
+    const info = this.data.info;
+    var latitude = parseInt(info.lat);
+    var longitude = parseInt(info.lng);
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 28
+    })
+  },
+
+  // 隐藏赞的提示
+  hideZan: function () {
+    wx.removeStorageSync('isShowZan')
+    this.setData({
+      isShowZan: false
+    });
+  },
+
   handleCall: function() {
     wx.makePhoneCall({
       phoneNumber: this.data.info.shop_phone
     })
   },
 
+  handleShowHaoHua: function() {
+    this.setData({ isShowHaoHua: true });
+  },
+
+  handleHideHaoHua: function () {
+    this.setData({ isShowHaoHua: false });
+  },
+
+  handleShowActive: function() {
+    this.setData({ isAddActive: true });
+  },
+
+  handleHideActive: function () {
+    this.setData({ isAddActive: false });
+  }, 
+
   // 赞店铺
   handleZan: function(event) {
     const that = this;
     const shop_id = this.data.info.id;
     const action = !this.data.info.is_star;
-    util.req('&m=shop&a=setRelationship', {
+    this.setData({ isLoading: true })
+    util.req('&m=shop&a=thumbUp', {
       shop_id,
       action,
       session3rd: app.globalData.token
@@ -54,16 +113,17 @@ Page({
           title: data.msg,
         })
       }
+      that.setData({ isLoading: false });
     })
   },
 
   showImage: function(event) {
     const data = event.currentTarget.dataset;
     const current = data.current;
-    const urls = data.urls;
+    const urls = this.data.info.shop_pic_show;
     wx.previewImage({
       current,
-      urls: ['../../images/userhead.jpg'],
+      urls,
     })
   },
 
@@ -80,21 +140,23 @@ Page({
     var id = this.data.info.id;
     var session3rd = app.globalData.token;
     var that = this;
+    that.setData({ isLoading: true });
     util.req('&m=shop&a=setLevel', {
       id,
       session3rd
     }, function(data) {
-      console.log(data);
       if (data.flag == 1) {
         wx.showToast({
           title: '领取成功',
         })
+        that.handleHideHaoHua();
         that.fetchDetail(that, id);
       } else {
         wx.showModal({
           title: '领取失败',
         })
       }
+      that.setData({ isLoading: false });
     })
   },
 
@@ -165,5 +227,103 @@ Page({
         })
       }
     })
+  },
+
+  handleOpenLogin: function () {
+    this.setData({ isShowLogin: true });
+  },
+
+  handleCloseLogin: function (event) {
+    var that = this;
+    var id = this.data.info.id;
+    this.setData({ isShowLogin: false });
+    if (app.globalData.is_reg) {
+      fetchDetail(that, id);
+    }
+  },
+
+  // 收藏店铺
+  handleCollection: function(event) {
+    const that = this;
+    const info = this.data.info;
+    const shop_id = info.id;
+    const action = !info.is_star;
+    const text = info.is_star ? '取消收藏成功' : '收藏成功';
+    that.setData({ isLoading: true });
+    util.req('&m=shop&a=setRelationship', {
+      shop_id,
+      action,
+      session3rd: app.globalData.token,
+    }, function(data) {
+      if (data.flag == 1) {
+        wx.showToast({
+          title: text,
+        });
+        info.is_star = !info.is_star;
+        that.setData({ info });
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
+      }
+      that.setData({ isLoading: false });
+    })
+  },
+
+  // 我要开店
+  handleOpenShop: function(event) {
+    const info = this.data.info;
+    const that = this;
+    that.setData({ isLoading: true });
+    // 没登录
+    if (!app.globalData.is_reg) {
+      this.handleOpenLogin();
+      that.setData({ isLoading: false });
+      return;
+    }
+
+    if (info.is_owner) {
+      wx.navigateTo({
+        url: "../creatShop/index?id=" + info.id,
+      })
+      that.setData({ isLoading: false });
+      return;
+    }
+    // 有店铺
+    util.req('&m=shop&a=getShopId', {
+      session3rd: app.globalData.token
+    }, function(data) {
+      if (data.flag == 1) {
+        if (data.result) {
+          that.fetchDetail(that, data.result);
+        } else {
+          wx.navigateTo({
+            url: '../creatShop/index',
+          })
+        }
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
+      }
+      that.setData({ isLoading: false });
+    })
+  },
+
+  onShareAppMessage: function(options) {
+    const id = this.data.info.id;
+    return {
+      title: '我家店铺上网啦~你的店铺也可以哦~',
+      path: '/pages/container/shopDetail/index?id=' + id + '&userId=' + app.globalData.session3rd,
+      success(e) {
+        wx.showShareMenu({
+          // 要求小程序返回分享目标信息
+          withShareTicket: true
+        });
+      },
+      fail(e) {
+      },
+      complete() { }
+    }
   }
 })

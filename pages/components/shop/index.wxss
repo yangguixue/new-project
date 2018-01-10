@@ -71,8 +71,7 @@
 }
 
 .line {
-  padding-top: 20rpx;
-  border-top: 2rpx dashed #e5e5e5;
+  border-bottom: 2rpx dashed #e5e5e5;
 }
 
 .bzj {
@@ -92,6 +91,7 @@
 .others {
   font-size: 24rpx;
   color: #666;
+  padding-top: 20rpx;
   margin-bottom: 10rpx;
 }
 

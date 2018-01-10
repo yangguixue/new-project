@@ -12,7 +12,9 @@ Page({
     item: {}, // 要提交的对象
     address: '',
     hasLogin: null,
-    isSubmiting: false
+    isSubmiting: false,
+    hasRead: true,
+    isSelect: false
   },
 
   onLoad: function (options) {
@@ -53,22 +55,43 @@ Page({
     const that = this;
     const item = this.data.item;
     app.getLocation(that).then((res) => {
-      var address = res.result.formatted_addresses.rough
-      item.post_addr = address;
+      var address = res.result.formatted_addresses.rough;
+      item.lat = res.result.location.lat;
+      item.lng = res.result.location.lng;
+      item.post_addr = res.result.address;
+      item.post_addr_name = address;
       that.setData({
-        address: res.result,
         item: item
       })
     })
   },
 
   openMap: function() {
-    var address = this.data.address;
-    wx.openLocation({
-      latitude: address.location.lat,
-      longitude: address.location.lng,
-      scale: 28
+    const address = this.data.address;
+    const item = this.data.item;
+    const that = this;
+    wx.chooseLocation({
+      success: function(res) {
+        item.lat = res.latitude;
+        item.lng = res.longitude;
+        item.post_addr = res.address;
+        item.post_addr_name = res.name;
+        console.log(item);
+        that.setData({
+          item
+        })
+      }
     })
+  },
+
+  // 同意发布条款
+  checkboxChange: function (e) {
+    const len = e.detail.value.length;
+    if (len > 0) {
+      this.setData({ hasRead: true });
+    } else {
+      this.setData({ hasRead: false });
+    }
   },
 
   deleteImage: function(event) {
@@ -157,6 +180,7 @@ Page({
     var item = this.data.item;
     item.cg_id = event.detail.value;
     this.setData({
+      isSelect: true, //是否选择了二级分类
       item: item
     })
   },
@@ -164,26 +188,37 @@ Page({
   handleSubmit: function() {
     var that = this;
     var item = this.data.item;
+    var secondMenus = this.data.secondMenus;
+    var isSelect = this.data.isSelect;
     var serverUrl = this.data.serverUrl;
     item.smeta = serverUrl;
 
+    if (secondMenus.length > 0 && !isSelect) {
+      wx.showModal({
+        content: '请选择一个二级分类',
+      })
+      return;
+    }
     that.setData({ isSubmiting: true });
     util.req('&m=info&a=addInfo', item, function (data) {
       if (data.flag == 1) {
         wx.showToast({
-          title: '发布成功',
-          icon: 'success',
+          title: data.result + '积分到手~',
           duration: 2000
         });
-        if (that.data.type == 1) {
-          wx.reLaunch({
-            url: '../circle/index'
-          })
-        } else {
-          wx.reLaunch({
-            url: '../index/index'
-          })
-        }
+
+        setTimeout(() => {
+          if (that.data.type == 1) {
+            wx.reLaunch({
+              url: '../circle/index'
+            })
+          } else {
+            wx.reLaunch({
+              url: '../index/index'
+            })
+          }
+        }, 2000)
+        
       } else {
         wx.showModal({
           content: '发布失败' + data.msg,
