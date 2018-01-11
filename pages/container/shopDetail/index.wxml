@@ -171,7 +171,7 @@
 </view>
 
 <!-- 店铺升级 -->
-<view class='warn' wx:if="{{info.is_owner && info.level == 0 && info.probation}}">
+<view class='warn'>
   <view class='warn-left'>
     <image src='../../images/up.svg' class='warning-img' />
     <text class='waring-text yellow'>店铺升级，功能更强大</text>

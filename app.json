@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/container/payment/index",
     "pages/container/index/index",
+    "pages/container/payment/index",
     "pages/container/shopDetail/index",
     "pages/container/shopList/index",
     "pages/container/activity/myIntegration/index",

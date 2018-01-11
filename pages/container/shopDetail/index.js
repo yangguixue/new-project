@@ -160,6 +160,12 @@ Page({
     })
   },
 
+  getUp: function(event) {
+    wx.navigateTo({
+      url: '../payment/index?type=haohua',
+    })
+  },
+
   // 添加招聘
   handleShowEditJob: function(event) {
     const jobInfo = event.target.dataset.item;

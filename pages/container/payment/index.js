@@ -12,38 +12,34 @@ Page({
     }, {
       id: 1,
       name: '18元/7天',
-      price: 18
+      price: 45
     }, {
       id: 2,
       name: '18元/7天',
-      price: 18
+      price: 119
     }, {
       id: 3,
       name: '18元/7天',
-      price: 18
+      price: 199
     }, {
       id: 4,
       name: '18元/7天',
-      price: 18
-    }]
+      price: 365,
+      isJian: true,
+      checked: true
+    }],
+    num: 365,
+    type: 'bzj'
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+    const type = options.type;
+    this.setData({ type });
   },
 
   handleSelect: function(event) {
-    const id = event.target.dataset.id;
+    const id = event.target.dataset.item.id;
+    const num = event.target.dataset.item.price;
     const price = this.data.price;
     price[id].checked = true;
     for (var i=0; i < price.length; i++) {
@@ -52,7 +48,25 @@ Page({
       }
     }
     
-    this.setData({ price });
+    this.setData({
+      price,
+      num,
+    });
+  },
+
+  payment: function() {
+    console.log(2)
+    wx.requestPayment({
+      'timeStamp': '',
+      'nonceStr': '',
+      'package': '',
+      'signType': 'MD5',
+      'paySign': '',
+      'success': function (res) {
+      },
+      'fail': function (res) {
+      }
+    })
   },
 
   /**

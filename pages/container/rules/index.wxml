@@ -3,7 +3,7 @@
   <view class='content'>
     <rich-text nodes="{{nodes}}"></rich-text>  
   </view>
-  <button class='button' wx:if="{{name == 'bzj' && is_owner}}">
+  <button class='button' wx:if="{{name == 'bzj' && is_owner}}" bindtap='handlePayment'>
     {{hasPay == 'true' ? '退回保证金' : '缴纳保证金'}}
   </button>
 </view>

@@ -1,20 +1,34 @@
 <!--pages/container/payment/index.wxml-->
 <view class='top'> 
   <view>
-    <image src='../../images/zx.svg' class='top-img' />
+    <image src='../../images/zx.svg' class='top-img' wx:if="{{type === 'haohua'}}" />
+    <image src='../../images/payment-bzj.svg' class='top-img' wx:if="{{type === 'bzj'}}" />
   </view>
-  <view class='top-title'>升级豪华版店铺</view>
-  <view class='top-intro'>要坚信付出和回报总是成正比的！</view>
+  <view wx:if="{{type == 'haohua'}}">
+    <view class='top-title'>升级豪华版店铺'</view>
+    <view class='top-intro'>要坚信付出和回报总是成正比的！</view>
+  </view>
+  <view wx:if="{{type == 'bzj'}}">
+    <view class='top-title'>{{action == true ? '退回店铺保证金' :  '缴纳店铺保证金'}}</view>
+    <view class='top-intro'>{{action == false ? '退回保证金店铺将失去平台保障' : '保证金随时可退'}}</view>
+  </view>
 </view>
 
 <view class='center'>
-  <view class='center-content'>
+  <view class='center-content' wx:if="{{type == 'haohua'}}">
     <block wx:for="{{price}}" wx:key="{{index}}"> 
-      <view class="{{item.checked ? 'center-item center-item-checked' : 'center-item'}}" bindtap='handleSelect' data-id="{{item.id}}">{{item.name}}</view>
+      <view class="{{item.checked ? 'center-item center-item-checked' : 'center-item'}}" bindtap='handleSelect' data-item="{{item}}">
+        {{item.name}}
+        <text class='jian' wx:if="{{item.id == 4}}">1元/天</text>
+      </view>
     </block>
+  </view>
+  <view class='bzj-price' wx:else> 
+    ￥100
   </view>
 </view>
 
-<view class='submit-button'>
-  <button class='button'>立即支付</button>
+<view class='submit-button' bindtap='payment'>
+  <button class='button' wx:if="{{type == 'haohua'}}">立即支付 {{num}}元</button>
+  <button class='button' wx:else>立即{{action == true ? '退回' : '支付'}}</button>
 </view>

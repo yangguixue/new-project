@@ -46,6 +46,7 @@ page {
   border: 2rpx solid #fcdb3a;
   border-radius: 10rpx;
   margin:30rpx 0;
+  position: relative;
 }
 
 .center-item-checked {
@@ -56,4 +57,21 @@ page {
 .button {
   background: #f5c608;
   margin-top: 200rpx;
+}
+
+.jian {
+ border-radius: 6rpx;
+ background: #e60012;
+ padding: 0 20rpx;
+  line-height: 45rpx;
+  color: #fff;
+  position: absolute;
+  right: -64rpx;
+  top: -20rpx;
+}
+
+.bzj-price {
+  font-size: 80rpx;
+  text-align: center;
+  padding: 30rpx 0;
 }
