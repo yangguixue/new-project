@@ -17,6 +17,7 @@ Component({
         // 授权
         if (!app.globalData.is_reg) {
           app.registerUser(event.detail).then(() => {
+            console.log(333)
             app.login().then(() => {
               this.setData({ isLoading: false });
               _this.hide(true); //注册成功之后的回调

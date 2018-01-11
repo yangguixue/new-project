@@ -60,7 +60,7 @@ Page({
     this.setData({
       isShowAddDesk: wx.getStorageSync('isShowAddDesk'),
       // address: app.globalData.address.address_component.district
-    });
+    })
 
     app.isUnreadReadyCallback = res => {
       that.setData({ hasUnread: res });
@@ -73,26 +73,14 @@ Page({
         fetchInfoList(that, 0, res.reset.session3rd);
       }
     }
-    
-    // 获取地理位置
-    // wx.getLocation({
-    //   type: 'wgs84',
-    //   success: function (res) {
-    //     qqmapsdk.reverseGeocoder({
-    //       location: {
-    //         latitude: res.latitude,
-    //         longitude: res.longitude
-    //       },
-    //       success: function (res) {
-    //         that.setData({ address: res.result.address_component.district })
-    //       },
-    //       fail: function (res) {
-    //       },
-    //       complete: function (res) {
-    //       }
-    //     });
-    //   }
-    // })
+
+    if (app.globalData.address) {
+      that.setData({ address: app.globalData.address.address_component.district });
+    } else {
+      app.isAddressReadyCallback = res => {
+        that.setData({ address: res.address_component.district });
+      }
+    }
 
     // 请求banner
     util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function(data) {
@@ -217,10 +205,9 @@ Page({
   },
 
   onShareAppMessage: function (res) {
-    const id = this.data.content.id;
     return {
       title: '这个信息发布平台不错，推荐给大家',
-      path: '/pages/container/index/index' + '&userId=' + app.globalData.session3rd,
+      path: '/pages/container/index/index?userId=' + app.globalData.token,
       success: function (res) {
         // 转发成功
       },

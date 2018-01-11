@@ -23,10 +23,6 @@ App({
               that.setToken(data.reset.session3rd);
               that.setIsReg(data.reset.is_reg);
 
-              if (that.userInfoReadyCallback) {
-                that.userInfoReadyCallback(data)
-              }
-
               //是否有新消息
               util.req('&m=member&a=isUnread', {
                 session3rd: data.reset.session3rd
@@ -42,6 +38,10 @@ App({
                 }
               })
 
+              if (that.userInfoReadyCallback) {
+                that.userInfoReadyCallback(data)
+              }
+
               wx.hideLoading();
             }
           });
@@ -52,7 +52,9 @@ App({
     })
 
     //用户通过卡片点击
+    console.log(options)
     if (options.query.userId) {
+      console.log(options.query.userId)
       wx.setStorageSync('from_user', options.query.userId);
     }
 
@@ -67,6 +69,9 @@ App({
           },
           success: function (res) {
             that.globalData.address = res.result;
+            if (that.isAddressReadyCallback) {
+              that.isAddressReadyCallback(that.globalData.address)
+            }
           },
           fail: function (res) {
           },
@@ -97,23 +102,7 @@ App({
                   that.userInfoReadyCallback(data)
                 }
 
-                //是否有新消息
-                util.req('&m=member&a=isUnread', {
-                  session3rd: data.reset.session3rd
-                }, function (data) {
-                  if (data.flag == 1 && data.unread_num > 0) {
-                    that.globalData.hasUnread = true;
-                  } else {
-                    that.globalData.hasUnread = false;
-                  }
-
-                  if (that.isUnreadReadyCallback) {
-                    that.isUnreadReadyCallback(that.globalData.hasUnread)
-                  }
-                })
-
                 wx.hideLoading();
-
                 resolve();
               }
             });
@@ -129,6 +118,7 @@ App({
   registerUser: function(userInfo) {
     var that = this;
     var from_user = wx.getStorageSync('from_user');
+    console.log(from_user)
     return new Promise(function(resolve, reject) {
       wx.login({
         success: function (res) {
@@ -139,18 +129,23 @@ App({
           };
 
           if (from_user) {
-            item.from_user = from_user;
+            item.token = from_user;
           }
+
+          console.log(item)
           
           util.req('&m=member&a=onReg', item, function (data) {
+            console.log(data)
             if (data.flag == 1) {
               resolve();
             } else {
+              console.log(1)
               that.loginFail();
             }
           })
         },
         fail: function (res) {
+          console.log(2)
           that.loginFail();
         }
       })
@@ -178,28 +173,24 @@ App({
   },
 
   // 获取位置
-  getLocation: function(that) {
+  getLocation: function(that, lat, lng) {
     return new Promise(function(resolve, reject) {
-      wx.getLocation({
-        type: 'gcj02',
+      qqmapsdk.reverseGeocoder({
+        location: {
+          latitude: lat,
+          longitude: lng
+        },
+        coord_type: 5,
+        get_poi: 1,
         success: function (res) {
-          qqmapsdk.reverseGeocoder({
-            location: {
-              latitude: res.latitude,
-              longitude: res.longitude
-            },
-            coord_type: 5,
-            get_poi: 1,
-            success: function (res) {
-              resolve(res);
-            },
-            fail: function (res) {
-            },
-            complete: function (res) {
-            }
-          });
+          console.log(res);
+          resolve(res);
+        },
+        fail: function (res) {
+        },
+        complete: function (res) {
         }
-      })
+      });
     })
   },
 

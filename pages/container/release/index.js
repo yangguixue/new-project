@@ -19,7 +19,6 @@ Page({
 
   onLoad: function (options) {
     // 默认id设为url中的id
-    var that = this;
     var token = app.globalData.token;
     var item = this.data.item;
     item.cg_id = options.id;
@@ -35,36 +34,38 @@ Page({
     }
 
     //请求二级菜单
-    if (options.type == 0) {
-      util.req('&m=Category&a=getCgList', {
-        type: 0,
-        parent_id: options.id
-      }, function(data) {
-        var menus = data.result;
-        if (menus.length > 0) {
+    var that = this;
+    util.req('&m=Category&a=getCgList', {
+      type: 0,
+      parent_id: options.id
+    }, function(data) {
+      var menus = data.result;
+      if (menus.length > 0) {
+        that.setData({
+          secondMenus: menus
+        })
+      }
+    })
+
+    // 获取地理位置
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        app.getLocation(that, res.latitude, res.longitude).then((res) => {
+          var address = res.result.formatted_addresses.rough;
+          item.lat = res.result.location.lat;
+          item.lng = res.result.location.lng;
+          item.post_addr = res.result.address;
+          item.post_addr_name = address;
           that.setData({
-            secondMenus: menus
+            item: item
           })
-        }
-      })
-    }
+        })
+      }
+    })
+    
   },
 
-  onShow: function () {
-    // 获取地理位置
-    const that = this;
-    const item = this.data.item;
-    app.getLocation(that).then((res) => {
-      var address = res.result.formatted_addresses.rough;
-      item.lat = res.result.location.lat;
-      item.lng = res.result.location.lng;
-      item.post_addr = res.result.address;
-      item.post_addr_name = address;
-      that.setData({
-        item: item
-      })
-    })
-  },
 
   openMap: function() {
     const address = this.data.address;
@@ -76,9 +77,18 @@ Page({
         item.lng = res.longitude;
         item.post_addr = res.address;
         item.post_addr_name = res.name;
-        console.log(item);
-        that.setData({
-          item
+        wx.showLoading({
+          title: '正在更新地址...',
+        })
+        // 重新选择地址
+        app.getLocation(that, res.latitude, res.longitude).then((addr) => {
+          item.province = addr.result.ad_info.province;
+          item.city = addr.result.ad_info.city;
+          item.district = addr.result.ad_info.district;
+          that.setData({
+            item
+          })
+          wx.hideLoading();
         })
       }
     })
@@ -151,6 +161,7 @@ Page({
                 showCancel: false,
                 success: function (res) { }
               })
+              console.log(res.errMsg)
             }
           });
         }

@@ -44,14 +44,19 @@ Page({
 
     // 获取位置
     if (!options.id) {
-      app.getLocation(that).then((res) => {
-        var address = res.result.formatted_addresses.rough;
-        var info = this.data.info;
-        info.shop_addr_name = address;
-        that.setData({
-          info,
-          address: res.result
-        })
+      wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
+          app.getLocation(that, res.latitude, res.longitude).then((res) => {
+            var address = res.result.formatted_addresses.rough;
+            var info = this.data.info;
+            info.shop_addr_name = address;
+            that.setData({
+              info,
+              address: res.result
+            })
+          })
+        }
       })
     }
   },
@@ -65,8 +70,18 @@ Page({
         info.shop_addr_name = res.name;
         info.lat = res.latitude;
         info.lng = res.longitude;
-        that.setData({
-          info
+        wx.showLoading({
+          title: '正在更新地址...',
+        })
+        // 重新选择地址
+        app.getLocation(that, res.latitude, res.longitude).then((addr) => {
+          item.province = addr.result.ad_info.province;
+          item.city = addr.result.ad_info.city;
+          item.district = addr.result.ad_info.district;
+          that.setData({
+            info
+          })
+          wx.hideLoading();
         })
       }
     })

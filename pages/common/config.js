@@ -3,4 +3,4 @@ const configs = {
   prod: 'https://www.qmjoin.com/index.php?g=qmcy'
 };
 
-module.exports.configUrl = configs.dev;
+module.exports.configUrl = configs.prod;

@@ -20,27 +20,6 @@ Page({
         })
       }
     })
-    // 获取积分
-    if (app.globalData.is_reg) {
-      this.getPoint();
-    }
-  },
-
-  onShow: function() {
-    this.getPoint();
-  },
-
-  getPoint: function() {
-    var _this = this;
-    util.getReq('&m=point&a=checkPoint', {
-      session3rd: app.globalData.token
-    }, function (data) {
-      if (data.flag == 1) {
-        _this.setData({
-          info: data.result
-        })
-      }
-    })
   },
 
   handleOpenLogin: function () {
