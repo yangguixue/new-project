@@ -18,7 +18,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     // 请求店铺分类
-    util.getReq('&m=category&a=getCgList', { type: 1 }, function (data) {
+    util.getReq('&m=category&a=getCgList', { type: 2 }, function (data) {
       if (data.flag == 1) {
         that.setData({
           category: data.result
@@ -49,8 +49,14 @@ Page({
         success: function (res) {
           app.getLocation(that, res.latitude, res.longitude).then((res) => {
             var address = res.result.formatted_addresses.rough;
-            var info = this.data.info;
+            var info = that.data.info;
             info.shop_addr_name = address;
+            info.lat = res.result.location.lat;
+            info.lng = res.result.location.lng;
+            info.shop_addr = res.result.address;
+            info.province = res.result.ad_info.province;
+            info.city = res.result.ad_info.city;
+            info.district = res.result.ad_info.district;
             that.setData({
               info,
               address: res.result
@@ -75,9 +81,9 @@ Page({
         })
         // 重新选择地址
         app.getLocation(that, res.latitude, res.longitude).then((addr) => {
-          item.province = addr.result.ad_info.province;
-          item.city = addr.result.ad_info.city;
-          item.district = addr.result.ad_info.district;
+          info.province = addr.result.ad_info.province;
+          info.city = addr.result.ad_info.city;
+          info.district = addr.result.ad_info.district;
           that.setData({
             info
           })
@@ -229,6 +235,9 @@ Page({
     newInfo.shop_addr_name = info.shop_addr_name;
     newInfo.lat = info.lat;
     newInfo.lng = info.lng;
+    newInfo.province = info.province;
+    newInfo.city = info.city;
+    newInfo.district = info.district;
     newInfo.session3rd = app.globalData.token;
 
     util.req('&m=shop&a=editshop', newInfo, function(data) {
@@ -247,7 +256,7 @@ Page({
               url: '../shopList/index'
             })
           }
-        }, 3000)
+        }, 1500)
       } else {
         wx.showToast({
           title: data.msg,

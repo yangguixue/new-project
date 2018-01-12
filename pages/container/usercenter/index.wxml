@@ -8,11 +8,11 @@
       </view>
       <view class="head-top-right">
         <view class="user-name" wx:if="{{userInfo.username}}">{{userInfo.username}}</view>
-        <view class="user-name login" wx:else bindtap="handleOpenLogin">登录/注册</view>
+        <view class="user-name" wx:else bindtap="handleOpenLogin">登录/注册</view>
         <view class="gold" wx:if="{{userInfo.member_id}}">
           积分 {{userInfo.point || 0}}
         </view>
-        <view class="gold gold2" wx:else>
+        <view class="gold" wx:else>
           登录即送2000积分
         </view>
       </view>
@@ -73,7 +73,6 @@
     <navigator url="../circleList/index">
       <view class="circle-title">
         <text>我加入的圈子</text>
-        <image src="../../images/next.svg" class="next" />
       </view>
     </navigator>
     <view class="circle-join">
@@ -112,9 +111,9 @@
       <view class="list-name">留言反馈<image src="../../images/next.svg" class="next" /></view>
     </navigator>
   </view>
-  <view class="usercenter-list">
+  <!-- <view class="usercenter-list">
     <contact-button>联系客服</contact-button>
-  </view>
+  </view> -->
   <view class="usercenter-list">
     <navigator url='../rules/index?name=aboutUs'>  
       <view class="list-name">关于我们<image src="../../images/next.svg" class="next" /></view>

@@ -8,11 +8,11 @@
   <text class="like-text">{{discountDetail.post_hits_num || '0'}}人感兴趣
 </text>
 </view>
-<view class="line">
+<view class="line"  wx:if="{{!info.store_name == '官方'}}">
   <image src="../../images/clock.svg" class="icon"/>
   <text class="text"> {{discountDetail.store_time}}</text>
 </view>
-<view class="line" bindtap='handleCall'>
+<view class="line" bindtap='handleCall'  wx:if="{{!info.store_name == '官方'}}">
   <image src="../../images/phone.svg" class="icon"/>
   <text class="text" > {{discountDetail.store_phone}}</text>
 </view>
@@ -32,7 +32,7 @@
         <view>首页</view>
       </view>
     </navigator>
-    <navigator url='../shopDetail/index?id={{discountDetail.shop_id}}'>
+    <navigator url='../shopDetail/index?id={{discountDetail.shop_id}}'  wx:if="{{discountDetail.store_name !== '官方'}}">
       <view class='item' bindtap='handleCollection'> 
         <view class='icon2'> 
           <image src='../../images/shop2.svg' />

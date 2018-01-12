@@ -91,6 +91,8 @@ page {
   font-size: 32rpx;
   color: #fd450f;
   text-align: center;
+  background: #fff;
+  border-bottom: 2rpx solid #f1f2f2; 
 }
 
 .noToken {
@@ -113,7 +115,7 @@ page {
   opacity: 0.6;
   position: fixed;
   top: 20rpx;
-  right: 200rpx;
+  right: 20rpx;
   border-radius: 10rpx;
   color: #fff;
 }
@@ -125,7 +127,7 @@ page {
   opacity: 0.6;
   position: fixed;
   top: 10rpx;
-  right: 30rpx;
+  right: 170rpx;
   border-top: 10px solid #000;
   border-left: 10px solid transparent; 
 }

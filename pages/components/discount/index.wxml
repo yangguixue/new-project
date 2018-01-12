@@ -1,5 +1,5 @@
 <view class='box'>
-  <view class='shop'>
+  <view class='shop' wx:if="{{!info.store_name == '官方'}}">
     <view class='shop-l'>
       <image src='{{info.shop_logo}}' />
     </view>
@@ -13,13 +13,17 @@
   </view>
   
    <!-- 详情页 -->
-  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="2000" class='img-box2' wx:if="{{isDetail}}">
+  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="2000" class='img-box2' wx:if="{{isDetail && info.store_name !== '官方'}}">
     <block wx:for="{{info.altas}}" wx:key="{{index}}">
       <swiper-item>
         <image src='{{item}}' mode="aspectFill" />
       </swiper-item>
     </block>
   </swiper>
+
+  <view class='img-box3' wx:if="{{isDetail && info.store_name == '官方'}}">
+    <image src='{{info.smeta}}' mode="aspectFill" />
+  </view>  
 
   <navigator url='../discountDetail/index?id={{info.id}}'>
     <!-- 列表页 非detail 无banner -->

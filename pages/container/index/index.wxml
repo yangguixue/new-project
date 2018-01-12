@@ -13,11 +13,11 @@
     <navigator url="../discountList/index">
       <view class="entry01">
         <view class="entry01-left">
-          <view class="active-title">小镇公告</view>
-          <view class="active-intro">小镇攻略，挣钱快人一步</view>
+          <view class="active-title">附近优惠</view>
+          <view class="active-intro">打折，满减，促销一网打尽</view>
         </view>
         <view class="entry01-right">
-          <image src="../../images/sale.png" />
+          <image src="../../images/sale2.png" />
         </view>
       </view>
     </navigator>
@@ -25,19 +25,19 @@
     <view class="entry02" bindtap='creatShop'>
       <view class="entry01-left">
         <view class="active-title">我要开店</view>
-        <view class="active-intro">店铺,地摊,私人买卖全搜罗</view>
+        <view class="active-intro">店铺，地摊，私人买卖全搜罗</view>
       </view>
       <view class="entry01-right">
         <image src="../../images/shop.png" />
       </view>
     </view>
   </view>
-
+<!-- 
   <navigator url="../../container/discountList/index">
     <view class='active-img'>
       <image src="https://www.qmjoin.com/data/upload/xrxz/jpymg.png" mode="widthFix" />
     </view>
-  </navigator>
+  </navigator> -->
   
   <view class="title">
     //////  大家说  //////

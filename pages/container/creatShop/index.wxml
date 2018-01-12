@@ -44,7 +44,7 @@
         闭店时间 {{endTime ? endTime : info.end_time}}
       </view>
       <view class="picker" wx:else>
-        闭店时间 {{endTime ? endTime : ''}}
+        打样时间 {{endTime ? endTime : ''}}
       </view>
     </picker>
   </view>
@@ -79,7 +79,7 @@
 
   <view class='item h90'>
     <text>店铺分类</text>
-    <picker mode="selector" value="{{info.cg_id ? info.cg_id : category[categoryIndex].cg_id}}" bindchange="bindCategoryChange" class='item-input' range="{{category}}" range-key="name" name="cg_id">
+    <picker mode="selector" value="{{categoryIndex ? category[categoryIndex].cg_id : info.cg_id}}" bindchange="bindCategoryChange" class='item-input' range="{{category}}" range-key="name" name="cg_id">
       <view class="nature" wx:if="{{categoryIndex}}">
         {{category[categoryIndex].name}}
       </view>

@@ -57,6 +57,9 @@ Page({
           item.lng = res.result.location.lng;
           item.post_addr = res.result.address;
           item.post_addr_name = address;
+          item.province = res.result.ad_info.province;
+          item.city = res.result.ad_info.city;
+          item.district = res.result.ad_info.district;
           that.setData({
             item: item
           })

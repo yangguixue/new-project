@@ -8,9 +8,10 @@ page {
 }
 
 .head{
-  background: #ff5d2e;
+  background: linear-gradient(135deg, #ff5321, #ff923a);
   padding: 0 30rpx;
   margin-bottom: 10rpx;
+  color: #fff;
 }
 
 .head-top {
@@ -36,31 +37,16 @@ page {
 .head-top-right {
   padding-top: 12rpx;
   font-size: 36rpx;
-  color: #fff;
   float: left;
 }
 
-.login {
+.user-name {
   font-weight: bold;
-}
-
-.leval {
-  font-size: 24rpx;
-  color: #ff0000;
-  margin-left: -4rpx;
-}
-
-.leval-img {
-  width: 36rpx;
-  height: 28rpx;
 }
 
 .gold {
   margin-top: 26rpx;
   font-size: 28rpx;
-}
-
-.gold2 {
   background: #ff9e82;
   padding: 0 20rpx;
   line-height: 50rpx;
@@ -69,7 +55,7 @@ page {
 
 .head-bottom {
   font-size: 24rpx;
-  color: #999;
+  position: relative;
 }
 
 .head-block {
@@ -82,7 +68,6 @@ page {
   height: 52rpx;
   display: inline-block;
   text-align: center;
-  color: #fff;
 }
 
 .number {
@@ -96,6 +81,7 @@ page {
   display: inline-block;
   background: #ff9e82;
 }
+
 
 .entry {
   background: #fff;

@@ -1,9 +1,7 @@
 // pages/container/payment/index.js
+var util = require('../../../utils/util.js');
+var app = getApp();
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     price: [{
       id: 0,
@@ -29,12 +27,24 @@ Page({
       checked: true
     }],
     num: 365,
-    type: 'bzj'
+    type: '',
   },
 
   onLoad: function (options) {
     const type = options.type;
+    const that = this;
     this.setData({ type });
+    if (options.type == '保证金') {
+      this.setData({ num: 100 });
+    }
+
+    util.req('&m=member&a=getMemberInfo', {
+      session3rd: app.globalData.token
+    }, function(data) {
+      if (data.flag == 1) {
+        that.setData({ shop_id: data.result.shop_id});
+      }
+    })
   },
 
   handleSelect: function(event) {
@@ -55,17 +65,43 @@ Page({
   },
 
   payment: function() {
-    console.log(2)
-    wx.requestPayment({
-      'timeStamp': '',
-      'nonceStr': '',
-      'package': '',
-      'signType': 'MD5',
-      'paySign': '',
-      'success': function (res) {
-      },
-      'fail': function (res) {
+    const item = {};
+    const that = this;
+    const shop_id = this.data.shop_id;
+    item.total_fee = 1;
+    item.session3rd = app.globalData.token;
+    item.body = '息壤小镇-' + this.data.type;
+    util.req('&m=payment&a=pay', item, function(data) {
+      if (data.flag == 1) {
+        wx.requestPayment({
+          'timeStamp': data.result.timeStamp,
+          'nonceStr': data.result.nonceStr,
+          'package': data.result.package,
+          'signType': data.result.signType,
+          'paySign': data.result.paySign,
+          'success': function (res) {
+            wx.showToast({
+              title: '支付成功',
+            })
+
+            setTimeout(() => {
+              wx.navigateTo({
+                url: '../shopDetail/index?id=' + shop_id,
+              })
+            }, 2000)
+          },
+          'fail': function (res) {
+            wx.showToast({
+              title: '支付失败',
+            })
+          }
+        })
+      } else {
+        wx.showToast({
+          title: data.msg,
+        })
       }
+      
     })
   },
 

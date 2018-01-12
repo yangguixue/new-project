@@ -53,12 +53,11 @@ Page({
 
   openMap: function() {
     const info = this.data.info;
-    var latitude = parseInt(info.lat);
-    var longitude = parseInt(info.lng);
+    var latitude = parseFloat(info.lat);
+    var longitude = parseFloat(info.lng);
     wx.openLocation({
       latitude,
       longitude,
-      scale: 28
     })
   },
 
@@ -71,6 +70,13 @@ Page({
   },
 
   handleCall: function() {
+    const info = this.data.info;
+    if (info.is_owner) {
+      wx.switchTab({
+        url: '../shopList/index',
+      })
+      return;
+    }
     wx.makePhoneCall({
       phoneNumber: this.data.info.shop_phone
     })
@@ -97,6 +103,13 @@ Page({
     const that = this;
     const shop_id = this.data.info.id;
     const action = !this.data.info.is_star;
+    if (this.data.info.is_like) {
+      wx.showToast({
+        title: '已经赞过了',
+        image: '../../images/fail.svg'
+      })
+      return;
+    }
     this.setData({ isLoading: true })
     util.req('&m=shop&a=thumbUp', {
       shop_id,
@@ -162,7 +175,7 @@ Page({
 
   getUp: function(event) {
     wx.navigateTo({
-      url: '../payment/index?type=haohua',
+      url: '../payment/index?type=升级豪华版',
     })
   },
 
@@ -216,21 +229,25 @@ Page({
     wx.showModal({
       title: '确定要删除吗？',
       success: function(res) {
-        util.req('&m=shop&a=delRecruit', {
-          id,
-          session3rd: app.globalData.token
-        }, function (data) {
-          if (data.flag == 1) {
-            wx.showToast({
-              title: '删除成功',
-            })
-            that.fetchDetail(that, that.data.info.id);
-          } else {
-            wx.showToast({
-              title: data.msg,
-            })
-          }
-        })
+        if (res.confirm) {
+          util.req('&m=shop&a=delRecruit', {
+            id,
+            session3rd: app.globalData.token
+          }, function (data) {
+            if (data.flag == 1) {
+              wx.showToast({
+                title: '删除成功',
+              })
+              that.fetchDetail(that, that.data.info.id);
+            } else {
+              wx.showToast({
+                title: data.msg,
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
   },

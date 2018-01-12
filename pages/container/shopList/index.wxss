@@ -7,8 +7,8 @@ page {
 
 .search {
   background: #fff;
-  height: 60rpx;
-  padding: 10rpx 30rpx;
+  height: 80rpx;
+  padding: 20rpx 30rpx;
 }
 
 .banner {
@@ -19,17 +19,17 @@ page {
 
 .search-input {
   width: 580rpx;
-  height: 60rpx;
+  height: 80rpx;
   padding: 0 20rpx;
-  background: #f7f7f7;
-  font-size: 24rpx;
+  background: #ececec;
+  font-size: 26rpx;
   float: left;
   border-radius: 4rpx;
 }
 
 .search-button {
-  width: 42rpx;
-  height: 42rpx;
+  width: 60rpx;
+  height: 60rpx;
   float: left;
   margin: 8rpx 0 0 15rpx;
 }
@@ -48,9 +48,9 @@ page {
 
 .menu-title {
   background: #fff; 
-  line-height: 90rpx;
+  line-height: 70rpx;
   padding: 0 30rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
   color: #666;
   display: flex;
   justify-content: space-around;
@@ -60,7 +60,7 @@ page {
 .line {
   width: 4rpx;
   background: #e5e5e5;
-  height: 60rpx;
+  height: 40rpx;
   margin-top: 15rpx;
 }
 
@@ -68,7 +68,7 @@ page {
   width: 0;
   height: 0;
   float: right;
-  margin: 36rpx 0 0 14rpx;
+  margin: 28rpx 0 0 14rpx;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 6px solid #e5e5e5;
@@ -78,7 +78,7 @@ page {
   width: 0;
   height: 0;
   float: right;
-  margin: 36rpx 0 0 14rpx;
+  margin: 28rpx 0 0 14rpx;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-bottom: 6px solid #e5e5e5;
@@ -86,7 +86,7 @@ page {
 
 .menu-list {
   position: absolute;
-  top: 92rpx;
+  top: 60rpx;
   left: 0;
   width: 100%;
   background: #000;

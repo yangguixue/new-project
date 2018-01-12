@@ -42,6 +42,21 @@ var fetchInfoList = function (that, lastid) {
   })
 }
 
+var fetchShopList = function(that) {
+  util.req('&m=Category&a=getCgList', { type: 1 }, function (data) {
+    if (data.flag == 1) {
+      that.setData({
+        items: data.result,
+      })
+    } else {
+      wx.showToast({
+        title: data.msg,
+        duration: 2000
+      })
+    }
+  })
+}
+
 Page({
   data: {
     items: [], // 圈子列表
@@ -54,24 +69,14 @@ Page({
     fetchInfoList(that, 0);    
     
     // 获取圈子分类
-    util.req('&m=Category&a=getCgList', { type: 1 }, function(data){
-      if (data.flag == 1) {
-        that.setData({
-          items: data.result,
-        })
-      } else {
-        wx.showToast({
-          title: data.msg,
-          duration: 2000
-        })
-      }
-    })
+    fetchShopList(that)
   },
 
   onPullDownRefresh: function () {
     const that = this;
     that.setData({ listStatus: '' });
     fetchInfoList(that, 0);
+    fetchShopList(that);
   },
 
   //滚动到底部触发事件

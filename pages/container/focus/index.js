@@ -22,6 +22,7 @@ const fetchInfoList = function(that) {
 // 获取店铺列表
 const fetchShopList = function(that) {
   util.req('&m=shop&a=getShopList', {
+    star: true,
     session3rd: app.globalData.token
   }, function (data) {
     if (data.flag == 1) {
@@ -56,7 +57,7 @@ Page({
   handleClickTab: function(event) {
     const that = this;
     const id = event.target.dataset.id;
-    that.setData({ items: null, isLoading: true });
+    that.setData({ items: [], isLoading: true });
     if (id == 0) {
       fetchInfoList(that);
     } else {

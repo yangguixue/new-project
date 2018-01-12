@@ -15,12 +15,11 @@ Component({
   methods: {
     openMap: function () {
       const info = this.data.content;
-      var latitude = parseInt(info.lat);
-      var longitude = parseInt(info.lng);
+      var latitude = parseFloat(info.lat);
+      var longitude = parseFloat(info.lng);
       wx.openLocation({
         latitude,
-        longitude,
-        scale: 28
+        longitude
       })
     },
 

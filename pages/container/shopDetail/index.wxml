@@ -171,7 +171,8 @@
 </view>
 
 <!-- 店铺升级 -->
-<view class='warn' wx:if="{{info.level == 0 && info.is_owner && info.probation}}">
+<view class='warn' wx:if="{{info.level == 0 && info.is_owner && info.probation}}"> 
+<!-- <view class='warn'> -->
   <view class='warn-left'>
     <image src='../../images/up.svg' class='warning-img' />
     <text class='waring-text yellow'>店铺升级，功能更强大</text>
@@ -227,7 +228,10 @@
       <view class='send'>分享</view>
     </button>
   </view>
-  <view class='footer-c footer-btn' bindtap='handleCall'>
+  <view class='footer-c footer-btn' bindtap='handleCall' wx:if="{{info.is_owner}}">
+    查看其它店铺
+  </view>
+  <view class='footer-c footer-btn' bindtap='handleCall' wx:else>
     联系商家
   </view>
   <view class='footer-r footer-btn' bindtap='handleOpenShop' wx:if="{{info.is_owner}}">

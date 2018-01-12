@@ -59,7 +59,7 @@
 .circle-intro {
   font-size: 24rpx;
   color: #999;
-  margin-bottom: 30rpx;
+  margin-bottom: 25rpx;
 }
 
 .circle-focus {

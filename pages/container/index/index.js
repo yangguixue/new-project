@@ -41,6 +41,19 @@ var fetchInfoList = function (that, lastid) {
     that.setData({
       loadMore: false
     })
+    wx.stopPullDownRefresh();
+  })
+};
+
+var fetchBanner = function(that) {
+  util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function (data) {
+    if (data.flag == 1) {
+      that.setData({
+        banners: data.result
+      })
+    } else {
+      util.errorTips(data.msg)
+    }
   })
 }
 
@@ -83,15 +96,7 @@ Page({
     }
 
     // 请求banner
-    util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function(data) {
-      if (data.flag == 1) {
-        that.setData({
-          banners: data.result
-        })
-      } else {
-        util.errorTips(data.msg)
-      }
-    })
+    fetchBanner(that);
 
     //请求分类
     util.getReq('&m=category&a=getCgList', { type: 0 }, function (data) {
@@ -125,7 +130,8 @@ Page({
   onPullDownRefresh: function () {
     var that = this;
     that.setData({ listStatus: '' });
-    fetchInfoList(that, 0) 
+    fetchInfoList(that, 0);
+    fetchBanner(that); 
   },
 
 

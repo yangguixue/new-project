@@ -13,9 +13,11 @@
   </block> 
 </view>
 
-<view wx:else>
+<view wx:else class='shop'>
   <block wx:for="{{items}}" wx:key="{{item.id}}">
-    <shop item="{{item}}" wx:if="{{tabId == 1}}" />
+    <navigator url='../shopDetail/index?id={{item.id}}'>
+      <shop item="{{item}}" wx:if="{{tabId == 1}}" />
+    </navigator>
   </block> 
 </view>
 

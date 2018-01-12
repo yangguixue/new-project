@@ -64,7 +64,7 @@ Page({
     fetchShopList(that, 0);
 
     // 获取分类
-    util.getReq('&m=category&a=getCgList', { type: 0 }, function (data) {
+    util.getReq('&m=category&a=getCgList', { type: 2 }, function (data) {
       if (data.flag == 1) {
         const category = data.result;
         category.unshift({ cg_id: 0, name: '所有分类' });
@@ -121,22 +121,36 @@ Page({
     const item = event.target.dataset.item;
     const id = event.target.dataset.id;
     const filters = this.data.filters;
+    filters.session3rd = app.globalData.token;
 
     if (id == 0) {
       const filter = this.data.filter;
       filters.cg_id = filter.cg_id;
-      this.setData({ filter: item }); //下拉框改变文字
+      this.setData({ filter: item, filters }); //下拉框改变文字
     } else {
       const filter1 = this.data.filter1;      
-      this.setData({ filter1: item }); //下拉框改变文字
+      if (item.id == 0) {
+        if (filters.is_sale || filters.is_recruit) {
+          delete filters.is_sale;
+          delete filters.is_recruit;
+        }
+      } else if(item.id == 1) {
+        if (filters.is_recruit) {
+          delete filters.is_recruit;          
+        }
+        filters.is_sale = true;
+      } else if(item.id == 2) {
+        if (filters.is_sale) {
+          delete filters.is_sale;
+        }
+        filters.is_recruit = true;
+      }
+      this.setData({ filter1: item, filters }); //下拉框改变文字
     }
 
     that.handleFilter(event);
     
-    util.req('&m=shop&a=getShopList', {
-      session3rd: app.globalData.token,
-      cg_id: item.cg_id
-    }, function(data) {
+    util.req('&m=shop&a=getShopList', filters, function(data) {
       if (data.flag == 1) {
         that.setData({ list: data.result });
       }

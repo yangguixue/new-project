@@ -40,7 +40,7 @@ Page({
   handlePayment: function(event) {
     const hasPay = this.data.hasPay;
     wx.navigateTo({
-      url: '../payment/index?type=bzj&action=' + hasPay,
+      url: '../payment/index?type=保证金&action=' + hasPay,
     })
   }
 })
