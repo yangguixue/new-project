@@ -10,7 +10,6 @@ var fetchShopList = function (that, lastid) {
   const filters = that.data.filters;
   filters.lastid = lastid;
   filters.epage = epage;
-  console.log(filters);
   util.req('&m=shop&a=getShopList', filters, function (data) {
     var list = that.data.list;
     if (data.flag == 1) {

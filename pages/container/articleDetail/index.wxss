@@ -89,8 +89,9 @@ page {
 
 .big-input {
   width: 500rpx;
-  height: 150rpx;
-  padding: 20rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0 20rpx;
   float: left;
   border-radius: 6rpx;
   margin-bottom: 40rpx;
@@ -103,7 +104,7 @@ page {
   font-size: 34rpx;
   font-weight: bold;
   color: #999;
-  line-height: 60rpx;
+  line-height: 90rpx;
 }
 
 .share-btn {

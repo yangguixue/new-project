@@ -28,9 +28,8 @@ Page({
     }
 
     if (!info.info) {
-      wx.showToast({
-        title: '请输入信息',
-        image: '../../images/fail.svg'
+      wx.showModal({
+        content: '请输入信息'
       })
       return;
     }
@@ -40,6 +39,11 @@ Page({
         wx.showModal({
           title: '提交成功',
           content: '谢谢您的反馈，被采纳建议将会收到红包哦~',
+          success: function(res) {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
         })
       } else {
         wx.showModal({

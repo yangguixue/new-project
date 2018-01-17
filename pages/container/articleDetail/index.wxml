@@ -36,7 +36,7 @@
 
 <!-- 点击评论时input -->
 <view class="{{focus ? 'comment-input big-input-box' : 'comment-input big-input-box dn'}}">
-  <textarea placeholder="评论" class="big-input" bindinput="handleChange" focus="{{focus}}" bindconfirm="handleSend" data-items="{{content}}" confirm-type="done" bindblur="handleBlurInput" />
+  <input placeholder="评论" class="big-input" bindinput="handleChange" focus="{{focus}}" bindconfirm="handleSend" data-items="{{content}}" confirm-type="done" bindblur="handleBlurInput" />
   <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="{{is_red}}">发送</text>
   <text class="send" wx:else>发送</text> 
 </view>

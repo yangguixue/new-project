@@ -49,9 +49,8 @@ var fetchShopList = function(that) {
         items: data.result,
       })
     } else {
-      wx.showToast({
-        title: data.msg,
-        image: '../../imgaes/fail.svg'
+      wx.showModal({
+        content: data.msg,
       })
     }
   })

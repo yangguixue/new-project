@@ -48,9 +48,8 @@ Component({
           that.setData({ isSending: true });
           countdown(that);
         } else {
-          wx.showToast({
-            title: data.msg,
-            image: '../../images/fail.svg'
+          wx.showModal({
+            content: data.msg,
           })
         }
       })
@@ -74,8 +73,6 @@ Component({
         })
         return;
       }
-
-      // that.triggerEvent('handleClosePhone');
 
       util.req('&m=member&a=checkVaild', info, function (data) {
         if (data.flag == 1) {

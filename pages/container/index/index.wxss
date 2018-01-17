@@ -20,7 +20,6 @@ page {
 }
 
 .place {
-  width: 140rpx;
   font-size: 30rpx;
   color: #fff;
 }

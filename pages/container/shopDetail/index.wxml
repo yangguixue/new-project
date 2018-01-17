@@ -218,7 +218,7 @@
       <view class='send'>分享</view>
     </button>
   </view>
-  <view class='footer-c footer-btn' bindtap='handleCall' wx:if="{{info.is_owner}}">
+  <view class='footer-c footer-btn' bindtap='handleShopList' wx:if="{{info.is_owner}}">
     查看其它店铺
   </view>
   <view class='footer-c footer-btn' bindtap='handleCall' wx:else>

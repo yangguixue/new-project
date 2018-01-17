@@ -120,9 +120,8 @@ Page({
                 }
               })
             } else {
-              wx.showToast({
-                title: '退款失败',
-                image: '../../images/fail.svg'
+              wx.showModal({
+                content: '退款失败'
               })
             }
           })

@@ -199,9 +199,8 @@ Page({
           })
         }
       } else {
-        wx.showToast({
-          title: data.msg,
-          image: '../../images/fail.svg'
+        wx.showModal({
+          content: data.msg
         })
       }
       wx.hideLoading();

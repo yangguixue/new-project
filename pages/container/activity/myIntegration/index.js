@@ -75,11 +75,11 @@ Page({
   },
 
   // 分享
-  c: function (res) {
+  onShareAppMessage: function (res) {
     return {
       title: '这个信息发布平台不错，推荐给大家',
       path: '/pages/container/index/index?userId=' + app.globalData.token,
-      images: 'https://www.qmjoin.com/data/upload/xrxz/fx.jpg',
+      imageUrl: 'https://www.qmjoin.com/data/upload/xrxz/fx.jpg',
       success: function (res) {
         // 转发成功
       },

@@ -50,9 +50,8 @@
           <view class='list-right'>{{item.point}} 积分</view>
         </view>
       </block>
+      <view class='list-footer' wx:if="{{items.length == 0}}">暂无明细</view>
     </view>
-     
-    <view class='list-footer' wx:if="{{items.length == 0}}">暂无明细</view>
   </view>
 </view>
 

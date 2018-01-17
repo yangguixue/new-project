@@ -25,8 +25,8 @@ Page({
       if (data.flag == 1) {
         that.setData({ nodes: data.result.content });
       } else {
-        wx.showToast({
-          title: data.msg,
+        wx.showModal({
+          content: data.msg,
         })
       }
     })
@@ -60,16 +60,16 @@ Page({
     })
   },
 
+  handleShopList: function() {
+    wx.reLaunch({
+      url: '../shopList/index',
+    })
+  },
+
   handleCall: function() {
     const info = this.data.info;
-    if (info.is_owner) {
-      wx.reLaunch({
-        url: '../shopList/index',
-      })
-      return;
-    }
     wx.makePhoneCall({
-      phoneNumber: this.data.info.shop_phone
+      phoneNumber: info.shop_phone
     })
   },
 
@@ -95,9 +95,8 @@ Page({
     const shop_id = this.data.info.id;
     const action = !this.data.info.is_star;
     if (this.data.info.is_like) {
-      wx.showToast({
-        title: '已经赞过了',
-        image: '../../images/fail.svg'
+      wx.showModal({
+        content: '已经赞过了'
       })
       return;
     }
@@ -113,8 +112,8 @@ Page({
         })
         that.fetchDetail(that, shop_id);
       } else {
-        wx.showToast({
-          title: data.msg,
+        wx.showModal({
+          content: data.msg,
         })
       }
       that.setData({ isLoading: false });
@@ -206,8 +205,8 @@ Page({
         that.setData({ showEditJob: false });
         that.fetchDetail(that, that.data.info.id);
       } else {
-        wx.showToast({
-          title: data.msg,
+        wx.showModal({
+          content: data.msg,
         })
       }
       that.setData({ submitJob: false });
@@ -231,8 +230,8 @@ Page({
               })
               that.fetchDetail(that, that.data.info.id);
             } else {
-              wx.showToast({
-                title: data.msg,
+              wx.showModal({
+                content: data.msg,
               })
             }
           })
@@ -276,7 +275,7 @@ Page({
         info.is_star = !info.is_star;
         that.setData({ info });
       } else {
-        wx.showToast({
+        wx.showModal({
           title: data.msg,
         })
       }
@@ -316,8 +315,8 @@ Page({
           })
         }
       } else {
-        wx.showToast({
-          title: data.msg,
+        wx.showModal({
+          content: data.msg,
         })
       }
       that.setData({ isLoading: false });

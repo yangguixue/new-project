@@ -139,7 +139,7 @@ page {
   position: fixed;
   left: 50%;
   top: 20%;
-  z-index: 22;
+  z-index: 9999;
   background: #fff;
   margin-left: -170rpx;
   border-radius: 20rpx;

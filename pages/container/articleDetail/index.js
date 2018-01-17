@@ -99,7 +99,7 @@ Page({
 
   handleBlurInput: function(event) {
     setTimeout(() => {
-      this.setData({ focus: false, is_red: false });
+      this.setData({ focus: false });
     }, 200);
   },
 
@@ -138,6 +138,7 @@ Page({
           title: '评论成功',
         })
         that.handleBlurInput();
+        that.setData({ comment: '' });
         that.getArticle(item.id);
       } else {
         wx.showModal({
