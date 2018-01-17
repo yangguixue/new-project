@@ -45,8 +45,8 @@
       </view>
       <view>分享</view>
     </button>
-  </view> 
-  <view class='footer-c footer-btn' bindtap='handleCall' wx:if="{{discountDetail.store_name == '官方'}}">
+  </view>
+  <view class='footer-c footer-btn' bindtap='goIndex' wx:if="{{discountDetail.store_name == '官方'}}">
     去首页
   </view>
   <view class='footer-c footer-btn' bindtap='handleCall' wx:else>

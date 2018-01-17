@@ -141,6 +141,12 @@ Page({
     that.setData({ listStatus: '' });
     fetchInfoList(that, 0);
     fetchBanner(that); 
+    util.req('&m=shop&a=getShopList', {}, function (data) {
+      const array = data.result;
+      const shops = array.slice(0, 3);
+      that.setData({ shops });
+    })
+    wx.stopPullDownRefresh();
   },
 
 
@@ -148,8 +154,11 @@ Page({
   onReachBottom: function (event) {
     let that = this;
     var list = this.data.list;
-    var id = list[list.length - 1].id;
-    this.setData({ lastid: id });
+    if (list.length != 0) {
+      var id = list[list.length - 1].id;
+      this.setData({ lastid: id });
+    }
+    
     if (this.data.listStatus) return; // 没有更多了
     if (this.data.loadMore) return; // 禁止重复请求
     fetchInfoList(that, id);

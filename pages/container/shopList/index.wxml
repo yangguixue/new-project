@@ -9,11 +9,9 @@
   </view>
 </view>
 
-<navigator url='../creatShop/index'hover-class="none">
-  <view class="banner">
-    <image src="https://www.qmjoin.com/data/upload/xrxz/dplb.jpg" />
-  </view>
-</navigator>
+<view class="banner" bindtap='handlePublish'>
+  <image src="https://www.qmjoin.com/data/upload/xrxz/dplb.jpg" />
+</view>
 
 <view class='menu'>
   <view class='menu-title'>

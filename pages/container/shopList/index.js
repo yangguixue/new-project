@@ -55,6 +55,7 @@ Page({
     },
     isShowLogin: false,
     checkbox: [], //多选框
+    shopId: ''
   },
 
   onLoad: function (options) {
@@ -69,6 +70,15 @@ Page({
         that.setData({
           category
         })
+      } else {
+        util.errorTips(data.msg);
+      }
+    })
+
+    util.getReq('&m=member&a=getMemberInfo', { session3rd: app.globalData.token }, function (data) {
+      if (data.flag == 1) {
+        const shopId = data.result.shop_id;
+        that.setData({ shopId });
       } else {
         util.errorTips(data.msg);
       }
@@ -90,7 +100,9 @@ Page({
   handleCloseLogin: function (event) {
     this.setData({ isShowLogin: false });
     if (app.globalData.is_reg) {
-      fetchShopList(that, 0);
+      wx.navigateTo({
+        url: '../creatShop/index',
+      })
     }
   },
 
@@ -180,13 +192,22 @@ Page({
   },
 
   handlePublish: function() {
+    const shopId = this.data.shopId;
     if (!app.globalData.is_reg) {
       this.handleOpenLogin();
       return;
     }
-    wx.navigateTo({
-      url: '../creatShop/index',
-    })
+
+    if (shopId) {
+      wx.navigateTo({
+        url: '../shopDetail/index?id=' + shopId,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../creatShop/index',
+      })
+    }
+    
   },
 
 

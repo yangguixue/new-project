@@ -42,7 +42,7 @@
     </picker>
     <picker mode="time" value="{{time}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="end_time">
      <view class="picker">
-        打样时间 {{info.end_time}}
+        打烊时间 {{info.end_time}}
       </view>
       <!-- <view class="picker" wx:else>
         打样时间 {{endTime ? endTime : ''}}

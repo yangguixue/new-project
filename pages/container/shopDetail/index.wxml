@@ -175,7 +175,7 @@
 <!-- 详细信息 -->
 <view class="shop-img pd">
   <view class="title">商家信息</view>
-  <view class="explain"> {{info.shop_detail}}</view>
+  <text class="explain"> {{info.shop_detail}}</text>
   <view class='shop-img-box'>
     <block wx:for="{{info.shop_pic_show}}" wx:key="{{index}}">
       <image src='{{item}}' alt='' class='shop-images' mode='aspectFill' bindtap='showImage' data-current='{{item}}'  />

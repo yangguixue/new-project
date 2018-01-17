@@ -5,12 +5,12 @@ Page({
   data: {
     price: [{
       id: 0,
-      name: '168元/3个月',
-      price: 16800
+      name: '128元/3个月',
+      price: 12800
     }, {
       id: 1,
-      name: '258元/半年',
-      price: 25800
+      name: '218元/半年',
+      price: 21800
     }, {
       id: 2,
       name: '365元/年',
@@ -62,7 +62,7 @@ Page({
     const item = {};
     const that = this;
     const shop_id = this.data.shop_id;
-    item.total_fee = 1;
+    item.total_fee = this.data.num;
     item.session3rd = app.globalData.token;
     item.body = '息壤小镇-' + this.data.type;
     util.req('&m=payment&a=pay', item, function(data) {

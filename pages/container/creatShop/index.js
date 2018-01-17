@@ -56,6 +56,7 @@ Page({
           app.getLocation(that, res.latitude, res.longitude).then((res) => {
             var address = res.result.formatted_addresses.rough;
             var info = that.data.info;
+            console.log(info);
             info.shop_addr_name = address;
             info.lat = res.result.location.lat;
             info.lng = res.result.location.lng;
@@ -63,6 +64,7 @@ Page({
             info.province = res.result.ad_info.province;
             info.city = res.result.ad_info.city;
             info.district = res.result.ad_info.district;
+            console.log(info);
             that.setData({
               info,
               address: res.result
@@ -91,7 +93,6 @@ Page({
 
   openMap: function () {
     const info = this.data.info;
-    console.log(info);
     const that = this;
     wx.chooseLocation({
       success: function (res) {
@@ -109,7 +110,6 @@ Page({
           info.district = addr.result.ad_info.district;
           wx.hideLoading();
         })
-        console.log(info);
         that.setData({
           info
         })
@@ -118,7 +118,6 @@ Page({
   },
 
   handleChange: function(event) {
-    console.log(event)
     const name = event.currentTarget.dataset.name;
     const value = event.detail.value;
     const info = this.data.info;
@@ -135,7 +134,6 @@ Page({
       return;
     }
     info[name] = value;
-    console.log(info)
     this.setData({ info });
   },
 
@@ -262,7 +260,6 @@ Page({
     info.session3rd = app.globalData.token;
     info.shop_pic = this.data.serverUrl;
     info.shop_phone = this.data.phone;
-    console.log(info.shop_pic)
 
     if (!info.shop_logo) {
       wx.showModal({

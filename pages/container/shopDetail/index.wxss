@@ -403,6 +403,7 @@ page {
 
 .explain {
   font-size: 30rpx;
+  display: block;
   margin-bottom: 20rpx;
 }
 

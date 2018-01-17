@@ -274,7 +274,7 @@ Page({
   handlePayment: function(event) {
     const item = {};
     const that = this;
-    item.total_fee = 1;
+    item.total_fee = this.data.price;
     item.session3rd = app.globalData.token;
     item.body = '息壤小镇-付费消息';
     util.req('&m=payment&a=pay', item, function (data) {

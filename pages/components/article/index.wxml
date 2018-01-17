@@ -14,15 +14,15 @@
         <view class="catelog">{{ content.cg_name }} ></view>
       </navigator>
 
-      <view class="position" bindtap='openMap'>
+      <view class="position">
         <image src="../../images/address.svg" style="width:20rpx; height:24rpx;margin-right:8rpx" />
         <text>{{content.post_addr_name}} </text>
       </view>
       <!--  详情页点击内容无链接 -->
       <navigator wx:if="{{isDetail !== true}}" url="../../container/articleDetail/index?id={{content.id}}">
-        <view class="content-text">{{content.post_content}} </view>
+        <text class="content-text">{{content.post_content}} </text>
       </navigator>
-      <view wx:else class="content-text">{{content.post_content}} </view>
+      <text wx:else class="content-text">{{content.post_content}} </text>
       <!--  详情页点击内容无链接 END -->
       <view class='show-more blue' wx:if="{{showMore}}" bindtap='handleShowMore'>查看全文</view>
       <view class='show-more blue' wx:if="{{!showMore && content.post_content.length > 100 && !isDetail}}" bindtap='handleHideMore'>收起</view>

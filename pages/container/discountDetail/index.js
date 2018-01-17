@@ -20,14 +20,14 @@ Page({
     })
 
   },
+
+  goIndex: function() {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
   
   handleCall: function() {
-    if (this.data.discountDetail.store_name == '官方') {
-      wx.navigateTo({
-        url: '../index/index',
-      })
-      return;
-    }
     wx.makePhoneCall({
       phoneNumber: this.data.discountDetail.store_phone
     })
