@@ -38,6 +38,7 @@ const fetchAdList = function(that, lastid) {
     that.setData({
       loadMore: false
     })
+    wx.stopPullDownRefresh()
   })
 }
 

@@ -60,13 +60,13 @@ page {
 }
 
 .jian {
- border-radius: 6rpx;
- background: #e60012;
- padding: 0 20rpx;
+  border-radius: 6rpx;
+  background: #e60012;
+  padding: 0 10rpx;
   line-height: 45rpx;
   color: #fff;
   position: absolute;
-  right: -64rpx;
+  right: -40rpx;
   top: -20rpx;
 }
 

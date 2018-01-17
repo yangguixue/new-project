@@ -1,11 +1,11 @@
 <view class="list pd">
   <view class="list-l">
-    <image src="{{item.shop_logo}}" mode='aspectFill'/>
+    <image src="{{detail ? item.shop_logo_show : item.shop_logo}}" mode='aspectFill'/>
   </view>
   <view class="list-r">
     <view class="{{detail || (!item.ad_list && !item.recruit_num) ? '' : 'line'}}">
       <view class="shop-title">
-        <text class="real-shop" wx:if="{{item.shop_property == 0}}">实体</text>
+        <text class="real-shop" wx:if="{{item.shop_property == 1}}">实体</text>
         <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
         <text class="shop-name"> {{item.shop_name}}</text>
       </view>

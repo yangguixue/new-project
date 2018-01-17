@@ -1,6 +1,6 @@
 <!--pages/container/creatShop/index.wxml-->
 <view class="banner">
-  <image src="https://www.qmjoin.com/data/upload/xrxz/mfrz.jpg" />
+  <image src="https://www.qmjoin.com/data/upload/xrxz/mfrz.png" />
 </view>
 <view class='title h90'>填写店铺信息</view>
 <form bindsubmit="formSubmit" bindreset="formReset">
@@ -10,7 +10,8 @@
       class='item-input'
       placeholder="不超过12个字"
       maxlength='12'
-      name="shop_name"
+      bindinput="handleChange"
+      data-name="shop_name"
       value="{{info.shop_name ? info.shop_name : ''}}"
     />
   </view>
@@ -21,8 +22,8 @@
   <view class='item-detail'>
     <view class="image-box">
       <view class="image add" bindtap='chooseLogo'>
-        <image src="{{shopLogo ? shopLogo : info.shop_logo}}" mode="aspectFill" wx:if="{{info.shop_logo || shopLogo}}"/>
-        <image src="../../images/add-img.png" wx:else mode="aspectFill" />
+        <image src="{{!shopLogo ? info.shop_logo_show : shopLogo }}" mode="aspectFill" wx:if="{{info.id}}"/>
+        <image wx:else src="{{shopLogo ? shopLogo : '../../images/add-img.png'}}" mode="aspectFill"/>
       </view>
     </view>
   </view>
@@ -31,41 +32,41 @@
     <text>营业时间</text>
   </view>
   <view class='item-time h90'>
-    <picker mode="time" value="{{startTime}}" start="09:00" end="21:00" bindchange="bindStartTimeChange" class='item-input' name="start_time">
-      <view class="picker" wx:if="{{info.id}}">
-        开门时间 {{startTime ? startTime : info.start_time}}
+    <picker mode="time" value="{{startTime}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="start_time">
+      <view class="picker">
+        开门时间 {{info.start_time}}
       </view>
-      <view class="picker" wx:else>
+      <!-- <view class="picker" wx:else>
         开门时间 {{startTime ? startTime : ''}}
-      </view>
+      </view> -->
     </picker>
-    <picker mode="time" value="{{time}}" start="09:00" end="24:00" bindchange="bindEndTimeChange" class='item-input' name="end_time">
-     <view class="picker" wx:if="{{info.id}}">
-        闭店时间 {{endTime ? endTime : info.end_time}}
+    <picker mode="time" value="{{time}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="end_time">
+     <view class="picker">
+        打样时间 {{info.end_time}}
       </view>
-      <view class="picker" wx:else>
+      <!-- <view class="picker" wx:else>
         打样时间 {{endTime ? endTime : ''}}
-      </view>
+      </view> -->
     </picker>
   </view>
   <view class='item h90'>
     <text>联系方式</text>
     <input
       class='item-input'
-      placeholder="电话或者手机号，方便用户咨询"
       type='number'
       name="shop_phone"
-      value="{{info.shop_phone || ''}}"
+      value="{{info.shop_phone || phone}}"
+      disabled
     />
   </view>
   <view class='item h90'>
     <text>店铺性质</text>
-    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="shop_property" >
+    <radio-group class="radio-group" bindchange="handleChange" class='item-input' data-name="shop_property" >
       <label class="radio">
-        <radio value="{{true}}" checked='{{info.shop_property == 1}}' />实体店
+        <radio value="{{true}}" checked="{{info.shop_property}}" />实体店
       </label>
       <label class="radio">
-        <radio value="{{false}}" checked='{{info.shop_property == 0}}' />自主经营
+        <radio value="{{false}}" checked="{{!info.shop_property}}" />自主经营
       </label>
     </radio-group>
   </view>
@@ -79,16 +80,13 @@
 
   <view class='item h90'>
     <text>店铺分类</text>
-    <picker mode="selector" value="{{categoryIndex ? category[categoryIndex].cg_id : info.cg_id}}" bindchange="bindCategoryChange" class='item-input' range="{{category}}" range-key="name" name="cg_id">
-      <view class="nature" wx:if="{{categoryIndex}}">
-        {{category[categoryIndex].name}}
-      </view>
-      <view wx:else>{{info.cg_name ? info.cg_name : '所属行业分类'}}</view>
+    <picker mode="selector" value="{{info.cg_id}}" bindchange="handleChange" class='item-input' range="{{category}}" range-key="name" data-name="cg_id">
+      <view>{{info.cg_name ? info.cg_name : '所属行业分类'}}</view>
     </picker>
   </view>
   <view class='item h90'>
     <text>是否为新开店铺</text>
-    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="is_new" >
+    <radio-group class="radio-group" bindchange="handleChange" class='item-input' data-name="is_new" >
       <label class="radio">
         <radio value="{{true}}" checked='{{info.is_new}}'/>是
       </label>
@@ -99,7 +97,7 @@
   </view>
   <view class='item h90'>
     <text>是否为连锁店</text>
-    <radio-group class="radio-group" bindchange="radioNewShopChange" class='item-input' name="is_brand" >
+    <radio-group class="radio-group" bindchange="handleChange" class='item-input' data-name="is_brand" >
       <label class="radio">
         <radio value="{{true}}" checked='{{info.is_brand}}' />是
       </label>
@@ -111,14 +109,14 @@
 
   <view class='item h90'>
     <text>主营业务</text>
-    <input placeholder="不超过24个字" class='item-input' maxlength="24" name="shop_major" value="{{info.shop_major || ''}}" />
+    <input placeholder="不超过24个字" class='item-input' maxlength="24" data-name="shop_major" value="{{info.shop_major || ''}}" bindinput="handleChange"/>
   </view>
 
   <view class='item-deail h90'>
     <text>店铺详情</text>
   </view>
   <view class='item-detail'>
-    <textarea placeholder="介绍一下店铺有哪些优点，越详细越吸引用户哦" class='textarea' name="shop_detail" value="{{info.shop_detail || ''}}" /> 
+    <textarea placeholder="不超过500个字，介绍一下店铺有哪些优点，越详细越吸引用户" maxlength='500' class='textarea' data-name="shop_detail" value="{{info.shop_detail || ''}}" bindinput="handleChange"/> 
   </view>
 
   <view class='item-deail h90'>
@@ -145,7 +143,7 @@
         <checkbox value="{{hasRead}}" checked="{{true}}" class='checkbox'/>
       </checkbox-group>
       已阅读， 并同意 
-      <navigator url='../rules/index?name=fbtk'>
+      <navigator hover-class="none"  url='../rules/index?name=fbtk'>
         <text class='blue'>发布条款</text>
       </navigator>
     </view>
@@ -153,4 +151,6 @@
     <button class='button button-disabled' wx:else>立即发布</button>
   </view>
 </form>
+
+<phone isShowPhone="{{isShowPhone}}" bind:handleClosePhone="handleClosePhone" bind:handleSubmitPhone="handleSubmitPhone" />
 

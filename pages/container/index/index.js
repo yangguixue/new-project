@@ -55,24 +55,26 @@ var fetchBanner = function(that) {
       util.errorTips(data.msg)
     }
   })
+  wx.stopPullDownRefresh();
 }
 
 Page({
   data: {
     category: [], // 分类
     banners: [], 
-    address: '',  // 首页显示地址
+    address: '正在定位...',  // 首页显示地址
     isLoading: false, // 是否正在加载
     isShowLogin: false,
     loadMore: false,
+    shops: [],
+    list: []
   },
   onLoad: function (options) {
     var that = this;
 
     // 展示添加桌面气泡
     this.setData({
-      isShowAddDesk: wx.getStorageSync('isShowAddDesk'),
-      // address: app.globalData.address.address_component.district
+      isShowAddDesk: wx.getStorageSync('isShowAddDesk')
     })
 
     app.isUnreadReadyCallback = res => {
@@ -107,6 +109,13 @@ Page({
       } else {
         util.errorTips(data.msg);
       }
+    })
+
+    // 获取店铺
+    util.req('&m=shop&a=getShopList', {}, function (data) {
+      const array = data.result;
+      const shops = array.slice(0, 3);
+      that.setData({ shops });
     })
   },
 
@@ -156,6 +165,12 @@ Page({
     if (app.globalData.is_reg) {
       fetchInfoList(that, 0);
     }
+  },
+
+  handleMore: function(event) {
+    wx.switchTab({
+      url: '../shopList/index',
+    })
   },
 
   // 开店
@@ -212,7 +227,7 @@ Page({
 
   onShareAppMessage: function (res) {
     return {
-      title: '这个信息发布平台不错，推荐给大家',
+      title: '2018更智能的便民信息发布平台，面向全城，推广神器',
       path: '/pages/container/index/index?userId=' + app.globalData.token,
       success: function (res) {
         // 转发成功

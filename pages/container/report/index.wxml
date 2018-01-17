@@ -1,7 +1,7 @@
 <!--pages/container/report/index.wxml-->
 <view class='report-box'>
   <form bindsubmit="formSubmit">
-    <input class='report-input' placeholder='请输入举报原因' name="content" />
+    <input class='report-input' placeholder='请输入举报原因 20字以内' maxlength='20' name="content" />
     <button class='button' formType="submit">弹弹弹，弹走不良信息~</button>
   </form>
 </view>

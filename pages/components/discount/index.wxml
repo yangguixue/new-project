@@ -1,45 +1,40 @@
 <view class='box'>
-  <view class='shop' wx:if="{{!info.store_name == '官方'}}">
+  <view class='shop' wx:if="{{info.store_name !== '官方'}}">
     <view class='shop-l'>
-      <image src='{{info.shop_logo}}' />
+      <image src='{{info.shop_logo}}' mode="aspectFill" />
     </view>
     <view class='shop-c'>
       <view class='shop-name'>{{info.shop_name}}</view>
-      <view class='shop-addr'>离你33米</view>
+      <!-- <view class='shop-addr'>离你33米</view> -->
     </view>
-    <navigator url='../shopDetail/index?id={{info.shop_id}}'>
+    <navigator hover-class="none" url='../shopDetail/index?id={{info.shop_id}}'>
       <view class='shop-r'>进入店铺</view>
     </navigator>
   </view>
-  
-   <!-- 详情页 -->
-  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="2000" class='img-box2' wx:if="{{isDetail && info.store_name !== '官方'}}">
+
+  <!-- 列表页有banner -->
+    <view class='img-box3' wx:if="{{(info.smeta && !isDetail) || info.store_name == '官方'}}" bindtap="handleDetail">
+      <image src='{{info.smeta}}' mode="aspectFill" />
+    </view>
+  <!-- 列表页 无banner -->
+    <view class='img-box' wx:if="{{!isDetail && !info.smeta}}"  bindtap="handleDetail">
+      <block wx:for="{{info.altas}}" wx:key="{{info.id}}">
+        <image src='{{item}}' mode="aspectFill" class='discount-img' />
+      </block>
+    </view>
+
+   <!-- 详情页 展示几张大图 非官方 -->
+  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="2000" class='img-box2' wx:if="{{isDetail && info.store_name !== '官方'}}"  bindtap="handleDetail">
     <block wx:for="{{info.altas}}" wx:key="{{index}}">
       <swiper-item>
-        <image src='{{item}}' mode="aspectFill" />
+        <image src='{{item}}' mode="aspectFill" bindtap='handleOpenImg' data-current="{{item}}"/>
       </swiper-item>
     </block>
   </swiper>
 
-  <view class='img-box3' wx:if="{{isDetail && info.store_name == '官方'}}">
-    <image src='{{info.smeta}}' mode="aspectFill" />
-  </view>  
-
-  <navigator url='../discountDetail/index?id={{info.id}}'>
-    <!-- 列表页 非detail 无banner -->
-    <view class='img-box' wx:if="{{!isDetail && !info.smeta}}">
-      <block wx:for="{{info.altas}}" wx:key="{{info.id}}">
-        <image src='{{item}}' mode="aspectFill" class='discount-img' />
-      </block>
-    </view> 
-    <!-- 有banner -->
-    <view class='img-box3' wx:if="{{info.smeta && !isDetail}}">
-      <image src='{{info.smeta}}' mode="aspectFill" />
-    </view>  
-
-    <view class='discount-title'>
-      <text class='sign'>优惠</text>
-      <text> {{info.post_title}}</text>
-    </view>
-  </navigator>
+  <view class='discount-title'  bindtap="handleDetail">
+    <text class='sign sign2' wx:if="{{info.store_name == '官方'}}">官方</text>
+    <text class='sign' wx:else>优惠</text>
+    <text> {{info.post_title}}</text>
+  </view>
 </view>

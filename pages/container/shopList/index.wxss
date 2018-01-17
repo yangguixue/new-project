@@ -12,7 +12,7 @@ page {
 }
 
 .banner {
-  height: 200rpx;
+  height: 240rpx;
   background: red;
   margin-bottom: 10rpx;
 }
@@ -22,7 +22,7 @@ page {
   height: 80rpx;
   padding: 0 20rpx;
   background: #ececec;
-  font-size: 26rpx;
+  font-size: 28rpx;
   float: left;
   border-radius: 4rpx;
 }
@@ -34,64 +34,85 @@ page {
   margin: 8rpx 0 0 15rpx;
 }
 
-.list-title {
-  height: 80rpx;
-  font-size: 32rpx;
-  font-weight: bold;
-  margin-top: 10rpx;
-  line-height: 100rpx;
-}
-
 .menu {
   position: relative;
+  padding: 0 30rpx;
+  border-top: 2rpx solid #dedede;
+  background: #fff; 
+  border-bottom: 2rpx solid #dedede;
+}
+
+.menu2 {
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 33;
 }
 
 .menu-title {
-  background: #fff; 
-  line-height: 70rpx;
-  padding: 0 30rpx;
+  line-height: 77rpx;
   font-size: 28rpx;
   color: #666;
   display: flex;
   justify-content: space-around;
-  border-bottom: 2rpx solid #e5e5e5;
+}
+
+.menu-title2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  background: #fff;
+  width: 100%;
+}
+
+.selected {
+  color: #fd450f;
+}
+
+/* 选中筛选 */
+.menu-title-hover {
+  color: #fd450f;
 }
 
 .line {
   width: 4rpx;
   background: #e5e5e5;
-  height: 40rpx;
-  margin-top: 15rpx;
+  height: 77rpx;
+}
+
+.line-hover {
+  color: #fd450f;
 }
 
 .triangle {
   width: 0;
   height: 0;
   float: right;
-  margin: 28rpx 0 0 14rpx;
+  margin: 32rpx 0 0 14rpx;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 6px solid #e5e5e5;
+  border-top: 4px solid #b3b3b3;
 }
 
 .triangle2 {
   width: 0;
   height: 0;
   float: right;
-  margin: 28rpx 0 0 14rpx;
+  margin: 32rpx 0 0 14rpx;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-bottom: 6px solid #e5e5e5;
+  border-bottom: 6px solid #fd450f;
 }
 
 .menu-list {
-  position: absolute;
-  top: 60rpx;
+  position: fixed;
+  top: 77rpx;
   left: 0;
   width: 100%;
-  background: #000;
-  opacity: 0.8;
-  max-height: 355rpx;
+  background: #fff;
+  max-height: 600rpx;
   overflow: scroll;
 }
 
@@ -100,10 +121,55 @@ page {
 }
 
 .menu-item {
+  line-height: 90rpx;
+  font-size: 30rpx;
+  border-top: 1rpx solid #e1e1e1;
+  color: #333;
+  text-align: left;
+  padding: 0 50rpx;
+}
+
+.menu-item-hover {
+  color: #fd450f;
+}
+
+.mask{
+  position: fixed;
+  top: 0;
   width: 100%;
-  line-height: 70rpx;
-  font-size: 28rpx;
-  border-bottom: 2rpx solid #333;
-  color: #fff;
-  text-align: center;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+}
+
+.button {
+  width: 300rpx;
+}
+
+.checkbox {
+  background: #fff;
+  position: fixed;
+  top: 77rpx;
+  width: 100%;
+  min-height: 300rpx;
+  border: 2rpx solid #e1e1e1;
+}
+
+.label {
+  font-size: 35rpx;
+  margin: 40rpx 40rpx 60rpx 40rpx;
+  display: inline-block;
+}
+
+.wx-checkbox-input {
+  width: 35rpx !important;
+  height: 35rpx !important; 
+} 
+
+.wx-checkbox-input.wx-checkbox-input-checked::before {
+  font-size: 35rpx !important;
+} 
+
+.button {
+  width: 300rpx;
 }

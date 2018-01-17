@@ -26,10 +26,22 @@
 .card-right{
   flex: 5;
   padding-left:16rpx;
+  position: relative;
 }
 
 .username {
   color:#4d638c;
+}
+
+.catelog {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 6rpx;
+  line-height: 40rpx;
+  padding: 0 10rpx;
+  border: 2rpx solid #ff0033;
+  color: #ff0033;
 }
 
 .position {
@@ -42,6 +54,13 @@
   padding: 30rpx 0;
 }
 
+.show-more {
+  font-size: 28rpx;
+  text-align: left;
+  color: #4d638c;
+  margin-bottom: 20rpx;
+}
+
 .content-img{
   width: 100%;
   display: flex;
@@ -51,12 +70,12 @@
 .article-img{
   width: 176rpx;
   height: 176rpx;
-  margin: 0 10rpx 10rpx 0;
+  margin: 0 10rpx 30rpx 0;
 }
 
 .article-img2{
   width: 300rpx;
-  margin: 0 10rpx 10rpx 0;
+  margin: 0 10rpx 30rpx 0;
 }
 
 .time{

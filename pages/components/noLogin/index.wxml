@@ -1,6 +1,7 @@
 <!--pages/components/noLogin/index.wxml-->
 <view class='box' wx:if="{{isHide}}">
   <view class='content'>
+    <view class='tips'>您需要登陆后再进行操作</view>
     <button loading="{{isLoading}}" class='ok' bind:getuserinfo="handleGetUserInfo" open-type='getUserInfo'>微信一键登录</button>
   </view> 
   <view class='block' bindtap="hide" />

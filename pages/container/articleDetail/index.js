@@ -70,7 +70,7 @@ Page({
     const id = this.data.content.id;
     return {
       title: '这个信息你肯定用得着，分享给你',
-      path: '/pages/container/articleDetail/index?id=' + id + '&userId=' + app.globalData.session3rd,
+      path: '/pages/container/articleDetail/index?id=' + id + '&userId=' + app.globalData.token,
       success: function (res) {
         // 转发成功
       },

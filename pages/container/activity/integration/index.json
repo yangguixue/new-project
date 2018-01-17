@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "noLogin": "../../../components/noLogin/index"
+  }
+}

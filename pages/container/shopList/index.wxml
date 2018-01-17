@@ -9,42 +9,65 @@
   </view>
 </view>
 
-<view class="banner">
-  <image src="https://www.qmjoin.com/data/upload/xrxz/mfrz.jpg" />
-</view>
-
-<!-- <view class="list-title pd">
-  商家列表
-</view> -->
+<navigator url='../creatShop/index'hover-class="none">
+  <view class="banner">
+    <image src="https://www.qmjoin.com/data/upload/xrxz/dplb.jpg" />
+  </view>
+</navigator>
 
 <view class='menu'>
   <view class='menu-title'>
-    <view class='category' bindtap='handleFilter' data-id="0">
-      {{filter.name ? filter.name : '所有分类' }}
+    <view class="category" bindtap='handleFilter' data-id="0">
+      {{category[value].name}}
+      <text class='triangle' />
+    </view>
+    <view class='line'></view>
+    <view class="filter" bindtap='handleFilter' data-id="1">
+      店铺筛选
+      <text class='triangle' />
+    </view>  
+  </view>
+</view>
+
+<view class='menu menu2' wx:if="{{showMask}}">
+  <view class='mask' bindtap='handleHideMask' ></view>
+  <view class='menu-title menu-title2'>
+    <view class="{{isShowCate ? 'category selected' : 'category'}}" bindtap='handleFilter' data-id="0">
+      {{category[value].name}}
       <text class='triangle' wx:if="{{!isShowCate}}" />
       <text class='triangle2' wx:else /> 
     </view>
     <view class='line'></view>
-    <view class='filter' bindtap='handleFilter' data-id="1">
-      {{filter1.name ? filter1.name : '店铺筛选' }}
+    <view class="{{isShowFilter ? 'filter selected' : 'filter'}}" bindtap='handleFilter' data-id="1">
+      店铺筛选
       <text class='triangle' wx:if="{{!isShowFilter}}" />
       <text class='triangle2' wx:else />
     </view>  
   </view>
   <view class="{{isShowCate ? 'menu-list' : 'menu-list dn'}}">
     <block wx:for="{{category}}" wx:key="{{index}}">
-      <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="0">{{item.name}}</view>
+      <view class="{{item.selected ? 'menu-item menu-item-hover' : 'menu-item'}}" bindtap='handleFilterSearch' data-item="{{item}}" data-index="{{index}}" data-id="0">{{item.name}}</view>
     </block>
   </view> 
-  <view class="{{isShowFilter ? 'menu-list' : 'menu-list dn'}}">
-    <block wx:for="{{category2}}" wx:key="{{index}}">
-      <view class='menu-item' bindtap='handleFilterSearch' data-item="{{item}}" data-id="1">{{item.name}}</view>
-    </block>
-  </view> 
+
+  <view class="{{isShowFilter ? 'checkbox' : 'checkbox dn'}}">
+    <checkbox-group bindchange="checkboxChange">
+      <label class='label'>
+        <checkbox value="is_sale" checked="{{filters.is_sale}}" />有活动
+      </label>
+      <label class='label'>
+        <checkbox value="is_recruit" checked="{{filters.is_recruit}}" />有招聘
+      </label>
+      <label class='label'>
+        <checkbox value="is_deposit" checked="{{filters.is_deposit}}" />保障店铺
+      </label>
+    </checkbox-group>
+    <button class='button' bindtap='handleFilterSearch' data-id="1">确认</button>
+  </view>
 </view>
 
 <block wx:for="{{list}}" wx:key="{{item.id}}">
-  <navigator url="../shopDetail/index?id={{item.id}}">
+  <navigator hover-class="none"  url="../shopDetail/index?id={{item.id}}">
     <shop item="{{item}}"/>
   </navigator>
 </block>
@@ -54,5 +77,6 @@
   <image src='../../images/loading.gif' alt="" class='loading-img' />
 </view>
 <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+<button class='button' bindtap='handlePublish' wx:if="{{listStatus == '该行业稀缺，抓住时机，马上入驻，别人看到的就是你'}}">马上入驻</button>
 
-<!-- <loading isLoading="{{isLoading}}" list="{{items}}" /> -->
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

@@ -72,3 +72,7 @@
   background: #fd450f;
   border-radius: 6rpx;
 }
+
+.sign2 {
+  background: #ff923a;
+}

@@ -80,9 +80,9 @@ page{
   height: 52rpx;
 }
 
+
 .list-box {
   height: 500rpx;
-  overflow-y: scroll;
   font-size: 28rpx;
   background: #fff;
   border-radius: 10rpx;
@@ -90,16 +90,23 @@ page{
 }
 
 .title {
+  width: 100%;
   display: flex;
   justify-content: space-around;
   font-size: 30rpx;
   font-weight: bold;
+  background: #fff;
   padding-bottom: 20rpx;
 }
 
 .title-hover {
   padding-bottom: 20rpx;
   border-bottom: 8rpx solid #fe0039;
+}
+
+.list-content {
+  overflow-y: scroll;
+  height: 400rpx;
 }
 
 .list {
@@ -154,18 +161,17 @@ page{
 }
 
 .tips-btn {
-  float: right;
-  font-size: 24rpx;
-  width: 120rpx;
-  height: 40rpx;
-  border-radius: 6rpx;
-  line-height: 40rpx;
-  margin-top: 10rpx;
-  text-align: center;
   color: #fff;
-  background: linear-gradient(#fff400, #ff9c00);
+  margin-bottom: 30rpx;
 }
 
 .yellow {
   color: #fff400;
+}
+
+.footer {
+  color: #fff;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 90rpx;
 }

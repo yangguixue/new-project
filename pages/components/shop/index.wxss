@@ -90,9 +90,11 @@
 
 .others {
   font-size: 24rpx;
-  color: #666;
+  color: #333;
   padding-top: 20rpx;
   margin-bottom: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .others-logo {

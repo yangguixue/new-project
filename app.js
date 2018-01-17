@@ -52,7 +52,6 @@ App({
     })
 
     //用户通过卡片点击
-    console.log(options)
     if (options.query.userId) {
       console.log(options.query.userId)
       wx.setStorageSync('from_user', options.query.userId);
@@ -89,26 +88,28 @@ App({
     })
     return new Promise(function(resolve, reject){
       wx.login({
-        success: function (res) {
-          if (res.code) {
-            // 获取新的token
-            util.req('&m=member&a=onLogin', { code: res.code }, function (data) {
-              if (data.flag == 1) {
-                wx.removeStorageSync('token');
-                that.setToken(data.reset.session3rd);
-                that.setIsReg(data.reset.is_reg);
+        success: function(res) {
+          util.req('&m=member&a=onLogin', { code: res.code }, function (data) {
+            if (data.flag == 1) {
+              wx.removeStorageSync('token');
+              that.setToken(data.reset.session3rd);
+              that.setIsReg(data.reset.is_reg);
 
-                if (that.userInfoReadyCallback) {
-                  that.userInfoReadyCallback(data)
-                }
-
-                wx.hideLoading();
-                resolve();
+              if (that.userInfoReadyCallback) {
+                that.userInfoReadyCallback(data)
               }
-            });
-          } else {
-            console.log('获取用户登录态失败！' + res.errMsg)
-          }
+
+              resolve();
+              wx.showToast({
+                title: '登录成功',
+              })
+            } else {
+              wx.showToast({
+                title: data.msg,
+              })
+            }
+            wx.hideLoading();
+          });
         }
       })
     })
@@ -118,7 +119,6 @@ App({
   registerUser: function(userInfo) {
     var that = this;
     var from_user = wx.getStorageSync('from_user');
-    console.log(from_user)
     return new Promise(function(resolve, reject) {
       wx.login({
         success: function (res) {
@@ -131,13 +131,11 @@ App({
           if (from_user) {
             item.token = from_user;
           }
-
-          console.log(item)
           
           util.req('&m=member&a=onReg', item, function (data) {
             console.log(data)
             if (data.flag == 1) {
-              resolve();
+              resolve(res.code);
             } else {
               console.log(1)
               that.loginFail();

@@ -3,7 +3,7 @@
 <view class="fans-list">
   <block wx:for="{{list}}" wx:key="{{item.id}}">  
     <view class="fans-content">
-      <navigator url="../../container/userPage/index?id={{item.id}}">
+      <navigator hover-class="none" url="../../container/userPage/index?id={{item.id}}">
         <image src="{{item.photo}}" class="fans-img" />
         <view class="fans-info">
             <view class="fans-name">

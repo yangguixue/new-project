@@ -30,7 +30,7 @@ Page({
       if (data.flag == 1) {
         that.setData({ nodes: data.result.content });
       } else {
-        wx.showToast({
+        wx.showModal({
           title: data.msg,
         })
       }
@@ -39,6 +39,7 @@ Page({
 
   handlePayment: function(event) {
     const hasPay = this.data.hasPay;
+    console.log(hasPay)
     wx.navigateTo({
       url: '../payment/index?type=保证金&action=' + hasPay,
     })

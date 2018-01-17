@@ -6,22 +6,42 @@
 <view class='box'>
   <view class='list'>
     <view class='title'>
-      <text class='title-text'>排行</text>
-      <text class='title-text'>用户</text>
-      <text class='title-text'>积分</text>
+      <text class='title-text wid01'>排行</text>
+      <text class='title-text wid02'>用户</text>
+      <text class='title-text wid03'>积分</text>
     </view>
     <block wx:for="{{items}}" wx:key="{{item.member_id}}">
       <view class='item'>
-        <text class='item-text'>第{{index + 1}}名</text>
+        <view class='item-text'>
+          <image src='../../../images/sort01.png' wx:if="{{index == 0}}" class='sort' />
+          <image src='../../../images/sort02.png' wx:elif="{{index == 1}}" class='sort' />
+          <image src='../../../images/sort03.png' wx:elif="{{index == 2}}" class='sort' />
+          <text wx:else>{{index + 1}}</text>
+        </view>
         <view class='user'>
           <image src='{{item.userphoto}}' class='userhead'/>
-          <view class='username'> {{item.username}}</view>
+          <text class='username'> {{item.username}}</text>
         </view>
         <view class='jifen'>
-          <image src='../../../images/money.png' style='width: 32rpx;height: 32rpx;margin-right: 10rpx' />
+          <image src='../../../images/point.svg' style='width: 32rpx;height: 32rpx;' />
           <text> {{item.point}}</text>
         </view>
       </view>
     </block>
   </view>
 </view>
+
+<view class='myPoint' bindtap='myPoint'>我的积分 ></view>
+
+<view class='pd'>
+  <button class='button button1' bindtap="handleSend">我也要发布</button>
+  <button class='button' open-type="share">分享给好友</button>
+</view>
+
+<view class='content'>
+  <rich-text nodes="{{nodes}}"></rich-text>
+</view>
+
+<view class='footer'>—— 息壤同城 ——</view>
+
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

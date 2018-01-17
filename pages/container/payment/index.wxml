@@ -6,11 +6,11 @@
   </view>
   <view wx:if="{{type == '升级豪华版'}}">
     <view class='top-title'>升级豪华版店铺'</view>
-    <view class='top-intro'>要坚信付出和回报总是成正比的！</view>
+    <view class='top-intro'>付款一年可享受做活动<text class='red'>8.8折优惠!</text></view>
   </view>
   <view wx:if="{{type == '保证金'}}">
-    <view class='top-title'>{{action == true ? '退回店铺保证金' :  '缴纳店铺保证金'}}</view>
-    <view class='top-intro'>{{action == false ? '退回保证金店铺将失去平台保障' : '保证金随时可退'}}</view>
+    <view class='top-title'>{{action == 'true' ? '退回店铺保证金' :  '缴纳店铺保证金'}}</view>
+    <view class='top-intro'>{{action == 'true' ? '退回保证金店铺将失去平台保障' : '保证金随时可退'}}</view>
   </view>
 </view>
 
@@ -19,16 +19,18 @@
     <block wx:for="{{price}}" wx:key="{{index}}"> 
       <view class="{{item.checked ? 'center-item center-item-checked' : 'center-item'}}" bindtap='handleSelect' data-item="{{item}}">
         {{item.name}}
-        <text class='jian' wx:if="{{item.id == 4}}">1元/天</text>
+        <text class='jian' wx:if="{{item.id == 2}}">1元/天</text>
       </view>
     </block>
   </view>
   <view class='bzj-price' wx:else> 
-    ￥100
+    ￥198
   </view>
 </view>
 
-<view class='submit-button' bindtap='payment'>
-  <button class='button' wx:if="{{type == '升级豪华版'}}">立即支付 {{num}}元</button>
-  <button class='button' wx:else>立即{{action == true ? '退回' : '支付'}}</button>
+<view class='submit-button'>
+  <button class='button' wx:if="{{type == '升级豪华版'}}" bindtap='payment'>立即支付 {{num/100}}元</button>
+    <button class='button' wx:if="{{type == '保证金' && action == 'false'}}" bindtap='payment'>立即支付</button>
+  <button class='button' wx:if="{{type == '保证金' && action == 'true' }}" bindtap='refund'>立即退回</button>
+
 </view>

@@ -1,7 +1,7 @@
 <!--pages/container/catelogList/index.wxml-->
 <banner banners="{{banners}}"/>
 <view class="tab" wx:if="{{menu.length > 0}}">
-  <block wx:for="{{menu}}" >
+  <block wx:for="{{menu}}" wx:key="{{item.cg_id}}" >
     <view class="{{ tabId === item.cg_id  ? 'menu tab-hover' : 'menu' }}"  bindtap="handleClickTab" data-id="{{item.cg_id}}">
       {{item.name}}
     </view>
@@ -14,5 +14,9 @@
   <image src='../../images/loading.gif' alt="" class='loading-img' />
 </view>
 <view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+
+<button class='button' bindtap='handlePublish' wx:if="{{listStatus == '还没有人发布消息，立刻抢占先机！'}}">立即发布</button>
+
+<button class='button' bindtap='handlePublish' wx:if="{{listStatus == '我可是有底线的'}}">我也要发</button>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

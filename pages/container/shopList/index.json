@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "shop": "../../components/shop/index",
-    "loading": "../../components/loading/index"
+    "loading": "../../components/loading/index",
+    "noLogin": "../../components/noLogin/index"
   },
   "enablePullDownRefresh": "true"
 }

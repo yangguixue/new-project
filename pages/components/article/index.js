@@ -9,7 +9,22 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    dn: false
+    dn: false,
+    showMore: false,
+    str_content: '',
+    contentAll: '',
+  },
+
+  attached: function () {
+    const content = this.data.content;
+    const isDetail = this.data.isDetail;
+    if (content.post_content.length > 100 && !isDetail) {
+      const contentAll = content.post_content;
+      const str_content = content.post_content.substring(0, 101);
+      console.log(str_content);
+      content.post_content = str_content;
+      this.setData({ content, showMore: true, contentAll, str_content });
+    }
   },
 
   methods: {
@@ -21,6 +36,18 @@ Component({
         latitude,
         longitude
       })
+    },
+
+    handleShowMore: function() {
+      const content = this.data.content;
+      content.post_content = this.data.contentAll;
+      this.setData({ content, showMore: false })
+    },
+
+    handleHideMore: function() {
+      const content = this.data.content;
+      content.post_content = this.data.str_content;
+      this.setData({ content, showMore: true })
     },
 
     // 图片放大

@@ -43,7 +43,7 @@ Page({
         that.setData({ isSending: true });
         countdown(this);      
       } else {
-        wx.showToast({
+        wx.showModal({
           title: data.msg,
         })
       }

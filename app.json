@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/container/index/index",
+    "pages/container/release/index",
+    "pages/container/getPhone/index",
     "pages/container/payment/index",
     "pages/container/shopDetail/index",
     "pages/container/shopList/index",
@@ -14,11 +16,9 @@
     "pages/container/articleDetail/index",
     "pages/container/circle/index",
     "pages/container/publish/index",
-    "pages/container/release/index",
     "pages/container/userPage/index",
     "pages/container/fans/index",
     "pages/container/focus/index",
-    "pages/container/getPhone/index",
     "pages/container/leaveMessage/index",
     "pages/container/catelogList/index",
     "pages/container/circleDetail/index",
@@ -27,7 +27,6 @@
     "pages/container/activity/integration/index"
   ],
   "window": {
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#333",
     "navigationBarTitleText": "息壤小镇",
     "navigationBarTextStyle": "#fff"

@@ -29,11 +29,17 @@
   top: 40%;
 }
 
-.ok {
-  width: 300rpx;
-  margin-top: 60rpx;
-  background: #ff0033;
+.tips {
   color: #fff;
-  font-size: 30rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+
+.ok {
+  width: 350rpx;
+  margin-top: 60rpx;
+  background: #fd450f;
+  color: #fff;
+  font-size: 32rpx;
 }
 

@@ -51,10 +51,11 @@ var fetchShopList = function(that) {
     } else {
       wx.showToast({
         title: data.msg,
-        duration: 2000
+        image: '../../imgaes/fail.svg'
       })
     }
   })
+  wx.stopPullDownRefresh();
 }
 
 Page({

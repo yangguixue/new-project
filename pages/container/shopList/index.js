@@ -7,16 +7,17 @@ var page = 0;
 
 var fetchShopList = function (that, lastid) {
   that.setData({ loadMore: true });
-  util.req('&m=shop&a=getShopList', {
-    lastid,
-    epage,
-  }, function (data) {
+  const filters = that.data.filters;
+  filters.lastid = lastid;
+  filters.epage = epage;
+  console.log(filters);
+  util.req('&m=shop&a=getShopList', filters, function (data) {
     var list = that.data.list;
     if (data.flag == 1) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          that.setData({ listStatus: '该行业稀缺，抓住时机，马上入驻，别人看到的就是你', loadMore: false, list: data.result });
           return;
         }
         that.setData({ list: data.result });
@@ -32,8 +33,10 @@ var fetchShopList = function (that, lastid) {
       }
     }
     that.setData({
-      loadMore: false
+      loadMore: false,
+      filters
     })
+    wx.stopPullDownRefresh();
   })
 }
 
@@ -42,21 +45,17 @@ Page({
     isShowCate: false, //是否展示所有分类
     isShowFilter: false, 
     category: [], //分类
+    value: 0,
     loadMore: false,
+    showMask: false,
     searchValue: '', //搜索商家
-    filter: {},
-    filter1: {},
-    filters: {}, // 需要提交的筛选条件
-    category2: [{
-      id: 0,
-      name: '所有'
-    }, {
-      id: 1,
-      name: '有活动'
-    }, {
-      id: 2,
-      name: '有招聘'
-    }]
+    filters: {
+      is_sale: false,
+      is_recruit: false,
+      is_deposit: false
+    },
+    isShowLogin: false,
+    checkbox: [], //多选框
   },
 
   onLoad: function (options) {
@@ -75,33 +74,66 @@ Page({
         util.errorTips(data.msg);
       }
     })
-    
   },
+
+  handleHideMask: function(event) {
+    this.setData({
+      showMask: false,
+      isShowFilter: false,
+      isShowCate: false,
+    })
+  },
+
+  handleOpenLogin: function () {
+    this.setData({ isShowLogin: true });
+  },
+
+  handleCloseLogin: function (event) {
+    this.setData({ isShowLogin: false });
+    if (app.globalData.is_reg) {
+      fetchShopList(that, 0);
+    }
+  },
+
 
   // 搜索商家
   handleChange: function(event) {
+    const searchValue = event.detail.value;
     this.setData({ searchValue });
   },
 
   handleSearch: function(event) {
     var that = this;
+    var kword = this.data.searchValue;
     wx.showLoading({ title: '加载中' });
     util.req('&m=shop&a=searchShopList', {
-      kword: this.data.searchValue,
+      kword,
       lastid: 0,
       epage
     }, function(data) {
       if (data.flag == 1) {
-        that.setData({ list: data.result });
+        that.setData({
+          list: data.result,
+          filters: {
+            is_sale: false,
+            is_recruit: false,
+          },  
+        });
       }
       wx.hideLoading()
     })
+  },
+
+  checkboxChange: function(event) {
+    const checkbox = event.detail.value;
+    this.setData({ checkbox });
   },
 
   handleFilter: function(event) {
     const isShowCate = this.data.isShowCate;
     const isShowFilter = this.data.isShowFilter;
     const id = event.target.dataset.id;
+    this.setData({ showMask: true });
     if (id == 0) {
       if (isShowFilter) {
         this.setData({ isShowFilter: !isShowFilter });
@@ -113,47 +145,48 @@ Page({
       }
       this.setData({ isShowFilter: !isShowFilter });
     }
-    
   },
 
   handleFilterSearch: function(event) {
     const that = this;
-    const item = event.target.dataset.item;
     const id = event.target.dataset.id;
     const filters = this.data.filters;
+    filters.is_sale = false;
+    filters.is_recruit = false;
+    filters.is_deposit = false;
+
+    const checkbox = this.data.checkbox;
     filters.session3rd = app.globalData.token;
+    checkbox.map((data) => {
+      filters[data] = true;
+    })
 
-    if (id == 0) {
-      const filter = this.data.filter;
-      filters.cg_id = filter.cg_id;
-      this.setData({ filter: item, filters }); //下拉框改变文字
-    } else {
-      const filter1 = this.data.filter1;      
-      if (item.id == 0) {
-        if (filters.is_sale || filters.is_recruit) {
-          delete filters.is_sale;
-          delete filters.is_recruit;
+    if (id == 0) { //选择分类
+      const category = this.data.category;
+      const item = event.target.dataset.item;
+      const index = event.target.dataset.index;
+      for (let i = 0; i < category.length; i++) {
+        if (category[i].selected) {
+          delete category[i].selected;
         }
-      } else if(item.id == 1) {
-        if (filters.is_recruit) {
-          delete filters.is_recruit;          
-        }
-        filters.is_sale = true;
-      } else if(item.id == 2) {
-        if (filters.is_sale) {
-          delete filters.is_sale;
-        }
-        filters.is_recruit = true;
       }
-      this.setData({ filter1: item, filters }); //下拉框改变文字
+      item.selected = true;
+      category[index] = item;
+      filters.cg_id = item.cg_id;
+      this.setData({ category, value: index, filters });
     }
+    this.setData({ filters });
+    this.handleHideMask();
+    fetchShopList(that, 0);
+  },
 
-    that.handleFilter(event);
-    
-    util.req('&m=shop&a=getShopList', filters, function(data) {
-      if (data.flag == 1) {
-        that.setData({ list: data.result });
-      }
+  handlePublish: function() {
+    if (!app.globalData.is_reg) {
+      this.handleOpenLogin();
+      return;
+    }
+    wx.navigateTo({
+      url: '../creatShop/index',
     })
   },
 

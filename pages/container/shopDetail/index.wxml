@@ -14,7 +14,7 @@
       <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
       营业时间:{{info.start_time}} - {{info.end_time}}</view>
     <view class='shop-logo-box'>
-      <image src='{{info.shop_logo}}' class='shop-logo' mode='aspectFill'/>
+      <image src='{{info.shop_logo_show}}' class='shop-logo' mode='aspectFill'/>
     </view>
   </view>
   <view class='zx-bottom'>
@@ -36,8 +36,6 @@
       <image src='../../images/shop-love-num.png' class='heart' bindtap='handleZan' />
       <view class='shop-love'>获赞 {{info.star_num}}</view>
     </view>
-    <text class='messageTips' wx:if="{{isShowZan}}" bindtap='hideZan'>赞越多，店铺展示越往前哦~</text>
-    <text class='single2' wx:if="{{isShowZan}}"/>
   </view>
 </view>
 
@@ -53,7 +51,7 @@
 </view>
 <!-- END 领取vip -->
 
-<navigator url='../rules/index?name=bzj&hasPay={{info.deposit}}&is_owner={{info.is_owner}}'>
+<navigator hover-class="none"  url='../rules/index?name=bzj&hasPay={{info.deposit}}&is_owner={{info.is_owner}}'>
   <!-- 未缴纳保证金 -->
   <view class='warn' wx:if="{{!info.deposit}}">
     <view class='warn-left'>
@@ -80,6 +78,18 @@
   <!-- END 已缴纳保证金 -->
 </navigator>
 
+<!-- 店铺升级 -->
+ <view class='warn' wx:if="{{info.is_owner && info.is_remind}}">  
+ <!-- <view class='warn'>  -->
+  <view class='warn-left'>
+    <image src='../../images/up.svg' class='warning-img' />
+    <text class='waring-text yellow'>{{info.level == 1 ? '您的豪华版店铺即将到期' : '店铺升级，功能更强大'}}</text>
+  </view>
+  <view class='warn-right'>
+    <view class='warning-btn' bindtap='handleShowHaoHua'>{{info.level == 1 ? '立即续费' : '立即升级'}}</view>
+  </view>
+</view>
+
 
 <view class="info-box pd">
   <view class="shop-info" wx:if="{{info.level == 0}}">
@@ -95,14 +105,6 @@
     <text class="info"> {{info.shop_addr}}</text>
   </view>
 </view>
-<!-- <view class="shop-img pd">
-  <view class="title">商家图片</view>
-  <view class="images-box">
-    <scroll-view scroll-x style="white-space: nowrap">
-      <image src="../images/userhead.jpg" class="image-list" />
-    </scroll-view>
-  </view>
-</view> -->
 
 <!-- 活动列表 -->
 <view wx:if="{{(!info.is_owner && !info.is_sale) || info.level == 0}}"></view>
@@ -117,7 +119,7 @@
   </view> 
   <block wx:for="{{info.ad_list}}" wx:key="{{index}}" wx:if="{{info.is_sale}}">
     <view class='active-list'>
-      <navigator url="{{'../../container/discountDetail/index?id=' + item.id}}">
+      <navigator hover-class="none"  url="{{'../../container/discountDetail/index?id=' + item.id}}">
         <view class='active-left'>
           <image class='active-img' src='{{item.smeta}}' />
         </view>
@@ -170,18 +172,6 @@
   </view> 
 </view>
 
-<!-- 店铺升级 -->
-<view class='warn' wx:if="{{info.level == 0 && info.is_owner && info.probation}}"> 
-<!-- <view class='warn'> -->
-  <view class='warn-left'>
-    <image src='../../images/up.svg' class='warning-img' />
-    <text class='waring-text yellow'>店铺升级，功能更强大</text>
-  </view>
-  <view class='warn-right'>
-    <view class='warning-btn' bindtap='handleShowHaoHua'>立即升级</view>
-  </view>
-</view>
-
 <!-- 详细信息 -->
 <view class="shop-img pd">
   <view class="title">商家信息</view>
@@ -193,7 +183,7 @@
   </view>
 </view>
 
-<navigator url='../report/index?type=shop&id={{info.id}}'>       
+<navigator hover-class="none"  url='../report/index?type=shop&id={{info.id}}'>       
   <view class='report'>
     <view class='report-box'>
       <image src='../../images/report.svg' class='report-img' />
@@ -206,7 +196,7 @@
 
 <view class='footer'>
   <view class='footer-l'>
-    <navigator url='../index/index' open-type="switchTab">
+    <navigator hover-class="none"  url='../index/index' open-type="switchTab">
       <view class='item'>
         <view class='icon'>
           <image src='../../images/homepage.svg' />
@@ -247,11 +237,11 @@
   <view class='edit-box'>
     <view class='edit-title'>{{jobInfo.id ? '修改' : '添加'}}招聘信息</view>
     <form bindsubmit="submitJob">
-      <input placeholder="招聘职位" class='edit-input' name="jd" value="{{jobInfo.jd ? jobInfo.jd : ''}}" />
-      <input placeholder="招聘人数" class='edit-input' name="num" value="{{jobInfo.num ? jobInfo.num : ''}}" />
-      <input placeholder="薪资" class='edit-input' name="salary" value="{{jobInfo.salary ? jobInfo.salary : ''}}" />
-      <textarea placeholder="职位要求" class='edit-input edit-textarea' name="demand" value="{{jobInfo.demand ? jobInfo.demand : ''}}"  />
-      <textarea placeholder="福利"class='edit-input edit-textarea' name="benefits" value="{{jobInfo.benefits ? jobInfo.benefits : ''}}"  />
+      <input placeholder="招聘职位" maxlength='20' class='edit-input' name="jd" value="{{jobInfo.jd ? jobInfo.jd : ''}}" />
+      <input placeholder="招聘人数" maxlength='20' class='edit-input' name="num" value="{{jobInfo.num ? jobInfo.num : ''}}" />
+      <input placeholder="薪资" maxlength='20' class='edit-input' name="salary" value="{{jobInfo.salary ? jobInfo.salary : ''}}" />
+      <input placeholder="职位要求" maxlength='100' class='edit-input' name="demand" value="{{jobInfo.demand ? jobInfo.demand : ''}}"  />
+      <input placeholder="福利" maxlength='100' class='edit-input' name="benefits" value="{{jobInfo.benefits ? jobInfo.benefits : ''}}"  />
       <button class='submit' formType="submit" loading="{{submitJob}}">提交</button>
     </form>
   </view>

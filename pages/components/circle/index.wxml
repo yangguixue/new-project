@@ -2,11 +2,11 @@
     <view class="add" bindtap="handleAdd" data-item="{{item}}" wx:if="{{hasAdd}}">
       <image src="../../images/add.svg" style="width:50rpx;height:50rpx;" />
     </view>
-    <navigator url="../../container/circleDetail/index?id={{item.cg_id}}">
+    <navigator hover-class="none" url="../../container/circleDetail/index?id={{item.cg_id}}">
       <image class="circle-img" src="{{item.icon}}"/>
     </navigator>
     <view class="info-r-t">
-      <navigator url="../../container/circleDetail/index?id={{item.cg_id}}">
+      <navigator  hover-class="none"url="../../container/circleDetail/index?id={{item.cg_id}}">
         <view class="name"> {{item.name}}</view>
       </navigator>
       <view class="join-button exit" wx:if="{{item.status}}" bindtap="handleJoinCircle" data-item="{{item}}">退出圈子</view>

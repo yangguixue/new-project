@@ -18,7 +18,7 @@ var fetchInfoList = function (that, lastid, cg_id) {
       var len = data.result.length;
       if (lastid == 0) {
         if (len == 0) {
-          that.setData({ listStatus: '这里啥也没有', loadMore: false });
+          that.setData({ listStatus: '还没有人发布消息，立刻抢占先机！', loadMore: false });
           return;
         }
         that.setData({ list: data.result });
@@ -37,6 +37,7 @@ var fetchInfoList = function (that, lastid, cg_id) {
     that.setData({
       loadMore: false
     })
+    wx.stopPullDownRefresh();
   })
 }
 
@@ -44,13 +45,16 @@ Page({
   data: {
     menu: [],
     tabId: '',
+    optionId: '',
     banners: [],
     loadMore: false, // 加载更多
+    isShowLogin: false
   },
 
   onLoad: function (options) {
     var id = options.id;
     var that = this;
+    this.setData({ optionId: id });
 
     // 获取banner
     util.getReq('&m=ad&a=getAdsList', { recommended: 1 }, function (data) {
@@ -112,5 +116,30 @@ Page({
       list: []
     })
     fetchInfoList(that, 0, id);
+  },
+
+  handleOpenLogin: function () {
+    this.setData({ isShowLogin: true });
+  },
+
+  handleCloseLogin: function (event) {
+    var that = this;
+    var cg_id = this.data.tabId;
+    this.setData({ isShowLogin: false });
+    if (app.globalData.is_reg) {
+      fetchInfoList(that, 0, cg_id);
+    }
+  },
+
+  handlePublish: function(event) {
+    var id = this.data.optionId;
+    if (!app.globalData.is_reg) {
+      this.handleOpenLogin();
+      return;
+    }
+
+    wx.navigateTo({
+      url: '../release/index?type={{0}}&id=' + id,
+    })
   }
 })

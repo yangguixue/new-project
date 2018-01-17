@@ -5,29 +5,22 @@ Page({
   data: {
     price: [{
       id: 0,
-      name: '18元/7天',
-      price: 18
+      name: '168元/3个月',
+      price: 16800
     }, {
       id: 1,
-      name: '18元/7天',
-      price: 45
+      name: '258元/半年',
+      price: 25800
     }, {
       id: 2,
-      name: '18元/7天',
-      price: 119
-    }, {
-      id: 3,
-      name: '18元/7天',
-      price: 199
-    }, {
-      id: 4,
-      name: '18元/7天',
-      price: 365,
+      name: '365元/年',
+      price: 36500,
       isJian: true,
       checked: true
     }],
-    num: 365,
+    num: 36500,
     type: '',
+    action: '',
   },
 
   onLoad: function (options) {
@@ -35,7 +28,8 @@ Page({
     const that = this;
     this.setData({ type });
     if (options.type == '保证金') {
-      this.setData({ num: 100 });
+      const action = options.action;
+      this.setData({ num: 19800, action });
     }
 
     util.req('&m=member&a=getMemberInfo', {
@@ -91,13 +85,13 @@ Page({
             }, 2000)
           },
           'fail': function (res) {
-            wx.showToast({
+            wx.showModal({
               title: '支付失败',
             })
           }
         })
       } else {
-        wx.showToast({
+        wx.showModal({
           title: data.msg,
         })
       }
@@ -105,45 +99,38 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
+  refund: function() {
+    const shop_id = this.data.shop_id;
+    wx.showModal({
+      title: '确定要退回保证金吗？',
+      content: '退回保证金您的店铺将被归类为无平台保障店铺，可能影响您店铺的口碑',
+      success: function(res) {
+        if (res.confirm) {
+          util.req('&m=payment&a=refund', {
+            session3rd: app.globalData.token
+          }, function (data) {
+            if (data.flag == 1) {
+              wx.showModal({
+                title: '退回成功',
+                content: '您将会在1-3个工作日内收到退款，请耐心查收',
+                success: function(res) {
+                  wx.navigateTo({
+                    url: '../shopDetail/index?id=' + shop_id,
+                  })
+                }
+              })
+            } else {
+              wx.showToast({
+                title: '退款失败',
+                image: '../../images/fail.svg'
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

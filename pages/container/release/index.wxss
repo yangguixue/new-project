@@ -11,7 +11,7 @@ page {
 .content {
   width: 100%;
   margin-bottom: 20rpx;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .image {
@@ -83,7 +83,7 @@ page {
 }
 
 .term {
-  padding: 30rpx;
+  padding: 30rpx 30rpx 30rpx;
   font-size: 28rpx;
 }
 
@@ -120,3 +120,79 @@ page {
 .wx-checkbox-input.wx-checkbox-input-checked::before {
   font-size: 30rpx !important;
 } 
+
+/* 积分 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.6;
+  width: 100%;
+  height: 100%;
+}
+
+.point-c {
+  width: 340rpx;
+  height: 400rpx;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  z-index: 22;
+  background: #fff;
+  margin-left: -170rpx;
+  border-radius: 20rpx;
+  color: #333;
+}
+
+.close {
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top: 0;
+  right: -60rpx;
+}
+
+.point-num {
+  overflow: hidden;
+  margin-top: 60rpx;
+  font-weight: bold;
+}
+
+.point-icon {
+  width: 44rpx;
+  height: 44rpx;
+  float: left;
+  margin: 5rpx 10rpx 50rpx 65rpx;
+}
+
+.point-num-text {
+  float: left;
+  font-size: 40rpx;
+}
+
+.point-success {
+  font-size: 28rpx;
+  margin-bottom: 38rpx;
+}
+
+.point-art {
+  font-size: 30rpx;
+}
+
+.red {
+  font-size: 36rpx;
+  color: #fd450f;
+}
+
+.point-detail {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  line-height: 72rpx;
+  background: #fd450f;
+  color: #fff;
+  font-size: 26rpx;
+  border-radius: 0 0 20rpx 20rpx;
+}

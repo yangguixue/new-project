@@ -1,7 +1,7 @@
 <!--pages/container/message/index.wxml-->
 <view class='list-box'>
   <block wx:for="{{list}}" wx:key="{{item.id}}">
-    <navigator url='../articleDetail/index?id={{item.post_id}}'>
+    <navigator hover-class="none" url='../articleDetail/index?id={{item.post_id}}'>
       <view class='item'>
         <view class='item-l'>
           <image src='{{item.from_userphoto}}' class='userhead' />

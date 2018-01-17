@@ -1,7 +1,7 @@
 <!--pages/container/leaveMessage/index.wxml-->
 <form bindsubmit="formSubmit">
   <view class='content'>
-    <textarea placeholder='非常欢迎您为我们提出改进意见~~' class='' name="info" />    
+    <textarea placeholder='非常欢迎您为我们提出改进意见~~ 10-200字以内' maxlength='200' class='' name="info" />    
   </view>
 
   <view class="submit-button">

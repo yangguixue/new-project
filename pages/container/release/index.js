@@ -9,12 +9,16 @@ Page({
     serverUrl: [],
     isNull: true, //textarea是否是空
     secondMenus: [], // 二级菜单
-    item: {}, // 要提交的对象
-    address: '',
-    hasLogin: null,
+    item: { post_addr_name: '正在定位...' }, // 要提交的对象
+    address: '正在定位...',
     isSubmiting: false,
     hasRead: true,
-    isSelect: false
+    isSelect: false,
+    isShowPhone: false, //是否要验证手机
+    price: {},
+    showPoint: false, //显示发布完成
+    pointNum: '',
+    phone: '', //该用户是否验证过手机号
   },
 
   onLoad: function (options) {
@@ -27,11 +31,6 @@ Page({
       item: item,
       type: options.type
     })
-    if (token) {
-      this.setData({
-        hasLogin: true,
-      })
-    }
 
     //请求二级菜单
     var that = this;
@@ -39,12 +38,18 @@ Page({
       type: 0,
       parent_id: options.id
     }, function(data) {
-      var menus = data.result;
-      if (menus.length > 0) {
-        that.setData({
-          secondMenus: menus
-        })
-      }
+      that.setData({
+        secondMenus: data.result
+      })
+    })
+
+    //获取价格
+    util.req('&m=Category&a=getPrice', {
+      cg_id: options.id
+    }, function (data) {
+      that.setData({
+        price: data.result
+      })
     })
 
     // 获取地理位置
@@ -61,12 +66,33 @@ Page({
           item.city = res.result.ad_info.city;
           item.district = res.result.ad_info.district;
           that.setData({
-            item: item
+            item: item,
+            address
           })
+        })
+      },
+      fail: function(res) {
+        wx.showModal({
+          content: res.msg,
         })
       }
     })
-    
+
+    this.getUserInfo();
+  },
+
+  getUserInfo: function () {
+    var that = this;
+    var token = app.globalData.token;
+    util.req('&m=member&a=getMemberInfo', { session3rd: token }, function (data) {
+      if (data.flag == 1) {
+        if (!data.result.phone) {
+          that.setData({ isShowPhone: true  })
+        } else {
+          that.setData({ isShowPhone: false, phone: data.result.phone })
+        }
+      }
+    })
   },
 
 
@@ -89,7 +115,8 @@ Page({
           item.city = addr.result.ad_info.city;
           item.district = addr.result.ad_info.district;
           that.setData({
-            item
+            item,
+            address: res.address
           })
           wx.hideLoading();
         })
@@ -199,6 +226,23 @@ Page({
     })
   },
 
+  handleOpenPoint: function (that) {
+    that.setData({ showPoint: true });
+  },
+
+  handleClosePoint: function() {
+    this.setData({ showPoint: false });
+    if (this.data.type == 1) {
+      wx.reLaunch({
+        url: '../circle/index'
+      })
+    } else {
+      wx.reLaunch({
+        url: '../index/index'
+      })
+    }
+  },
+
   handleSubmit: function() {
     var that = this;
     var item = this.data.item;
@@ -216,29 +260,70 @@ Page({
     that.setData({ isSubmiting: true });
     util.req('&m=info&a=addInfo', item, function (data) {
       if (data.flag == 1) {
-        wx.showToast({
-          title: data.result + '积分到手~',
-          duration: 2000
-        });
-
-        setTimeout(() => {
-          if (that.data.type == 1) {
-            wx.reLaunch({
-              url: '../circle/index'
-            })
-          } else {
-            wx.reLaunch({
-              url: '../index/index'
-            })
-          }
-        }, 2000)
-        
+        that.setData({ showPoint: true, pointNum: data.result });
       } else {
         wx.showModal({
           content: '发布失败' + data.msg,
         })
       }
+      wx.hideLoading();
       that.setData({ isSubmiting: false });
     })
   },
+
+  handlePayment: function(event) {
+    const item = {};
+    const that = this;
+    item.total_fee = 1;
+    item.session3rd = app.globalData.token;
+    item.body = '息壤小镇-付费消息';
+    util.req('&m=payment&a=pay', item, function (data) {
+      if (data.flag == 1) {
+        wx.requestPayment({
+          'timeStamp': data.result.timeStamp,
+          'nonceStr': data.result.nonceStr,
+          'package': data.result.package,
+          'signType': data.result.signType,
+          'paySign': data.result.paySign,
+          'success': function (res) {
+            wx.showToast({
+              title: '支付成功',
+            })
+
+            setTimeout(() => {
+              wx.showLoading({
+                title: '正在发布...',
+              })
+              that.handleSubmit();
+            }, 2000)
+          },
+          'fail': function (res) {
+            wx.showModal({
+              content: '支付失败',
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: data.msg,
+        })
+      }
+
+    })
+  },
+
+  // 无验证手机时显示
+  handleOpenPhone: function () {
+    this.setData({ isShowPhone: true });
+  },
+
+  handleSubmitPhone: function () {
+    this.getUserInfo();
+    this.handleClosePhone();
+  },
+
+  handleClosePhone: function (event) {
+    this.setData({ isShowPhone: false });
+  }
+
 })

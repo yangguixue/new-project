@@ -11,15 +11,15 @@
   <view class="comment-list">
     <block wx:for="{{content.comments}}" wx:key="{{item.id}}">
       <view class="block">
-        <navigator url="../userPage/index?id={{item.from_mid}}">
+        <navigator hover-class="none" url="../userPage/index?id={{item.from_mid}}">
           <image src="{{item.from_userphoto}}" class="block-left"/>
         </navigator>
         <view class="block-right">
-          <navigator url="../userPage/index?id={{item.from_mid}}">
+          <navigator hover-class="none" url="../userPage/index?id={{item.from_mid}}">
             <view class="username">{{item.from_name}}</view>
           </navigator>
           <view class="context" wx:if="{{item.to_name}}">
-            <navigator url='../userPage/index?id={{item.to_mid}}'><text class='blue'>回复:  {{item.to_name}}</text></navigator> {{item.content}}
+            <navigator hover-class="none" url='../userPage/index?id={{item.to_mid}}'><text class='blue'>回复:  {{item.to_name}}</text></navigator> {{item.content}}
           </view>
           <view class="context" wx:else>{{item.content}}</view>
           <view class="date">{{item.createtime}}  <text class='action' bindtap='handleFocusInput' data-item="{{item}}">回复</text><text class="action" wx:if="{{item.is_del}}" bindtap='handleDelete' data-item="{{item}}">删除</text></view>
@@ -35,14 +35,14 @@
 <view style="height: 100rpx;" />
 
 <!-- 点击评论时input -->
-<view class="comment-input" wx:if="{{focus}}">
-  <input type="text" placeholder="评论" class="input big-input" bindinput="handleChange" focus="{{focus}}" bindconfirm="handleSend" data-items="{{content}}" confirm-type="done" bindblur="handleBlurInput" />
-   <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="{{is_red}}">发送</text>
+<view class="{{focus ? 'comment-input big-input-box' : 'comment-input big-input-box dn'}}">
+  <textarea placeholder="评论" class="big-input" bindinput="handleChange" focus="{{focus}}" bindconfirm="handleSend" data-items="{{content}}" confirm-type="done" bindblur="handleBlurInput" />
+  <text class="send red" bindtap='handleSend' data-items="{{content}}" wx:if="{{is_red}}">发送</text>
   <text class="send" wx:else>发送</text> 
 </view>
 
 <!-- 没有评论时input -->
-<view class="comment-input" wx:else>
+<view class="{{focus ? 'comment-input dn' : 'comment-input'}}">
   <text class="input" bindtap="handleFocusInput">评论</text>
   <view style='display: inline' bindtap="handleCollection" data-action="{{content.is_star}}">
     <image src="../../images/collection-fill.svg" class="input-icon" wx:if="{{content.is_star}}"  />

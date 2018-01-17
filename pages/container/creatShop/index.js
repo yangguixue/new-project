@@ -5,14 +5,20 @@ var app = getApp();
 
 Page({
   data: {
-    info: {},
+    info: {
+      is_new: false,
+      is_brand: false,
+      shop_property: true
+    },
     startTime: '',  
     endTime: '',  
     nature: ['实体店', '自主经营'],
     imagesList: [], //图片；列表
     category: [], //分类
     serverUrl: [],
-    hasRead: true //同意条款
+    hasRead: true, //同意条款
+    isShowPhone: false,
+    phone: '' //是否有手机号
   },
 
   onLoad: function (options) {
@@ -65,10 +71,27 @@ Page({
         }
       })
     }
+
+    this.getUserInfo()
+  },
+
+  getUserInfo: function () {
+    var that = this;
+    var token = app.globalData.token;
+    util.req('&m=member&a=getMemberInfo', { session3rd: token }, function (data) {
+      if (data.flag == 1) {
+        if (!data.result.phone) {
+          that.setData({ isShowPhone: true })
+        } else {
+          that.setData({ isShowPhone: false, phone: data.result.phone })
+        }
+      }
+    })
   },
 
   openMap: function () {
     const info = this.data.info;
+    console.log(info);
     const that = this;
     wx.chooseLocation({
       success: function (res) {
@@ -84,31 +107,36 @@ Page({
           info.province = addr.result.ad_info.province;
           info.city = addr.result.ad_info.city;
           info.district = addr.result.ad_info.district;
-          that.setData({
-            info
-          })
           wx.hideLoading();
+        })
+        console.log(info);
+        that.setData({
+          info
         })
       }
     })
   },
 
-  bindStartTimeChange: function (e) {
-    this.setData({
-      startTime: e.detail.value
-    })
-  },
+  handleChange: function(event) {
+    console.log(event)
+    const name = event.currentTarget.dataset.name;
+    const value = event.detail.value;
+    const info = this.data.info;
+    const category = this.data.category;
+    if (name == 'cg_id') {
+      info.cg_id = category[value].cg_id;
+      info.cg_name = category[value].name;
+      this.setData({ info });
+      return;
+    }
 
-  bindEndTimeChange: function (e) {
-    this.setData({
-      endTime: e.detail.value
-    })
-  },
-
-  bindCategoryChange: function (e) {
-    this.setData({
-      categoryIndex: e.detail.value
-    })
+    if (name == 'shop_property' || name == 'is_new' || name == 'is_brand') {
+      info[name] = value;
+      return;
+    }
+    info[name] = value;
+    console.log(info)
+    this.setData({ info });
   },
 
   chooseLogo: function(e) {
@@ -127,7 +155,12 @@ Page({
           },
           success: function (res) {
             var data = JSON.parse(res.data);
-            that.setData({ shopLogo: tempFilePaths[0], serverLogo: data.result.file })
+            const event = {
+              currentTarget: { dataset: { name: 'shop_logo' }},
+              detail: { value: data.result.file }
+            }
+            that.handleChange(event);
+            that.setData({ shopLogo: tempFilePaths[0] });
           },
           fail: function (res) {
             wx.hideToast();
@@ -219,28 +252,40 @@ Page({
   formSubmit: function(e) {
     const newInfo = e.detail.value;
     const info = this.data.info;
-
-    if (info.id) {
-      newInfo.id = info.id;
-      newInfo.shop_logo = this.data.serverLogo ? this.data.serverLogo : info.shop_logo;
-      newInfo.start_time = this.data.startTime ? this.data.startTime : info.start_time;
-      newInfo.end_time = this.data.endTime ? this.data.endTime : info.end_time;
-    } else {
-      newInfo.shop_logo = this.data.serverLogo;
-      newInfo.start_time = this.data.startTime;
-      newInfo.end_time = this.data.endTime;
+    if (!this.data.hasRead) {
+      wx.showModal({
+        content: '同意发布条款才可以发布',
+      })
+      return;
     }
-    newInfo.shop_pic = this.data.serverUrl;
-    newInfo.shop_addr = info.shop_addr;
-    newInfo.shop_addr_name = info.shop_addr_name;
-    newInfo.lat = info.lat;
-    newInfo.lng = info.lng;
-    newInfo.province = info.province;
-    newInfo.city = info.city;
-    newInfo.district = info.district;
-    newInfo.session3rd = app.globalData.token;
 
-    util.req('&m=shop&a=editshop', newInfo, function(data) {
+    info.session3rd = app.globalData.token;
+    info.shop_pic = this.data.serverUrl;
+    info.shop_phone = this.data.phone;
+    console.log(info.shop_pic)
+
+    if (!info.shop_logo) {
+      wx.showModal({
+        content: '请填写店铺logo',
+      })
+      return;
+    }
+
+    if (!info.cg_id) {
+      wx.showModal({
+        content: '请选择店铺分类',
+      })
+      return;
+    }
+
+    if (!info.shop_pic) {
+      wx.showModal({
+        content: '请选择店铺图片',
+      })
+      return;
+    }
+
+    util.req('&m=shop&a=editshop', info, function(data) {
       if (data.flag == 1) {
         wx.showToast({
           title: '提交成功',
@@ -258,10 +303,25 @@ Page({
           }
         }, 1500)
       } else {
-        wx.showToast({
+        wx.showModal({
           title: data.msg,
         })
       }
     })
+  },
+
+  // 无验证手机时显示
+  handleOpenPhone: function () {
+    this.setData({ isShowPhone: true });
+  },
+
+  handleSubmitPhone: function() {
+    this.getUserInfo();
+    this.handleClosePhone();
+  },
+
+  handleClosePhone: function (event) {
+    var that = this;
+    this.setData({ isShowPhone: false });
   }
 })

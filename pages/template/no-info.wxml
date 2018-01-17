@@ -6,7 +6,7 @@
       </view>
       <view class="no-info-text">
         <view class="tips">{{tips}}</view>
-        <navigator url="{{url}}" open-type="switchTab">
+        <navigator hover-class="none" url="{{url}}" open-type="switchTab">
           <view class="no-info-button">{{button}}</view>
         </navigator>
       </view>

@@ -12,7 +12,7 @@ const fetchMessage = function(that) {
         list: data.result
       })
     } else {
-      wx.showToast({
+      wx.showModal({
         title: data.msg,
       })
     }

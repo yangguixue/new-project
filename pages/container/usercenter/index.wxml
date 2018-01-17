@@ -13,12 +13,12 @@
           积分 {{userInfo.point || 0}}
         </view>
         <view class="gold" wx:else>
-          登录即送2000积分
+          登录免费发消息
         </view>
       </view>
     </view>
     <view class="head-bottom" wx:if="{{userInfo.member_id}}">
-      <navigator url='../userPage/index?id={{userInfo.member_id}}'>
+      <navigator hover-class="none" url='../userPage/index?id={{userInfo.member_id}}'>
         <view class='head-block'>
           <view class="collection">
             <view class="number">{{userInfo.post_num || 0}}</view>
@@ -28,7 +28,7 @@
       </navigator>
 
       <view class="line"/>
-      <navigator url='../fans/index?url=focus'>
+      <navigator hover-class="none" url='../fans/index?url=focus'>
         <view class='head-block'>
           <view class="collection">
             <view class="number">{{userInfo.follow_num || 0}}</view>
@@ -38,7 +38,7 @@
       </navigator>
 
       <view class="line"/>
-      <navigator url='../fans/index?url=fans'>
+      <navigator hover-class="none" url='../fans/index?url=fans'>
         <view class='head-block'>
           <view class="collection">
             <view class="number">{{userInfo.fan_num || 0}}</view>
@@ -57,7 +57,7 @@
       <view>店铺</view>
     </view>
     <block wx:for="{{entry}}" wx:key="{{index}}">
-      <navigator url="../{{item.url}}/index">
+      <navigator hover-class="none" url="../{{item.url}}/index">
         <view class='entry-item'>
           <text class='dot' wx:if="{{item.id == 3 && userInfo.message_num != 0}}"/>
           <view class='entry-icon'>
@@ -70,7 +70,7 @@
   </view>
 
   <view wx:if="{{userInfo.member_id}}">
-    <navigator url="../circleList/index">
+    <navigator hover-class="none" url="../circleList/index">
       <view class="circle-title">
         <text>我加入的圈子</text>
       </view>
@@ -79,7 +79,7 @@
       <!-- 加入圈子展示 -->
       <scroll-view class="scroll" scroll-x  wx:if="{{userInfo.cicles.length > 0}}">
         <block wx:for="{{userInfo.cicles}}" wx:key="{{item.cg_id}}">
-          <navigator url="../circleDetail/index?id={{item.cg_id}}">
+          <navigator hover-class="none" url="../circleDetail/index?id={{item.cg_id}}">
             <view class="circle-content">
               <view class="circle">
                 <image src="{{item.icon}}" class="circle-img" />
@@ -98,16 +98,16 @@
   
 
   <view class="usercenter-list">
-    <navigator url="../getPhone/index">
+    <navigator hover-class="none" url="../getPhone/index" wx:if="{{userInfo.member_id}}">
       <view class="list-name">绑定手机<image src="../../images/next.svg" class="next" /><text class='list-text'>{{userInfo.phone ? userInfo.phone : '绑定手机送50积分'}}</text></view>
     </navigator>
-    <navigator url="../activity/integration/index">
+    <navigator hover-class="none" url="../activity/integration/index">
       <view class="list-name">积分排名<image src="../../images/next.svg" class="next" />
         <text class='list-text'>积分排名送现金啦！</text>
         <image src='../../images/redpackage.svg' class='red-pack'/>
       </view>
     </navigator>
-    <navigator url="../leaveMessage/index">
+    <navigator hover-class="none" url="../leaveMessage/index" wx:if="{{userInfo.member_id}}">
       <view class="list-name">留言反馈<image src="../../images/next.svg" class="next" /></view>
     </navigator>
   </view>
@@ -115,7 +115,7 @@
     <contact-button>联系客服</contact-button>
   </view> -->
   <view class="usercenter-list">
-    <navigator url='../rules/index?name=aboutUs'>  
+    <navigator hover-class="none" url='../rules/index?name=aboutUs'>  
       <view class="list-name">关于我们<image src="../../images/next.svg" class="next" /></view>
     </navigator>
   </view>

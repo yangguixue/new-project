@@ -5,7 +5,7 @@
   <view class="title">
     <image src="../../images/hot.svg" class="hot-icon" />
     <text>热门圈子</text>
-    <navigator url="../circleList/index">
+    <navigator hover-class="none" url="../circleList/index">
       <image src="../../images/next.svg" class="next-icon" />
       <text class="next">更多</text>
     </navigator>
@@ -13,7 +13,7 @@
   <view class="scroll-box">
     <scroll-view class="scroll" scroll-x >
       <block wx:for="{{items}}" wx:key="{{item.cg_id}}">
-        <navigator url="../circleDetail/index?id={{item.cg_id}}">
+        <navigator hover-class="none" url="../circleDetail/index?id={{item.cg_id}}">
           <view id="0" class="scroll-content">
             <image src="{{item.icon}}" class="bg" />
             <view class="text">{{item.name}} </view>

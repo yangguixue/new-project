@@ -17,7 +17,6 @@ Page({
   onLoad: function (options) {
     var that = this;
     this.setData({
-      isShowZan: wx.getStorageSync('isShowZan'),
       shopId: options.id,
     });
 
@@ -61,18 +60,10 @@ Page({
     })
   },
 
-  // 隐藏赞的提示
-  hideZan: function () {
-    wx.removeStorageSync('isShowZan')
-    this.setData({
-      isShowZan: false
-    });
-  },
-
   handleCall: function() {
     const info = this.data.info;
     if (info.is_owner) {
-      wx.switchTab({
+      wx.reLaunch({
         url: '../shopList/index',
       })
       return;
@@ -336,8 +327,8 @@ Page({
   onShareAppMessage: function(options) {
     const id = this.data.info.id;
     return {
-      title: '我家店铺上网啦~你的店铺也可以哦~',
-      path: '/pages/container/shopDetail/index?id=' + id + '&userId=' + app.globalData.session3rd,
+      title: '2018 我家店铺都上网了，你还在等什么，有店铺的看过来',
+      path: '/pages/container/shopDetail/index?id=' + id + '&userId=' + app.globalData.token,
       success(e) {
         wx.showShareMenu({
           // 要求小程序返回分享目标信息
@@ -345,8 +336,7 @@ Page({
         });
       },
       fail(e) {
-      },
-      complete() { }
+      }
     }
   }
 })

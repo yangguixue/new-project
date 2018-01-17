@@ -1,6 +1,7 @@
 // pages/container/discountDetail/index.js
 var util = require('../../../utils/util.js');
 var WxParse = require('../../../wxParse/wxParse.js');
+var app = getApp();
 
 Page({
   data: {
@@ -21,8 +22,32 @@ Page({
   },
   
   handleCall: function() {
+    if (this.data.discountDetail.store_name == '官方') {
+      wx.navigateTo({
+        url: '../index/index',
+      })
+      return;
+    }
     wx.makePhoneCall({
       phoneNumber: this.data.discountDetail.store_phone
     })
+  },
+
+  onShareAppMessage: function (options) {
+    const info = this.data.discountDetail;
+    const id = info.id;
+    return {
+      title: info.post_title,
+      path: '/pages/container/discountDetail/index?id=' + id + '&userId=' + app.globalData.token,
+      success(e) {
+        wx.showShareMenu({
+          // 要求小程序返回分享目标信息
+          withShareTicket: true
+        });
+      },
+      fail(e) {
+      },
+      complete() { }
+    }
   }
 })

@@ -1,6 +1,6 @@
 <!--pages/container/release/index.wxml-->
 <view class="text-box">
-  <textarea placeholder="发布消息" class="content" maxlength="-1" bindinput="handleChange" />
+  <textarea placeholder="发布消息 10-300字" class="content" maxlength="300" bindinput="handleChange" />
   <view class="image-box">
     <block wx:for="{{imagesList}}" wx:key="{{index}}">
       <view class="image">
@@ -14,14 +14,18 @@
   </view>
   <view class="address" bindtap="openMap">
     <image src="../../images/address.svg" class="address-img" />
-    <text>{{item.post_addr_name}}</text> 
+    <text>{{address}}</text> 
   </view>
   <view class='cg_tips' wx:if="{{secondMenus.length > 0}}">*该分类下需要选择一个二级分类~</view>
-  <radio-group class="radio-group" bindchange="radioChange">
+  <radio-group class="radio-group" bindchange="radioChange" wx:if="{{secondMenus.length > 0}}">
     <label wx:for="{{secondMenus}}" wx:key="{{index}}">
       <radio value="{{item.cg_id}}" />{{item.name}}
     </label>
   </radio-group>
+</view>
+
+<view class='pd' wx:if="{{price.intro != ''}}">
+  <view class='cg_tips'>{{price.intro}}</view>
 </view>
 
 <view class='term'>
@@ -29,17 +33,40 @@
     <checkbox value="{{hasRead}}" checked="{{true}}" class='checkbox'/>
   </checkbox-group>
   已阅读， 并同意 
-  <navigator url='../rules/index?name=fbtk'>
+  <navigator hover-class="none"  url='../rules/index?name=fbtk'>
     <text class='blue'>发布条款</text>
   </navigator>
 </view>
 
 <view class="publish-button">
-  <button class="button button-disabled" wx:if="{{isNull || !hasLogin || !hasRead}}">立即发布</button>
-  <button class="button" wx:else bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
+  <button class="button button-disabled" wx:if="{{isNull || !hasRead}}">立即发布</button>
+  <button class="button" wx:if="{{!isNull && hasRead && price.price == 0}}" bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
+  <button class="button" bindtap='handlePayment' loading='{{isSubmiting}}' wx:if="{{!isNull && hasRead && price.price > 0}}">立即支付</button>
 </view>
 
 <view class='term'>
   <image src='../../images/warning.svg' class='term-img' />
   <text class='term-text'>发布违规，不良信息，或同一信息刷屏操作，将扣除1000积分；违规3次以上者，将被管理员拉黑，且不可发布任何信息</text> 
 </view>
+
+<view class='point' wx:if="{{showPoint}}">
+  <view class='mask'></view>
+  <view class='point-c'>
+    <view class='close' bindtap='handleClosePoint'>
+      <image src='../../images/close.svg' />
+    </view>
+    <view class='point-num'>
+      <view class='point-icon'>
+        <image src='../../images/point.svg' />
+      </view>
+      <view class='point-num-text'>+{{pointNum}}积分</view>
+    </view>
+    <view class='point-success'>发布成功</view>
+    <view class='point-art'>积分比拼<text class='red'>赢现金</text></view>
+    <navigator hover-class="none"  url='../activity/integration/index'>
+      <view class='point-detail'>了解详情</view>
+    </navigator>
+  </view>
+</view>
+
+<phone isShowPhone="{{isShowPhone}}" bind:handleClosePhone="handleClosePhone" bind:handleSubmitPhone="handleSubmitPhone" />  

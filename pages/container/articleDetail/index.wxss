@@ -4,6 +4,10 @@ page {
   background: #f1f2f2;
 }
 
+.dn {
+  display: none;
+}
+
 .comments {
   background: #fff;
 }
@@ -33,6 +37,10 @@ page {
   border-radius: 50rpx;
 }
 
+.block-right {
+  width: 500rpx;
+}
+
 .username {
   color: #4d638c;
   margin-bottom: 20rpx;
@@ -58,8 +66,13 @@ page {
   background: #fff;
   position: fixed;
   bottom: 0;
-  border: #f2f2f2;
+  border: 2rpx solid #f2f2f2;
 }
+
+.big-input-box {
+  height: 290rpx;
+  bottom: 290;
+} 
 
 .input {
   width: 350rpx;
@@ -76,6 +89,13 @@ page {
 
 .big-input {
   width: 500rpx;
+  height: 150rpx;
+  padding: 20rpx;
+  float: left;
+  border-radius: 6rpx;
+  margin-bottom: 40rpx;
+  font-size: 30rpx;
+  border: 2rpx solid #f2f2f2;
 }
 
 .send {

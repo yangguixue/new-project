@@ -7,7 +7,7 @@
   <view class='total'>总积分</view>
   <view class='total-num'>{{points.total_point}}</view>
   <view class='how'>
-    <navigator url='../integration/index'>
+    <navigator hover-class="none" url='../integration/index'>
       <!-- <image src='../../../images/question.svg' class='how-img' /> -->
       <text class='how-text'>查看总排名</text>
     </navigator>
@@ -32,7 +32,7 @@
 </view>
 
 <view class='pd30'>
-  <navigator url="../integration/index">
+  <navigator hover-class="none" url="../integration/index">
     <image src='https://www.qmjoin.com/data/upload/xrxz/jf.png' style='height:150rpx;margin-top: -26rpx;'/>
   </navigator>
   <view class='list-box'>
@@ -41,14 +41,17 @@
         <text class="{{item.id == tabId ? 'title-hover' : ''}}" bindtap='handleClickTab' data-id='{{item.id}}'> {{item.name}}</text>
       </block> 
     </view>
-    <block wx:for="{{items}}" wx:key="{{item.id}}"> 
-      <view class='list'>
-        <view class='list-left' wx:if="{{tabId == 0}}">{{item.action}}</view>
-        <view class='list-left' wx:else>{{item.addtime}}</view>
-        <view class='list-time' wx:if="{{tabId == 0}}">{{item.addtime}}</view>
-        <view class='list-right'>{{item.point}} 积分</view>
-      </view>
-    </block> 
+    <view class='list-content'>
+      <block wx:for="{{items}}" wx:key="{{item.id}}"> 
+        <view class='list'>
+          <view class='list-left' wx:if="{{tabId == 0}}">{{item.action}}</view>
+          <view class='list-left' wx:else>{{item.addtime}}</view>
+          <view class='list-time' wx:if="{{tabId == 0}}">{{item.addtime}}</view>
+          <view class='list-right'>{{item.point}} 积分</view>
+        </view>
+      </block>
+    </view>
+     
     <view class='list-footer' wx:if="{{items.length == 0}}">暂无明细</view>
   </view>
 </view>
@@ -59,11 +62,13 @@
   </view>
   <view class='tips-content'>
     <view class='tip-item'>1.发布便民消息，随机奖励 <text class='yellow'>1~10</text> 积分；</view>
-    <view class='tip-item'>2.发布圈子消息，随机奖励 <text class='yellow'>1~10</text> 积分；</view>
+    <view class='tip-item'>2.发布圈子消息，随机奖励 <text class='yellow'>11~20</text> 积分；</view>
     <view class='tip-item'>3.绑定手机账号， 奖励 <text class='yellow'>50</text> 积分</view>
-    <view class='tip-item'>4.推荐新用户给我们， 奖励 <text class='yellow'>100</text> 积分；<button class='tips-btn' bindtap='share' open-type="share">推荐</button></view>
-    <view class='tip-item'>5.发布的消息被赞了，奖励 <text class='yellow'>5</text> 积分；</view>
+    <view class='tip-item'>4.推荐新用户， 奖励 <text class='yellow'>100</text> 积分；</view>
+    <view class='tip-item'>5.发布的消息被赞了，随机奖励 <text class='yellow'>1~5</text> 积分；</view>
   </view>
+  <button class='button tips-btn' open-type="share">分享</button>
 </view>
 
+<view class='footer'>—— 息壤同城 ——</view>
 
