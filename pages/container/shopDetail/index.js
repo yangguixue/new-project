@@ -38,15 +38,31 @@ Page({
     this.fetchDetail(that, id);
   },
 
+  openLogo: function() {
+    const info = this.data.info;
+    const urls = [];
+    urls.push(info.shop_logo_show);
+    wx.previewImage({
+      current: info.shop_logo_show, // 当前显示图片的http链接
+      urls
+    })
+  },
+
   fetchDetail: function(that, id) {
     util.getReq('&m=shop&a=getShopDetail', {
       id,
       session3rd: app.globalData.token
     }, function (data) {
-      that.setData({
-        info: data.result,
-        isLoading: false
-      })
+      if (data.flag == 1) {
+        that.setData({
+          info: data.result,
+          isLoading: false
+        })
+      } else {
+        wx.showModal({
+          content: data.msg,
+        })
+      }
     })
   },
 
@@ -123,7 +139,8 @@ Page({
   showImage: function(event) {
     const data = event.currentTarget.dataset;
     const current = data.current;
-    const urls = this.data.info.shop_pic_show;
+    const name = data.name;
+    const urls = name == 'goods' ? this.data.info.goods_pic_show : this.data.info.shop_pic_show;
     wx.previewImage({
       current,
       urls,

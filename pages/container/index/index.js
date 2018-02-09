@@ -58,6 +58,20 @@ var fetchBanner = function(that) {
   wx.stopPullDownRefresh();
 }
 
+var fetchMoney = function (that, session3rd) {
+  // 请求是否领过红包
+  util.getReq('&m=member&a=isRedp', { session3rd }, function (data) {
+    if (data.flag == 1) {
+      that.setData({
+        isRedp: data.result,
+        HideHongbaoMask:  data.result
+      })
+    } else {
+      util.errorTips(data.msg);
+    }
+  })
+}
+
 Page({
   data: {
     category: [], // 分类
@@ -67,7 +81,12 @@ Page({
     isShowLogin: false,
     loadMore: false,
     shops: [],
-    list: []
+    list: [],
+    isRedp: true, //是否获取过红包
+    HideHongbaoMask: true,
+    showHongbao: false, //拆红包展示
+    closeBigHonebao: false,
+    money: ''
   },
   onLoad: function (options) {
     var that = this;
@@ -83,17 +102,21 @@ Page({
 
     if (app.globalData.token) {
       fetchInfoList(that, 0, app.globalData.token);
+      fetchMoney(that, app.globalData.token);
     } else {
       app.userInfoReadyCallback = res => {
         fetchInfoList(that, 0, res.reset.session3rd);
+        fetchMoney(that, res.reset.session3rd);
       }
     }
 
     if (app.globalData.address) {
-      that.setData({ address: app.globalData.address.address_component.district });
+      const address = app.globalData.address == '获取地理位置失败' ? '获取地理位置失败' : app.globalData.address.address_component.district;
+      that.setData({ address });
     } else {
       app.isAddressReadyCallback = res => {
-        that.setData({ address: res.address_component.district });
+        const address = res == '获取地理位置失败' ? '获取地理位置失败' : res.address_component.district;
+        that.setData({ address });
       }
     }
 
@@ -134,6 +157,71 @@ Page({
         }
       })
     }
+  }, 
+
+  chooseLocation: function () {
+    const address = this.data.address;
+    const that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        wx.showLoading({
+          title: '正在更新地址...',
+        })
+        // 重新选择地址
+        app.getLocation(that, res.latitude, res.longitude).then((addr) => {
+          that.setData({
+            address: addr.result.ad_info.district
+          })
+          wx.hideLoading();
+        })
+      }
+    })
+  },
+
+
+  openMap: function () {
+    const that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              that.chooseLocation()
+            },
+            fail() {
+              wx.showModal({
+                cancelText: '知道了',
+                confirmText: '去设置',
+                content: '手动设置地理位置',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: (res) => {
+                        res.authSetting = {
+                          "scope.userLocation": true
+                        }
+                        that.chooseLocation();
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          that.chooseLocation();
+        }
+      }
+    })
+  },
+
+  getMoney:  function() {
+    var that = this;
+    util.req('&m=member&a=redPacket', { session3rd: app.globalData.token }, function (data) {
+      const money = data.result;
+      that.setData({ money, isRedp: true, showHongbao: true });
+    })
   },
 
   onPullDownRefresh: function () {
@@ -245,4 +333,14 @@ Page({
       }
     }
   },
+
+  //开启红包
+  openHongbao: function () {
+    this.setData({ HideHongbaoMask: false })
+  },
+
+  //关掉红包
+  closeHongbao: function() {
+    this.setData({ HideHongbaoMask: true })
+  }
 })

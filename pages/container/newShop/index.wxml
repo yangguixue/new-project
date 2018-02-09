@@ -1,0 +1,28 @@
+<!--pages/container/shopList/index.wxml-->
+<import src="../../template/catelog.wxml"/>
+<view class="search">
+  <view class="search-box">
+    <navigator hover-class="none" url="../../container/searchShop/index">
+      <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" disabled='{{true}}' />
+    </navigator>
+    <view class="search-button">搜索</view>
+  </view>
+</view>
+
+<view class='banner' bindtap='openDiscount'>
+  <image class='banner-img' src='../../images/dplb.jpg' />
+</view>
+
+<block wx:for="{{list}}" wx:key="{{item.id}}">
+  <navigator hover-class="none"  url="../shopDetail/index?id={{item.id}}">
+    <shop item="{{item}}"/>
+  </navigator>
+</block>
+
+<!-- 加载更多 -->
+<view wx:if="{{loadMore}}" class='list-footer'>
+  <image src='../../images/loading.gif' alt="" class='loading-img' />
+</view>
+<view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+
+<noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

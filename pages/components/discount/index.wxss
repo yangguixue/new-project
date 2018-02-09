@@ -1,7 +1,6 @@
 .box {
   padding: 30rpx 30rpx 0;
   font-size: 28rpx;
-  color: #333;
   background: #fff;
 }
 
@@ -17,10 +16,10 @@
 
 .shop-r {
   float: right;
-  color: #fd450f;
+  color: #fd5046;
   line-height: 40rpx;
   font-size: 24rpx;
-  border: 2rpx solid #fd450f;
+  border: 2rpx solid #fd5046;
   padding: 0 15rpx;
   border-radius: 40rpx;
   margin-top: 14rpx;

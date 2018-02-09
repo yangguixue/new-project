@@ -39,6 +39,10 @@ page {
   margin-left: 20rpx;
 }
 
+.gray {
+  color: #999;
+}
+
 .item-time {
   display: flex;
   margin-top: -4rpx;
@@ -126,3 +130,9 @@ page {
 .wx-checkbox-input.wx-checkbox-input-checked::before {
   font-size: 30rpx !important;
 } 
+
+.next {
+  width: 30rpx;
+  height: 30rpx;
+  float: right;
+}

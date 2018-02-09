@@ -2,7 +2,15 @@
   <view class="flex-wrp">
       <view class="item-box">
         <block wx:key="{{item.cg_id}}" wx:for="{{category}}">
-          <navigator hover-class="none" url="../../container/catelogList/index?id={{item.cg_id}}" hover-class="none">
+          <navigator hover-class="none" url="../../container/shopCategory/index" wx:if="{{item.cg_id == 0}}" hover-class="none">
+            <view class="flex-item">
+              <view class="icon">
+                <image src="{{item.icon}}" class="icon-img" mode="widthFix"/>
+              </view>
+              <text class="text">{{item.name}}</text>
+            </view>
+          </navigator>
+          <navigator hover-class="none" wx:else url="{{shop ? '../../container/shopListDetail/index?id=' + item.cg_id : '../../container/catelogList/index?id=' + item.cg_id}}" hover-class="none">
             <view class="flex-item">
               <view class="icon">
                 <image src="{{item.icon}}" class="icon-img" mode="widthFix"/>

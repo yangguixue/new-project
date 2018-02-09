@@ -1,6 +1,6 @@
 <!--pages/container/release/index.wxml-->
 <view class="text-box">
-  <textarea placeholder="发布消息 10-300字" class="content" maxlength="300" bindinput="handleChange" />
+  <textarea placeholder="发布消息 10-300字" class="content" auto-focus="{{true}}" maxlength="300" bindinput="handleChange" data-name="post_content" />
   <view class="image-box">
     <block wx:for="{{imagesList}}" wx:key="{{index}}">
       <view class="image">
@@ -13,8 +13,13 @@
     </view>
   </view>
   <view class="address" bindtap="openMap">
-    <image src="../../images/address.svg" class="address-img" />
-    <text>{{address}}</text> 
+    <image src="../../images/address2.svg" class="address-img" />
+    <text class='address-text gray' wx:if="{{!address}}">选择所在位置</text>
+    <text class='address-text' wx:if="{{address}}">{{address}}</text> 
+  </view>
+  <view class="address">
+    <image src="../../images/phone.svg" class="address-img" />
+    <input placeholder='填写联系电话' class='address-text' value='{{phone}}' bindinput="handleChange" data-name="phone" />
   </view>
   <view class='cg_tips' wx:if="{{secondMenus.length > 0}}">*该分类下需要选择一个二级分类~</view>
   <radio-group class="radio-group" bindchange="radioChange" wx:if="{{secondMenus.length > 0}}">
@@ -40,7 +45,7 @@
 
 <view class="publish-button">
   <button class="button button-disabled" wx:if="{{isNull || !hasRead}}">立即发布</button>
-  <button class="button" wx:if="{{!isNull && hasRead && price.price == 0}}" bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
+  <button class="button" wx:if="{{!isNull && hasRead}}" bindtap='handleSubmit' loading='{{isSubmiting}}'>立即发布</button>
   <button class="button" bindtap='handlePayment' loading='{{isSubmiting}}' wx:if="{{!isNull && hasRead && price.price > 0}}">立即支付</button>
 </view>
 
@@ -69,4 +74,4 @@
   </view>
 </view>
 
-<phone isShowPhone="{{isShowPhone}}" bind:handleClosePhone="handleClosePhone" bind:handleSubmitPhone="handleSubmitPhone" />  
+<phone isShowPhone="{{isShowPhone}}" bind:handleClosePhone="handleClosePhone" bind:handleSubmitPhone="handleSubmitPhone" />   

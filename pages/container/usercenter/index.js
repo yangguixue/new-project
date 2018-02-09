@@ -6,15 +6,11 @@ Page({
     userInfo: {},
     isShowLogin: false,
     entry: [{
-      id: 3,
+      id: 2,
       url: 'message',
       name: '消息'
-    }, {
-      id: 4,
-      url: 'activity/myIntegration',
-      name: '积分'
-    }, {
-      id: 5,
+    },{
+      id: 3,
       url: 'focus',
       name: '收藏'
     }]

@@ -11,26 +11,19 @@ Component({
   data: {
     // 这里是一些组件内部数据
   },
-  // attached: function () {
-  //   const item = this.data.item;
-  //   console.log(item)
-  //   qqmapsdk.calculateDistance({
-  //     to: [{
-  //       latitude: item.lat,
-  //       longitude: item.lng
-  //     }],
-  //     success: function (res) {
-  //       console.log(res);
-  //     },
-  //     fail: function (res) {
-  //       console.log(res);
-  //     },
-  //     complete: function (res) {
-  //       console.log(res);
-  //     }
-  //   });
-  // },
 
   methods: {
+    openLogo: function () {
+      const item = this.data.item;
+      const urls = [];
+      if (!this.data.detail) {
+        return;
+      }
+      urls.push(item.shop_logo_show);
+      wx.previewImage({
+        current: item.shop_logo_show, // 当前显示图片的http链接
+        urls
+      })
+    },
   }
 })

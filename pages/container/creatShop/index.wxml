@@ -8,7 +8,7 @@
     <text>店铺名</text>
     <input
       class='item-input'
-      placeholder="不超过12个字"
+      placeholder="请填写店铺名 不超过12个字"
       maxlength='12'
       bindinput="handleChange"
       data-name="shop_name"
@@ -27,39 +27,39 @@
       </view>
     </view>
   </view>
-
+ 
   <view class='item h90'>
     <text>营业时间</text>
   </view>
   <view class='item-time h90'>
     <picker mode="time" value="{{startTime}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="start_time">
-      <view class="picker">
+      <view class="picker" wx:if="{{info.start_time}}">
         开门时间 {{info.start_time}}
       </view>
-      <!-- <view class="picker" wx:else>
+      <view class="picker" wx:else>
         开门时间 {{startTime ? startTime : ''}}
-      </view> -->
-    </picker>
-    <picker mode="time" value="{{time}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="end_time">
-     <view class="picker">
+      </view> 
+     </picker>
+    <picker mode="time" value="{{endTime}}" start="00:00" end="24:00" bindchange="handleChange" class='item-input' data-name="end_time">
+     <view class="picker" wx:if="{{info.end_time}}">
         打烊时间 {{info.end_time}}
       </view>
-      <!-- <view class="picker" wx:else>
-        打样时间 {{endTime ? endTime : ''}}
-      </view> -->
+      <view class="picker" wx:else>
+        打烊时间 {{endTime ? endTime : ''}}
+      </view>  
     </picker>
-  </view>
+  </view> 
   <view class='item h90'>
     <text>联系方式</text>
     <input
       class='item-input'
       type='number'
       name="shop_phone"
-      value="{{info.shop_phone || phone}}"
-      disabled
+      placeholder='请填写联系方式'
+      value="{{info.shop_phone ? info.shop_phone : ''}}"
     />
   </view>
-  <view class='item h90'>
+  <!-- <view class='item h90'>
     <text>店铺性质</text>
     <radio-group class="radio-group" bindchange="handleChange" class='item-input' data-name="shop_property" >
       <label class="radio">
@@ -69,23 +69,31 @@
         <radio value="{{false}}" checked="{{!info.shop_property}}" />自主经营
       </label>
     </radio-group>
-  </view>
+  </view> -->
 
-  <view class='item h90'>
+  <view class='item h90' bindtap='openMap'>
     <text>店铺位置</text>
-    <view class="item-input" bindtap='openMap'>
-      {{info.shop_addr_name || '请选择位置'}}
+    <view class="item-input" wx:if="{{info.shop_addr_name}}">
+      {{info.shop_addr_name}}
+    </view>
+    <view class="item-input gray" wx:else>请选择店铺位置</view>
+    <view class='next'>
+      <image src='../../images/next.svg' />
     </view>
   </view>
 
   <view class='item h90'>
     <text>店铺分类</text>
     <picker mode="selector" value="{{info.cg_id}}" bindchange="handleChange" class='item-input' range="{{category}}" range-key="name" data-name="cg_id">
-      <view>{{info.cg_name ? info.cg_name : '所属行业分类'}}</view>
+      <view wx:if="{{info.cg_name}}">{{info.cg_name}}</view>
+      <view wx:else class='gray'>请选择行业分类</view>
     </picker>
+    <view class='next'>
+      <image src='../../images/next.svg' />
+    </view>
   </view>
-  <view class='item h90'>
-    <text>是否为新开店铺</text>
+   <view class='item h90'>
+    <text>是否为新店开业</text>
     <radio-group class="radio-group" bindchange="handleChange" class='item-input' data-name="is_new" >
       <label class="radio">
         <radio value="{{true}}" checked='{{info.is_new}}'/>是
@@ -105,33 +113,51 @@
         <radio value="{{false}}" checked='{{!info.is_brand}}' />否
       </label>
     </radio-group>
-  </view>
+  </view> 
 
   <view class='item h90'>
-    <text>主营业务</text>
-    <input placeholder="不超过24个字" class='item-input' maxlength="24" data-name="shop_major" value="{{info.shop_major || ''}}" bindinput="handleChange"/>
-  </view>
+    <text>主营产品</text>
+    <input placeholder="请填写店铺主营产品" class='item-input' maxlength="50" data-name="shop_major" value="{{info.shop_major || ''}}" bindinput="handleChange"/>
+  </view> 
 
   <view class='item-deail h90'>
-    <text>店铺详情</text>
+    <text>店铺介绍</text>
   </view>
   <view class='item-detail'>
-    <textarea placeholder="不超过500个字，介绍一下店铺有哪些优点，越详细越吸引用户" maxlength='500' class='textarea' data-name="shop_detail" value="{{info.shop_detail || ''}}" bindinput="handleChange"/> 
+    <textarea placeholder="请填写店铺详细概况，不超过500个字" maxlength='500' class='textarea' data-name="shop_detail" value="{{info.shop_detail || ''}}" bindinput="handleChange"/> 
   </view>
 
   <view class='item-deail h90'>
-    <text>图片展示</text>
+    <text>店铺环境</text>
   </view>
 
   <view class='item-detail'>
     <view class="image-box">
-      <block wx:for="{{imagesList}}" wx:key="{{index}}">
+      <block wx:for="{{shop_pic_show}}" wx:key="{{index}}">
         <view class="image">
           <image src="{{item}}" mode="aspectFill" />
           <text class="delete" bindtap="deleteImage" id="{{index}}">x</text>
         </view>
       </block>
-      <view class="image add" bindtap='chooseImage' wx:if="{{imagesList.length < 6}}">
+      <view class="image add" bindtap='chooseImage' wx:if="{{shop_pic_show.length < 6}}">
+        <image src="../../images/add-img.png" />
+      </view>
+    </view>
+  </view>
+
+  <view class='item-deail h90'>
+    <text>产品图片</text>
+  </view>
+
+  <view class='item-detail'>
+    <view class="image-box">
+      <block wx:for="{{goods_pic_show}}" wx:key="{{index}}">
+        <view class="image">
+          <image src="{{item}}" mode="aspectFill" />
+          <text class="delete" bindtap="deleteImage" data-name="goods" id="{{index}}">x</text>
+        </view>
+      </block>
+      <view class="image add" bindtap='chooseImage' data-name="goods" wx:if="{{goods_pic_show.length < 6}}">
         <image src="../../images/add-img.png" />
       </view>
     </view>

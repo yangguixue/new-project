@@ -10,12 +10,14 @@ Page({
       is_brand: false,
       shop_property: true
     },
-    startTime: '',  
-    endTime: '',  
+    startTime: '08:00',  
+    endTime: '20:00',  
     nature: ['实体店', '自主经营'],
-    imagesList: [], //图片；列表
+    shop_pic_show: [], //店铺环境图片；列表
+    shop_pic: [],
+    goods_pic_show: [],
+    goods_pic: [],
     category: [], //分类
-    serverUrl: [],
     hasRead: true, //同意条款
     isShowPhone: false,
     phone: '' //是否有手机号
@@ -42,35 +44,11 @@ Page({
       }, function (data) {
         that.setData({
           info: data.result,
-          imagesList: data.result.shop_pic_show,
-          serverUrl: data.result.shop_pic
+          shop_pic_show: data.result.shop_pic_show,
+          shop_pic: data.result.shop_pic,
+          goods_pic_show: data.result.goods_pic_show,
+          goods_pic: data.result.goods_pic
         })
-      })
-    }
-
-    // 获取位置
-    if (!options.id) {
-      wx.getLocation({
-        type: 'gcj02',
-        success: function (res) {
-          app.getLocation(that, res.latitude, res.longitude).then((res) => {
-            var address = res.result.formatted_addresses.rough;
-            var info = that.data.info;
-            console.log(info);
-            info.shop_addr_name = address;
-            info.lat = res.result.location.lat;
-            info.lng = res.result.location.lng;
-            info.shop_addr = res.result.address;
-            info.province = res.result.ad_info.province;
-            info.city = res.result.ad_info.city;
-            info.district = res.result.ad_info.district;
-            console.log(info);
-            that.setData({
-              info,
-              address: res.result
-            })
-          })
-        }
       })
     }
 
@@ -91,30 +69,69 @@ Page({
     })
   },
 
-  openMap: function () {
+  chooseLocation: function () {
     const info = this.data.info;
     const that = this;
     wx.chooseLocation({
       success: function (res) {
-        info.shop_addr = res.address;
-        info.shop_addr_name = res.name;
         info.lat = res.latitude;
         info.lng = res.longitude;
+        info.shop_addr = res.address;
+        info.shop_addr_name = res.name;
         wx.showLoading({
           title: '正在更新地址...',
         })
-        // 重新选择地址
+
         app.getLocation(that, res.latitude, res.longitude).then((addr) => {
           info.province = addr.result.ad_info.province;
           info.city = addr.result.ad_info.city;
           info.district = addr.result.ad_info.district;
+          that.setData({
+            info
+          })
           wx.hideLoading();
-        })
-        that.setData({
-          info
         })
       }
     })
+  },
+
+  openMap: function () {
+    const that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              that.chooseLocation()
+            },
+            fail() {
+              wx.showModal({
+                cancelText: '知道了',
+                confirmText: '去设置',
+                content: '获取您的位置信息失败！',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: (res) => {
+                        console.log(res)
+                        res.authSetting = {
+                          "scope.userLocation": true
+                        }
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          that.chooseLocation();
+        }
+      }
+    })
+    return;
+
   },
 
   handleChange: function(event) {
@@ -175,26 +192,44 @@ Page({
   },
 
   deleteImage: function (event) {
-    var imagesList = this.data.imagesList;
-    var serverUrl = this.data.serverUrl;
-    imagesList.splice(event.target.id, 1);
-    serverUrl.splice(event.target.id, 1);
-    this.setData({
-      imagesList,
-      serverUrl
-    })
+    var name = event.currentTarget.dataset.name;
+    var shop_pic_show = this.data.shop_pic_show;
+    var shop_pic = this.data.shop_pic;
+    var goods_pic_show = this.data.goods_pic_show;
+    var goods_pic = this.data.goods_pic;
+    if (name == 'goods') {
+      goods_pic_show.splice(event.target.id, 1);
+      goods_pic.splice(event.target.id, 1);
+      this.setData({
+        goods_pic_show,
+        goods_pic
+      })
+    } else {
+      shop_pic_show.splice(event.target.id, 1);
+      shop_pic.splice(event.target.id, 1);
+      this.setData({
+        shop_pic_show,
+        shop_pic
+      })
+    }
+    
   },
 
-  chooseImage: function () {
+  chooseImage: function (event) {
     var that = this;
+    var name = event.currentTarget.dataset.name;
+    var count = name == 'goods' ? 20 - that.data.goods_pic_show.length : 8 - that.data.shop_pic_show.length;
+    
     wx.chooseImage({
-      count: 6, // 默认9
+      count, // 默认10
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         var tempFilePaths = res.tempFilePaths;
-        var imagesList = that.data.imagesList; //创建时是空数组，修改时是线上的链接
-        var serverUrl = that.data.serverUrl; // 创建时是空数组，修改时是线上的链接 存储服务器端url
+        var shop_pic_show = that.data.shop_pic_show; //创建时是空数组，修改时是线上的链接
+        var shop_pic = that.data.shop_pic; // 创建时是空数组，修改时是线上的链接 存储服务器端url
+        var goods_pic_show = that.data.goods_pic_show;
+        var goods_pic = that.data.goods_pic;
         var uploadImgCount = 0;
         // 遍历循环图片上传到服务器
         for (var i = 0, h = tempFilePaths.length; i < h; i++) {
@@ -208,18 +243,35 @@ Page({
             success: function (res) {
               uploadImgCount++;
               var data = JSON.parse(res.data);
-              serverUrl.push(data.result.file);
-              if (imagesList.length > 0) {
-                var newList = imagesList.concat(tempFilePaths);
-                that.setData({
-                  imagesList: newList,
-                  serverUrl
-                })
+              if (name == 'goods') {
+                goods_pic.push(data.result.file);
+                if (goods_pic_show.length > 0) {
+                  var newList = goods_pic_show.concat(tempFilePaths);
+                  that.setData({
+                    goods_pic_show: newList,
+                    goods_pic
+                  })
+                } else {
+                  that.setData({
+                    goods_pic_show: tempFilePaths,
+                    goods_pic
+                  })
+                }
               } else {
-                that.setData({
-                  imagesList: tempFilePaths,
-                  serverUrl
-                })
+                console.log(shop_pic)
+                shop_pic.push(data.result.file);
+                if (shop_pic_show.length > 0) {
+                  var newList = shop_pic_show.concat(tempFilePaths);
+                  that.setData({
+                    shop_pic_show: newList,
+                    shop_pic
+                  })
+                } else {
+                  that.setData({
+                    shop_pic_show: tempFilePaths,
+                    shop_pic
+                  })
+                }
               }
             },
             fail: function (res) {
@@ -258,7 +310,7 @@ Page({
     }
 
     info.session3rd = app.globalData.token;
-    info.shop_pic = this.data.serverUrl;
+    info.shop_pic = this.data.shop_pic;
     info.shop_phone = this.data.phone;
 
     if (!info.shop_logo) {

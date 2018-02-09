@@ -1,40 +1,42 @@
 {
   "pages": [
-    "pages/container/index/index",
+    "pages/container/index/index",    
+    "pages/container/activity/integration/index",
+    "pages/container/usercenter/index",    
+    "pages/container/shopList/index",
+    "pages/container/myMoney/index",
     "pages/container/release/index",
     "pages/container/getPhone/index",
     "pages/container/payment/index",
     "pages/container/shopDetail/index",
-    "pages/container/shopList/index",
+    "pages/container/shopListDetail/index",
+    "pages/container/shopCategory/index",    
     "pages/container/activity/myIntegration/index",
     "pages/container/creatShop/index",
     "pages/container/report/index",
     "pages/container/rules/index",
-    "pages/container/usercenter/index",
     "pages/container/message/index",
     "pages/container/discountList/index",
     "pages/container/articleDetail/index",
-    "pages/container/circle/index",
     "pages/container/publish/index",
     "pages/container/userPage/index",
     "pages/container/fans/index",
     "pages/container/focus/index",
     "pages/container/leaveMessage/index",
     "pages/container/catelogList/index",
-    "pages/container/circleDetail/index",
-    "pages/container/circleList/index",
     "pages/container/discountDetail/index",
-    "pages/container/activity/integration/index"
+    "pages/container/searchShop/index",
+    "pages/container/newShop/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#333",
-    "navigationBarTitleText": "息壤小镇",
+    "navigationBarTitleText": "息壤同城",
     "navigationBarTextStyle": "#fff"
   },
   "tabBar": {
     "backgroundColor": "#fff",
     "color": "#333",
-    "selectedColor": "#fd450f",
+    "selectedColor": "#ff0033",
     "list": [
       {
         "pagePath": "pages/container/index/index",
@@ -55,8 +57,8 @@
         "selectedIconPath": "pages/images/tabbar/icon4-2.png"
       },
       {
-        "pagePath": "pages/container/circle/index",
-        "text": "圈子",
+        "pagePath": "pages/container/discountList/index",
+        "text": "优惠",
         "iconPath": "pages/images/tabbar/icon2.png",
         "selectedIconPath": "pages/images/tabbar/icon2-1.png"
       },

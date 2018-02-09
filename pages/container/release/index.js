@@ -9,8 +9,7 @@ Page({
     serverUrl: [],
     isNull: true, //textarea是否是空
     secondMenus: [], // 二级菜单
-    item: { post_addr_name: '正在定位...' }, // 要提交的对象
-    address: '正在定位...',
+    item: {}, // 要提交的对象
     isSubmiting: false,
     hasRead: true,
     isSelect: false,
@@ -52,32 +51,6 @@ Page({
       })
     })
 
-    // 获取地理位置
-    wx.getLocation({
-      type: 'gcj02',
-      success: function (res) {
-        app.getLocation(that, res.latitude, res.longitude).then((res) => {
-          var address = res.result.formatted_addresses.rough;
-          item.lat = res.result.location.lat;
-          item.lng = res.result.location.lng;
-          item.post_addr = res.result.address;
-          item.post_addr_name = address;
-          item.province = res.result.ad_info.province;
-          item.city = res.result.ad_info.city;
-          item.district = res.result.ad_info.district;
-          that.setData({
-            item: item,
-            address
-          })
-        })
-      },
-      fail: function(res) {
-        wx.showModal({
-          content: res.msg,
-        })
-      }
-    })
-
     this.getUserInfo();
   },
 
@@ -89,19 +62,20 @@ Page({
         if (!data.result.phone) {
           that.setData({ isShowPhone: true  })
         } else {
-          that.setData({ isShowPhone: false, phone: data.result.phone })
+          const item = that.data.item;
+          item.phone = data.result.phone;
+          that.setData({ isShowPhone: false, phone: data.result.phone, item })
         }
       }
     })
   },
 
-
-  openMap: function() {
+  chooseLocation: function() {
     const address = this.data.address;
     const item = this.data.item;
     const that = this;
     wx.chooseLocation({
-      success: function(res) {
+      success: function (res) {
         item.lat = res.latitude;
         item.lng = res.longitude;
         item.post_addr = res.address;
@@ -116,12 +90,50 @@ Page({
           item.district = addr.result.ad_info.district;
           that.setData({
             item,
-            address: res.address
+            address: addr.result.formatted_addresses.rough
           })
           wx.hideLoading();
         })
       }
     })
+  },
+
+
+  openMap: function() {
+    const that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              that.chooseLocation()
+            },
+            fail() {
+              wx.showModal({
+                cancelText: '知道了',
+                confirmText: '去设置',
+                content: '获取您的位置信息失败！',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: (res) => {
+                        res.authSetting = {
+                          "scope.userLocation": true
+                        }   
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          that.chooseLocation();
+        }
+      }
+    })
+    return;
   },
 
   // 同意发布条款
@@ -147,8 +159,10 @@ Page({
 
   chooseImage: function() {
     var that = this;
+    var count = 6 - that.data.imagesList.length;
+    console.log(count);
     wx.chooseImage({
-      count: 6, // 默认9
+      count, // 默认6
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
@@ -201,8 +215,9 @@ Page({
 
   handleChange: function(e) {
     var length = e.detail.value.length;
+    var name = e.target.dataset.name;
     var item = this.data.item;
-    item.post_content = e.detail.value;
+    item[name] = e.detail.value;
 
     if (length > 0) {
       this.setData({
@@ -250,6 +265,7 @@ Page({
     var isSelect = this.data.isSelect;
     var serverUrl = this.data.serverUrl;
     item.smeta = serverUrl;
+    console.log(item)
 
     if (secondMenus.length > 0 && !isSelect) {
       wx.showModal({

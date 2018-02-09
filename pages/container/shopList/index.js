@@ -5,6 +5,7 @@ var token = app.globalData.token;
 var epage = app.globalData.epage;
 var page = 0;
 
+var shopLoop;
 var fetchShopList = function (that, lastid) {
   that.setData({ loadMore: true });
   const filters = that.data.filters;
@@ -19,7 +20,20 @@ var fetchShopList = function (that, lastid) {
           that.setData({ listStatus: '该行业稀缺，抓住时机，马上入驻，别人看到的就是你', loadMore: false, list: data.result });
           return;
         }
-        that.setData({ list: data.result });
+        that.setData({ list: data.result, shopLoop: data.result });
+
+        let i = 0;
+        shopLoop = setInterval(() => {
+          const shopName = data.result[i].shop_name;
+        
+          if (i == data.result.length - 1) {
+            i = 0;
+            that.setData({ shopName });
+          } else {
+            i++;
+            that.setData({ shopName });
+          }
+        }, 2000);
       } else {
         for (var i = 0; i < len; i++) {
           list.push(data.result[i]);
@@ -43,7 +57,9 @@ Page({
   data: {
     isShowCate: false, //是否展示所有分类
     isShowFilter: false, 
-    category: [], //分类
+    shopLoop: [], //需要循环的店铺
+    categorys: [], //分类
+    category: [],
     value: 0,
     loadMore: false,
     showMask: false,
@@ -55,19 +71,22 @@ Page({
     },
     isShowLogin: false,
     checkbox: [], //多选框
-    shopId: ''
+    shopId: '',
+    recommend: {}
   },
 
   onLoad: function (options) {
     var that = this;
-    fetchShopList(that, 0);
 
     // 获取分类
     util.getReq('&m=category&a=getCgList', { type: 2 }, function (data) {
       if (data.flag == 1) {
-        const category = data.result;
-        category.unshift({ cg_id: 0, name: '所有分类' });
+        const categorys = data.result;
+        const category = data.result.slice(0, 9);
+        categorys.unshift({ cg_id: 0, name: '所有分类' });
+        category.push({ cg_id: 0, name: '其他', icon: '../../images/shop-more.png' })
         that.setData({
+          categorys,
           category
         })
       } else {
@@ -75,13 +94,64 @@ Page({
       }
     })
 
-    util.getReq('&m=member&a=getMemberInfo', { session3rd: app.globalData.token }, function (data) {
+    // util.req('&m=shop&a=getShopList', { is_recruit: true }, function (data) {
+    //   const array = data.result;
+    //   const shops = array.slice(0, 3);
+    //   that.setData({ shops });
+    // })
+
+    // util.getReq('&m=member&a=getMemberInfo', { session3rd: app.globalData.token }, function (data) {
+    //   if (data.flag == 1) {
+    //     const shopId = data.result.shop_id;
+    //     that.setData({ shopId });
+    //   } else {
+    //     util.errorTips(data.msg);
+    //   }
+    // })
+  },
+
+  onShow: function() {
+    const that = this;
+    fetchShopList(that, 0);
+    util.req('&m=shop&a=getRecomend', {}, function (data) {
       if (data.flag == 1) {
-        const shopId = data.result.shop_id;
-        that.setData({ shopId });
+        console.log(data.result)
+        that.setData({ recommend: data.result });
       } else {
-        util.errorTips(data.msg);
+        wx.showModal({
+          content: data.msg,
+        })
       }
+    })
+  },
+
+  onHide: function() {
+    clearInterval(shopLoop);
+  },
+
+  onUnload: function() {
+    clearInterval(shopLoop);
+  },
+
+  shopLoop: function(that, i, stop) {
+    const shops = that.data.shopLoop;
+    var a = setTimeout(() => {
+      const shopName = shops[i].shop_name;
+      if (i == shops.length-1) {
+        i = 0;
+        that.setData({ shopName });
+        that.shopLoop(that, i);
+      } else {
+        i++;
+        that.setData({ shopName });
+        that.shopLoop(that, i);
+      }
+    }, 2000);    
+  },
+
+  openDiscount: function() {
+    wx.switchTab({
+      url: '../../container/discountList/index'
     })
   },
 
@@ -104,35 +174,6 @@ Page({
         url: '../creatShop/index',
       })
     }
-  },
-
-
-  // 搜索商家
-  handleChange: function(event) {
-    const searchValue = event.detail.value;
-    this.setData({ searchValue });
-  },
-
-  handleSearch: function(event) {
-    var that = this;
-    var kword = this.data.searchValue;
-    wx.showLoading({ title: '加载中' });
-    util.req('&m=shop&a=searchShopList', {
-      kword,
-      lastid: 0,
-      epage
-    }, function(data) {
-      if (data.flag == 1) {
-        that.setData({
-          list: data.result,
-          filters: {
-            is_sale: false,
-            is_recruit: false,
-          },  
-        });
-      }
-      wx.hideLoading()
-    })
   },
 
   checkboxChange: function(event) {
@@ -184,9 +225,9 @@ Page({
       item.selected = true;
       category[index] = item;
       filters.cg_id = item.cg_id;
-      this.setData({ category, value: index, filters });
+      this.setData({ category, value: index, filters, listStatus: '' });
     }
-    this.setData({ filters });
+    this.setData({ filters, listStatus: '' });
     this.handleHideMask();
     fetchShopList(that, 0);
   },

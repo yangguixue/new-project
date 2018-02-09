@@ -1,0 +1,26 @@
+<!--pages/container/searchShop/index.wxml-->
+<view class="search">
+  <view class="search-box">
+    <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' focus='{{true}}' />
+    <view class="search-button" bindtap='handleSearch'>搜索</view>
+  </view>
+</view>
+
+<view class='cate-title'>
+  <view class='cate-icon'>
+    <image src='../../images/shop-more.png' />
+  </view>
+  <view class='cate-text'>
+    全部分类
+  </view>
+</view>
+
+<view class='cate-list'>
+  <block wx:for="{{categorys}}" wx:key="{{index}}">
+    <navigator hover-class="none" url="../../container/shopListDetail/index?id={{item.cg_id}}" hover-class="none">
+      <view class='cate-li'>
+        {{item.name}}
+      </view>
+    </navigator>
+  </block>
+</view>

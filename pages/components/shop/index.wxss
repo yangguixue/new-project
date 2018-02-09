@@ -15,7 +15,16 @@
   float: left;
   width: 160rpx;
   height: 160rpx;
+  position: relative;
   margin-right: 20rpx;
+}
+
+.mark {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: -10rpx;
+  bottom: -10rpx;
 }
 
 .list-r {
@@ -60,9 +69,14 @@
 }
 
 .address {
-  width: 20rpx;
-  height: 24rpx;
-  margin-right: 10rpx;
+  width: 32rpx;
+  height: 32rpx;
+  float: left;
+  margin-right: 5rpx;
+}
+
+.address-text {
+  float: left;
 }
 
 .address-box {
@@ -90,7 +104,6 @@
 
 .others {
   font-size: 24rpx;
-  color: #333;
   padding-top: 20rpx;
   margin-bottom: 10rpx;
   white-space: nowrap;

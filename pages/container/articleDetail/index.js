@@ -23,9 +23,13 @@ Page({
       id: id,
       session3rd: app.globalData.token
     }, function (data) {
-      if (data.flag) {
+      if (data.flag == 1) {
         that.setData({
           content: data.result
+        })
+      } else {
+        wx.showModal({
+          content: data.msg,
         })
       }
       that.setData({
@@ -155,21 +159,23 @@ Page({
     var comments = content.comments;
     wx.showModal({
       content: '确定要删除吗?',
-      success: function() {
-        util.req('&m=info&a=delComment', {
-          id,
-          session3rd: app.globalData.token
-        }, function (data) {
-          if (data.flag == 1) {
-            var index = comments.findIndex(item => item.id == id);
-            comments.splice(index, 1);
-            content.comments = comments;
-            that.setData({ content: content });
-            wx.showToast({
-              title: '删除成功',
-            })
-          }
-        })
+      success: function(res) {
+        if (res.confirm) {
+          util.req('&m=info&a=delComment', {
+            id,
+            session3rd: app.globalData.token
+          }, function (data) {
+            if (data.flag == 1) {
+              var index = comments.findIndex(item => item.id == id);
+              comments.splice(index, 1);
+              content.comments = comments;
+              that.setData({ content: content });
+              wx.showToast({
+                title: '删除成功',
+              })
+            }
+          })
+        }
       },
     })
   }

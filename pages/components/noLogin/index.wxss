@@ -38,7 +38,7 @@
 .ok {
   width: 350rpx;
   margin-top: 60rpx;
-  background: #fd450f;
+  background: #fd5046;
   color: #fff;
   font-size: 32rpx;
 }

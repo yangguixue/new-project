@@ -1,52 +1,34 @@
 /* pages/container/activity/myIntegration/index.wxss */
 page{
-  background: #fa8c8c;
-}
+  background: #f1f2f2;
+} 
 
 .pd30 {
   padding: 0 30rpx;
 }
 
 .bg-box {
-  width: 100%;
-  height: 411rpx;
-  position: absolute;
-  z-index: -1;
-  background: linear-gradient(#fe0039,#fa8d8d);
-}
-
-.bg {
-  width: 100%;
-  height: 690rpx;
-
+  position: relative;
+  overflow: hidden;
+  background: #fd5046;
 }
 
 .content-top {
-  text-align: center;
+  text-align: left;
   font-size: 26rpx;
   color: #fff;
-  padding-top: 75rpx;
+  overflow: hidden;
+  padding: 30rpx;
 }
 
 .total-num {
   font-size: 72rpx;
   font-weight: bold;
+  margin: 20rpx 0;
 }
 
-.how {
-  overflow: hidden;
-  padding: 10rpx 0;
-}
-
-.how-img {
-  width: 29rpx;
-  height: 29rpx;
-  float: left;
-  margin: 5rpx 10rpx 10rpx 225rpx;
-}
-
-.how-text {
-  text-decoration: underline;
+.total {
+  font-size: 28rpx;
 }
 
 .number {
@@ -56,14 +38,24 @@ page{
   margin-top: 15rpx;
 }
 
+.top-left {
+  float: left;
+}
+
+.zhuanpan {
+  width: 200rpx;
+  float: right;
+  margin-right: 50rpx;
+}
+
 .bg-opacity {
   width: 100%;
   position: absolute;
+  bottom: 0;
   z-index: 0;
-  height: 145rpx;
+  height: 80rpx;
   background: #fff;
   opacity: 0.2;
-  margin-top: 20rpx;
 }
 
 .content-bottom {
@@ -71,15 +63,9 @@ page{
   color: #fff;
   font-size: 24rpx;
   justify-content: space-around;
-  padding: 20rpx 0;
-  margin-top: 20rpx;
+  background: #fd5046;
+  line-height: 80rpx;
 }
-
-.line {
-  width: 100%;
-  height: 52rpx;
-}
-
 
 .list-box {
   height: 500rpx;
@@ -87,6 +73,7 @@ page{
   background: #fff;
   border-radius: 10rpx;
   padding: 20rpx 30rpx;
+  margin-top: 10rpx;
 }
 
 .title {
@@ -131,33 +118,40 @@ page{
 }
 
 .tips {
-  padding: 0 30rpx;
-  color: #fff;
+  background: #fff;
+  padding: 20rpx 30rpx;
+  margin-top: 10rpx;
 }
 
 .tips-title {
   width: 100%;
   height: 50rpx;
-  text-align: center;
+  text-align: left;
   font-weight: bold;
   font-size: 30rpx;
-  border-bottom: 2rpx solid #ffb4bc;
 }
 
 .tips-t-t {
   margin: 32rpx 0 0 235rpx;
   padding: 0 20rpx;
   float: left;
-  background: #fa8c8c;
 } 
 
-.tips-content {
-  padding: 40rpx 0;
+.tip-item {
+  font-size: 28rpx;
+  line-height: 60rpx;
+  overflow: hidden;
 }
 
-.tip-item {
-  font-size: 26rpx;
-  line-height: 60rpx;
+.tip-text {
+  float: right;
+}
+
+.point {
+  width: 40rpx;
+  height: 40rpx;
+  float: left;
+  margin: 9rpx 5rpx 0 0;
 }
 
 .tips-btn {
@@ -166,12 +160,13 @@ page{
 }
 
 .yellow {
-  color: #fff400;
+  color: #ffc800;
+  float: left;
 }
 
 .footer {
-  color: #fff;
   font-size: 26rpx;
   text-align: center;
   line-height: 90rpx;
+  color: #999;
 }

@@ -1,0 +1,20 @@
+<!--pages/container/searchShop/index.wxml-->
+<view class="search">
+  <view class="search-box">
+    <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' focus='{{true}}' />
+    <view class="search-button" bindtap='handleSearch'>搜索</view>
+  </view>
+</view>
+
+<block wx:for="{{list}}" wx:key="{{item.id}}">
+  <navigator hover-class="none"  url="../shopDetail/index?id={{item.id}}">
+    <shop item="{{item}}"/>
+  </navigator>
+</block>
+
+<!-- 加载更多 -->
+<view wx:if="{{loadMore}}" class='list-footer'>
+  <image src='../../images/loading.gif' alt="" class='loading-img' />
+</view>
+<view wx:if="{{listStatus}}" class='list-footer'>{{listStatus}}</view>
+<button class='button' bindtap='handlePublish' wx:if="{{listStatus == '该行业稀缺，抓住时机，马上入驻，别人看到的就是你'}}">马上入驻</button>

@@ -101,6 +101,8 @@ page {
   top: 22rpx;
   left: 92rpx;
   z-index: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background: linear-gradient(#625650, #432f23);
 }
 
@@ -202,6 +204,7 @@ page {
 .warn {
   color: #ff0000;
   height: 80rpx;
+  line-height: 80rpx;
   font-size: 28rpx;
   overflow: hidden;
   background: #fff;
@@ -254,20 +257,15 @@ page {
   padding: 0 14rpx;
 }
 
-.next {
-  width: 40rpx;
-  height: 40rpx;
-  margin-top: 20rpx;
-}
 
 .info-box {
   margin: 0 0 10rpx 0;
-  font-size: 26rpx;
+  font-size: 30rpx;
 }
 
 .shop-info {
   overflow: hidden;
-  line-height: 80rpx;
+  line-height: 100rpx;
   border-bottom: 2rpx solid #f1f2f2;
 }
 
@@ -276,9 +274,15 @@ page {
 }
 
 .info-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin: 20rpx 15rpx 0 0;
+  width: 50rpx;
+  height: 50rpx;
+  margin: 25rpx 15rpx 0 0;
+}
+
+.next {
+  width: 30rpx;
+  height: 30rpx;
+  float: right;
 }
 
 .title {
@@ -409,6 +413,7 @@ page {
 
 .shop-img {
   padding-bottom: 20rpx;
+  margin-bottom: 10rpx;
 }
 
 .shop-img-box {
@@ -421,6 +426,12 @@ page {
   width: 320rpx;
   height: 320rpx;
   margin-bottom: 20rpx;
+}
+
+.goods {
+  width: 180rpx;
+  height: 150rpx;
+  margin-right: 10rpx;
 }
 
 .footer {
@@ -633,4 +644,37 @@ button::after{
 .block {
   height: 90rpx;
   width: 100%;
+}
+
+.qrcode {
+  padding: 0 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  position: fixed;
+  right: 0;
+  bottom: 250rpx;
+  background: #ff0033;
+  color: #fff;
+  border-radius: 60rpx 0 0 60rpx;
+  overflow: hidden;
+}
+
+.code-icon {
+  width: 30rpx;
+  height: 30rpx;
+  float: left;
+  margin: 15rpx 10rpx 0 0;
+}
+
+.code-text {
+  font-size: 24rpx;
+  float: right;
+}
+
+.dog {
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  right: 80rpx;
+  bottom: 300rpx;
 }

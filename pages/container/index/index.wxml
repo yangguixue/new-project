@@ -2,7 +2,7 @@
 <import src="../../template/catelog.wxml"/>
 <view>
   <view class="search">
-    <view class="place"> {{address}}<image src="../../images/placeIcon.svg" class="placeIcon"/></view>
+    <view class="place" bindtap='openMap'> {{address}}<image src="../../images/placeIcon.svg" class="placeIcon"/></view>
     <!-- <input type="text" placeholder="输入要查询的内容" palceholder-style="searchInput" class="searchInput"/> -->
   </view> 
   <banner banners="{{banners}}"/>
@@ -32,20 +32,14 @@
       </view>
     </view>
   </view>
- 
-  <!-- <navigator hover-class="none" url="../../container/discountList/index">
-    <view class='active-img'>
-      <image src="https://www.qmjoin.com/data/upload/xrxz/jpymg.png" mode="widthFix" />
-    </view>
-  </navigator>  -->
 
-  <view class='shop'>
+  <!-- <view class='shop'>
     <view class='shop-title'>
       <view class='title-box'>
-        <!-- <view class='title-icon'>
-          <image src='../../images/userhead.jpg' />
-        </view> -->
-        <view class='title-text'>2018 他们火爆了</view>
+         <view class='title-icon'>
+          <image src='../../images/tabbar/icon5.png' />
+        </view> 
+        <view class='title-text'>本地门店</view>
       </view>
       <view class='title-more' bindtap='handleMore'>查看更多>></view>
     </view>
@@ -65,7 +59,7 @@
         </navigator>
       </block>
     </view>
-  </view>
+  </view> -->
   
   <view class="new-message">
     <image src="../../images/new.svg" class="new-icon" style="width:80rpx; height:40rpx;float:left;margin-top:28rpx;" />
@@ -86,6 +80,35 @@
 
 <text class='messageTips' wx:if="{{hasUnread}}" bindtap='hideUnread'>您有新的评论了</text>
 <text class='single2' wx:if="{{hasUnread}}"/>
+
+<view wx:if="{{!HideHongbaoMask}}">
+  <view class='big-hongbao'> 
+    <view class='mask'></view>
+    <view class='hongbao-content' wx:if="{{money}}">
+      <view class='hongbao2'> 
+        <image src='../../images/hongbao-ok.png' class='hongbao2-png' />
+        <view class='text-box'>
+          <view class='text01'>恭喜你获得红包奖金</view>
+          <view class='money'>￥{{money}}</view>
+          <view class='text02'>已存入零钱</view>
+          <navigator url='../myMoney/index' hover-class="none">
+            <text class='text03'>我的钱包></text>
+          </navigator>
+        </view>
+      </view> 
+      <view><view class='close-hongbao' bindtap='closeHongbao'>x</view></view>
+    </view>
+    <view class='hongbao-content' wx:if="{{!isRedp}}">
+      <image src='../../images/hongbao.png' class='hongbao-png' bindtap='getMoney' /> 
+      <view><view class='close-hongbao' bindtap='closeHongbao'>x</view></view>
+    </view> 
+  </view>
+</view>
+
+
+<view class='min-hongbao' bindtap='openHongbao'  wx:if="{{HideHongbaoMask && !isRedp}}">
+  <image src='../../images/hongbao.png' />
+</view>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>
 

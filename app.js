@@ -13,6 +13,19 @@ App({
     var that = this;
     wx.setStorageSync('isShowAddDesk', true);
     wx.setStorageSync('isShowZan', true);
+
+    try {
+      var res = wx.getSystemInfoSync()
+      if (res.SDKVersion < '1.6.3') {
+        wx.showModal({
+          title: '温馨提示',
+          content: '当前微信版本过低，可能会造成您的体验不佳，请升级到最新微信版本后重试。',
+        })
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
+
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -77,6 +90,16 @@ App({
           complete: function (res) {
           }
         });
+      },
+      fail: function(res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: '获取您的地理位置失败！请查看是否开启了Gps或者拒绝了访问权限',
+        })
+        that.globalData.address = '获取地理位置失败';
+        if (that.isAddressReadyCallback) {
+          that.isAddressReadyCallback(that.globalData.address)
+        }
       }
     })
   },

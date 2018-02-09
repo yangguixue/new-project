@@ -1,72 +1,69 @@
 <!--pages/container/activity/myIntegration/index.wxml-->
 <view class='bg-box'>
-  <image src='../../../images/bg-jifen02.png' class='bg'/>
-</view>
-
-<view class='content-top'>
-  <view class='total'>总积分</view>
-  <view class='total-num'>{{points.total_point}}</view>
-  <view class='how'>
-    <navigator hover-class="none" url='../integration/index'>
-      <!-- <image src='../../../images/question.svg' class='how-img' /> -->
-      <text class='how-text'>查看总排名</text>
+  <view class='content-top'>
+    <view class='top-left'>
+      <view class='total'>我的积分</view>
+      <view class='total-num'>{{points.total_point}}</view>
+      <navigator url='../integration/index' hover-class="none">
+        <text class='total'>积分可以抽奖啦>>></text>
+      </navigator>
+    </view>
+    <navigator url='../integration/index' hover-class="none">
+      <view class='zhuanpan'>
+        <image src='../../../images/zhuanpan.png' mode='widthFix' />
+      </view>
     </navigator>
   </view>
-</view>
 
-<view class='bg-opacity'></view>
+  <view class='bg-opacity'></view>
 
-<view class='content-bottom'>
-  <view class='today-num'>
-    <view>今日积分</view>
-    <view class='number'>{{points.daily_point || 0}}</view>
-  </view>
-  <view class='week-num'>
-    <view>本周积分</view>
-    <view class='number'>{{points.weekly_point || 0}}</view>
-  </view>
-</view>
-
-<view class='line'>
-  <image src='../../../images/line-bg.png' />
-</view>
-
-<view class='pd30'>
-  <navigator hover-class="none" url="../integration/index">
-    <image src='https://www.qmjoin.com/data/upload/xrxz/jf.png' style='height:150rpx;margin-top: -26rpx;'/>
-  </navigator>
-  <view class='list-box'>
-    <view class='title'>
-      <block wx:for="{{tabs}}" wx:key="{{item.id}}"> 
-        <text class="{{item.id == tabId ? 'title-hover' : ''}}" bindtap='handleClickTab' data-id='{{item.id}}'> {{item.name}}</text>
-      </block> 
+  <view class='content-bottom'>
+    <view class='today-num'>
+      今日积分 {{points.daily_point || 0}}
     </view>
-    <view class='list-content'>
-      <block wx:for="{{items}}" wx:key="{{item.id}}"> 
-        <view class='list'>
-          <view class='list-left' wx:if="{{tabId == 0}}">{{item.action}}</view>
-          <view class='list-left' wx:else>{{item.addtime}}</view>
-          <view class='list-time' wx:if="{{tabId == 0}}">{{item.addtime}}</view>
-          <view class='list-right'>{{item.point}} 积分</view>
-        </view>
-      </block>
-      <view class='list-footer' wx:if="{{items.length == 0}}">暂无明细</view>
+    <view class='week-num'>
+      本周积分 {{points.weekly_point || 0}}
     </view>
   </view>
 </view>
 
 <view class='tips'>
-  <view class='tips-title'>
-    <text class='tips-t-t'>如何获取积分</text>
-  </view>
   <view class='tips-content'>
-    <view class='tip-item'>1.发布便民消息，随机奖励 <text class='yellow'>1~10</text> 积分；</view>
-    <view class='tip-item'>2.发布圈子消息，随机奖励 <text class='yellow'>11~20</text> 积分；</view>
-    <view class='tip-item'>3.绑定手机账号， 奖励 <text class='yellow'>50</text> 积分</view>
-    <view class='tip-item'>4.推荐新用户， 奖励 <text class='yellow'>100</text> 积分；</view>
-    <view class='tip-item'>5.发布的消息被赞了，随机奖励 <text class='yellow'>1~5</text> 积分；</view>
+    <view class='tip-item'>
+      <text class='tip-text'>绑定手机账号</text>
+      <image src='../../../images/point.svg' class='point'/>
+      <text class='yellow'>50</text>
+    </view>
+    <view class='tip-item'>
+      <text class='tip-text'>发布便民消息</text>
+      <image src='../../../images/point.svg' class='point'/>
+      <text class='yellow'>1~10</text>
+    </view>
+    <view class='tip-item'>
+      <text class='tip-text'>发布的消息被赞了</text>
+      <image src='../../../images/point.svg' class='point'/>
+      <text class='yellow'>1~5</text>
+    </view>
   </view>
-  <button class='button tips-btn' open-type="share">分享</button>
+</view>
+
+<view class='list-box'>
+  <view class='title'>
+    <block wx:for="{{tabs}}" wx:key="{{item.id}}"> 
+      <text class="{{item.id == tabId ? 'title-hover' : ''}}" bindtap='handleClickTab' data-id='{{item.id}}'> {{item.name}}</text>
+    </block> 
+  </view>
+  <view class='list-content'>
+    <block wx:for="{{items}}" wx:key="{{item.id}}"> 
+      <view class='list'>
+        <view class='list-left' wx:if="{{tabId == 0}}">{{item.action}}</view>
+        <view class='list-left' wx:else>{{item.addtime}}</view>
+        <view class='list-time' wx:if="{{tabId == 0}}">{{item.addtime}}</view>
+        <view class='list-right'>{{item.point}} 积分</view>
+      </view>
+    </block>
+    <view class='list-footer' wx:if="{{items.length == 0}}">暂无明细</view>
+  </view>
 </view>
 
 <view class='footer'>—— 息壤同城 ——</view>

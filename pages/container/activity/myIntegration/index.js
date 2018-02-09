@@ -14,13 +14,15 @@ Page({
       id: 1,
       name: '本周明细'
     }],
-    points: {}
+    points: {},
+
+    
   },
 
   onLoad: function (options) {
-    var that = this;
+    var _this = this;
     this.getDailyDetail().then((res) => {
-      this.setData({
+      _this.setData({
         items: res
       })
     });
@@ -87,5 +89,7 @@ Page({
         // 转发失败
       }
     }
-  }
+  },
+
+  
 })

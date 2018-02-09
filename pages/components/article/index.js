@@ -39,6 +39,13 @@ Component({
       })
     },
 
+    handleCall: function() {
+      const phoneNumber = this.data.content.post_phone;
+      wx.makePhoneCall({
+        phoneNumber
+      })
+    },
+
     handleShowMore: function() {
       const content = this.data.content;
       content.post_content = this.data.contentAll;

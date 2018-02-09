@@ -10,11 +10,11 @@
       <text class='version'>尊享版</text>
     </view>
     <view class='shop-time'>
-      <text class="real-shop" wx:if="{{info.shop_property == 0}}">实体</text>
+      <!-- <text class="real-shop" wx:if="{{info.shop_property == 0}}">实体</text> -->
       <text class="new-shop" wx:if="{{item.is_new == 1}}">新店</text>
       营业时间:{{info.start_time}} - {{info.end_time}}</view>
     <view class='shop-logo-box'>
-      <image src='{{info.shop_logo_show}}' class='shop-logo' mode='aspectFill'/>
+      <image src='{{info.shop_logo_show}}' class='shop-logo' mode='aspectFill'  bindtap='openLogo'/>
     </view>
   </view>
   <view class='zx-bottom'>
@@ -51,9 +51,9 @@
 </view>
 <!-- END 领取vip -->
 
-<navigator hover-class="none"  url='../rules/index?name=bzj&hasPay={{info.deposit}}&is_owner={{info.is_owner}}'>
+<!-- <navigator hover-class="none"  url='../rules/index?name=bzj&hasPay={{info.deposit}}&is_owner={{info.is_owner}}'>  -->
   <!-- 未缴纳保证金 -->
-  <view class='warn' wx:if="{{!info.deposit}}">
+  <!-- <view class='warn' wx:if="{{!info.deposit}}">
     <view class='warn-left'>
       <image src='../../images/warning.svg' class='warning-img' />
       <text class='waring-text' wx:if="{{info.is_owner}}">您的店铺暂未缴纳保证金</text>
@@ -62,11 +62,11 @@
     <view class='warn-right'>
       <view class='next'><image src='../../images/next.svg' /></view>
     </view>
-  </view>
+  </view> -->
   <!-- END 未缴纳保证金 -->
 
   <!-- 已缴纳保证金 -->
-  <view class='warn' wx:else >
+  <!-- <view class='warn'  wx:if="{{info.deposit}}">
     <view class='warn-left'>
       <image src='../../images/baozhengjin.png' class='warning-img2' />
       <text class='waring-text2'>已缴纳保证金，平台保障店铺</text>
@@ -74,9 +74,9 @@
     <view class='warn-right'>
       <view class='next'><image src='../../images/next.svg' /></view>
     </view>
-  </view>
+  </view>  -->
   <!-- END 已缴纳保证金 -->
-</navigator>
+<!-- </navigator>  -->
 
 <!-- 店铺升级 -->
  <view class='warn' wx:if="{{info.is_owner && info.is_remind}}">  
@@ -90,7 +90,6 @@
   </view>
 </view>
 
-
 <view class="info-box pd">
   <view class="shop-info" wx:if="{{info.level == 0}}">
     <image src="../../images/clock.svg" class="info-icon" />
@@ -99,10 +98,16 @@
   <view class="shop-info" bindtap='handleCall'>
     <image src="../../images/phone.svg" class="info-icon"  />
     <text class="info"> {{info.shop_phone}}</text>
+    <view class='next'>
+      <image src='../../images/next.svg'/>
+    </view>
   </view>
   <view class="shop-info" style="border: none" bindtap='openMap'>
     <image src="../../images/address2.svg" class="info-icon" />
-    <text class="info"> {{info.shop_addr}}</text>
+    <text class="info"> {{info.shop_addr_name}}</text>
+    <view class='next'>
+      <image src='../../images/next.svg'/>
+    </view>
   </view>
 </view>
 
@@ -121,7 +126,7 @@
     <view class='active-list'>
       <navigator hover-class="none"  url="{{'../../container/discountDetail/index?id=' + item.id}}">
         <view class='active-left'>
-          <image class='active-img' src='{{item.smeta}}' />
+          <image class='active-img' src='{{item.smeta}}' mode='aspectFill' />
         </view>
         <view class='active-right'>
           <view class='active-title'>{{item.post_title}}</view>
@@ -170,6 +175,28 @@
     <text class='active-more'>点击查看更多</text>
     <image class='' src='../../images/line-gradient.png'/>
   </view> 
+</view>
+
+<!-- 产品图片 -->
+<view wx:if="{{(!info.is_owner && info.goods_pic.length == 0) || info.level == 0}}"></view>
+<view class="{{moreJobs ? 'jobs show-more' : 'jobs'}}" wx:else>
+  <view class='title'>
+    <text>热销产品({{info.goods_pic ? info.goods_pic.length : '0'}})</text>
+    <navigator url='../creatShop/index?id={{info.id}}' hover-class='none'>
+      <text class='blue job-add' wx:if="{{info.is_owner}}">修改</text>
+    </navigator>
+  </view>
+  <view class='no-info' wx:if="{{info.goods_pic.length == 0}}">
+    <text class='no-info-text'>您可以添加产品图片啦</text>
+    <navigator url='../creatShop/index?id={{info.id}}' hover-class='none'>
+      <text class='no-info-btn'>+ 添加图片</text>
+    </navigator>
+  </view>
+  <scroll-view scroll-x style="white-space: nowrap" wx:else>
+    <block wx:for="{{info.goods_pic_show}}" wx:key="{{index}}">
+      <image src='{{item}}' class='goods' mode='aspectFill' bindtap='showImage' data-name="goods" data-current='{{item}}'  />
+    </block>
+  </scroll-view> 
 </view>
 
 <!-- 详细信息 -->
@@ -280,6 +307,12 @@
   </view>
   <view class='mask' bindtap='handleHideActive' />
 </view>
+
+<view class='qrcode'>
+  <image src='../../images/qrcode.svg' class='code-icon' />
+  <text class='code-text'>生成我的店铺拜年码</text>
+</view>
+<image src='../../images/dog.png' class='dog' />
 
 <loading isLoading="{{isLoading}}" />
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

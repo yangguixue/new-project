@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "circle": "../../components/circle/index",
-    "article": "../../components/article/index",
-    "loading": "../../components/loading/index",
-    "noLogin": "../../components/noLogin/index"
-  }
-}

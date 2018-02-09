@@ -1,0 +1,44 @@
+<!--pages/container/myMoney/index.wxml-->
+<view class='content-t'>
+  <view class='content-t-t'>
+    <view class='content-t-t-l'>钱包余额</view>
+    <navigator url='../rules/index?name=txgz' hover-class="none">
+      <view class='content-t-t-r'>提现规则</view>
+    </navigator>
+  </view>
+  <view class='content-t-c'>
+    <text class='m-icon'>￥</text> {{money.yue || 0}}
+  </view>
+  <view class='content-t-b'>
+    <text class='content-t-b-l'>满{{money.per_money}}元可提现</text>
+    <text class='content-t-b-r'>已提现 {{money.tixian || 0}} 元</text>
+  </view>
+</view>
+
+<view class='content-list'>
+  <view class='list-tab'>
+    <view class="{{tabId == 0 ? 'list-tab-hover' : 'tab'}}" data-id="0" bindtap='handleTab'>奖励来源</view>
+    <view class="{{tabId == 1 ? 'list-tab-hover' : 'tab'}}" data-id="1" bindtap='handleTab'>提现记录</view>
+  </view>
+  <view class='list'>
+    <view class='nothing' wx:if="{{list.length == 0}}">
+      暂无明细
+    </view>
+    <view wx:else>
+      <block wx:for="{{list}}" wx:key="{{index}}"> 
+        <view class='list-item'>
+          <text class='list-item-l' wx:if="{{tabId == 0}}">{{item.type}}</text>
+          <text class='list-item-l addtime'>{{item.addtime}}</text>
+          <text class='list-item-r'>{{item.money}}元</text>
+        </view>
+      </block> 
+    </view>
+  </view>
+</view>
+
+<view class='tips'>
+  满10元提现，每次提10元
+</view>
+
+<view class='footer' wx:if="{{money.yue >= money.per_money}}" bindtap="handleGetMoney">我要提现</view>
+<view class='footer disable' wx:else>我要提现</view>

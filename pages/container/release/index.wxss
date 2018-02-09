@@ -42,15 +42,27 @@ page {
 }
 
 .address {
-  color: #999;
+  color: #333;
   font-size: 28rpx;
   margin-top: 30rpx;
+  padding-bottom: 20rpx;
+  overflow: hidden;
+  border-bottom: 2rpx solid #e5e5e5;
 }
 
 .address-img {
-  width: 24rpx;
-  height: 28rpx;
-  margin: 0 10rpx 0 0;
+  width: 36rpx;
+  height: 36rpx;
+  float: left;
+  margin: 4rpx 10rpx 0 0;
+}
+
+.address-text {
+  float: left;
+}
+
+.gray {
+  color: #999;
 }
 
 .cg_tips {

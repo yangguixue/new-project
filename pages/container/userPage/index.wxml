@@ -4,8 +4,6 @@
     <view class="user-info">
       <view class="user-name">
         <text class="name"> {{userInfo.username}}</text>
-        <!-- <image src="{{userInfo.photo}}" class="leval" /> -->
-          <!-- <text class="leval-num">3</text>   -->
       </view>
       <view>
         <text class="focus">关注 {{userInfo.follow_num}}</text>
@@ -15,6 +13,25 @@
     <view class="focus-button" bindtap="handleFocus" data-item="{{userInfo}}" wx:if="{{userInfo.is_follow !== undefined && !userInfo.is_follow}}">+ 关注</view>
     <view class="focus-button focused" bindtap="handleFocus" data-item="{{userInfo}}" wx:if="{{userInfo.is_follow}}">已关注</view>
   </view>
+</view>
+
+<view class='pd shop' wx:if="{{userInfo.shop}}">
+  <navigator url='../shopDetail/index?id={{userInfo.shop.id}}' hover-class='none'>
+    <view class='his-title'>
+      他的店铺
+    </view>
+    <view class='shop-box'>
+      <view class='shop-img'>
+        <image src='{{userInfo.shop.shop_logo}}' />
+      </view>
+      <view class='shop-name'>
+        {{userInfo.shop.shop_name}}
+      </view>
+      <view class='next'>
+        <image src='../../images/next.svg' />
+      </view>
+    </view>
+  </navigator>  
 </view>
 
 <block wx:for="{{list}}" wx:key="{{item.id}}">

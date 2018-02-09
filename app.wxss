@@ -55,7 +55,7 @@ navigator {
 /* 列表底部文字样式 */
 .list-footer {
   text-align: center;
-  color: #666;
+  color: #999;
   line-height: 80rpx;
   font-size: 28rpx;
 }
@@ -63,7 +63,7 @@ navigator {
 
 /* button */
 .button {
-  background: #fd450f;
+  background: #fd5046;
   color: #fff;
   font-size: 32rpx;
 }

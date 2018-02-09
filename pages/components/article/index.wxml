@@ -4,6 +4,7 @@
       <navigator url="../../container/userPage/index?id={{content.member_id}}">
         <image class="user-head" src="{{content.userphoto}}" mode="widthFix" />
       </navigator>
+      <text class='call' bindtap='handleCall' wx:if="{{content.post_phone}}">联系Ta</text>
     </view>
 
     <view class="card-right">
@@ -14,10 +15,6 @@
         <view class="catelog">{{ content.cg_name }} ></view>
       </navigator>
 
-      <view class="position">
-        <image src="../../images/address.svg" style="width:20rpx; height:24rpx;margin-right:8rpx" />
-        <text>{{content.post_addr_name}} </text>
-      </view>
       <!--  详情页点击内容无链接 -->
       <navigator wx:if="{{isDetail !== true}}" url="../../container/articleDetail/index?id={{content.id}}">
         <text class="content-text">{{content.post_content}} </text>
@@ -26,12 +23,18 @@
       <!--  详情页点击内容无链接 END -->
       <view class='show-more blue' wx:if="{{showMore}}" bindtap='handleShowMore'>查看全文</view>
       <view class='show-more blue' wx:if="{{!showMore && content.post_content.length > 100 && !isDetail}}" bindtap='handleHideMore'>收起</view>
+      
       <view class="content-img">
         <block wx:for="{{content.smeta}}" wx:key="{{index}}" wx:if="{{content.smeta.length > 1}}" >
           <image class="article-img" src="{{item}}" mode="aspectFill" bindtap="handleBigImage" data-current="{{item}}" />
         </block>
         <image wx:if="{{content.smeta.length == 1}}" class="article-img2" src="{{content.smeta[0]}}" mode="widthFix" bindtap="handleBigImage" />
       </view>
+      
+      <view class="position" bindtap='openMap'>
+        <text>{{content.post_addr_name}} </text>
+      </view>
+
       <view class="time"> {{content.post_date}} <text class='report' bindtap="handleReport" wx:if="{{!content.is_del}}">举报</text><text class="report" data-id="{{content.id}}" bindtap='handleDelete' wx:if="{{content.is_del}}">删除</text></view>
            
     </view>

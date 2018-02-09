@@ -1,0 +1,135 @@
+/* pages/container/myMoney/index.wxss */
+page {
+  background: #f1f2f2;
+}
+
+.content-t {
+  background: #f3514f;
+  color: #ffdfe2;
+}
+
+.content-t-t {
+  height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.content-t-t-l {
+  float: left;
+  font-size: 36rpx;
+  line-height: 100rpx;
+}
+
+.content-t-t-r {
+  float: right;
+  font-size: 24rpx;
+  padding: 0 25rpx;
+  line-height: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  border: 2rpx solid #ffdfe2;
+  border-radius: 4rpx;
+  margin-top: 20rpx;
+}
+
+.content-t-c {
+  font-size: 80rpx;
+  height: 200rpx;
+  line-height: 200rpx;
+  color: #fff;
+  overflow: hidden;
+  padding: 0 30rpx;
+}
+
+.m-icon {
+  font-size: 40rpx;
+}
+
+.content-t-b {
+  background: #e84644;
+  height: 100rpx;
+  line-height: 100rpx;
+  overflow: hidden;
+  padding: 0 30rpx;
+  font-size: 26rpx;
+}
+
+.content-t-b-l {
+  float: left;
+}
+
+.content-t-b-r {
+  float: right;
+}
+
+.content-list {
+  background: #fff;
+  margin-top: 10rpx;
+}
+
+.list-tab {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.tab {
+  padding: 0 10rpx;
+}
+
+.list-tab-hover {
+  padding: 0 10rpx;
+  border-bottom: 6rpx solid #e84644;
+}
+
+.list {
+  background: #fff;
+  padding: 0 30rpx;
+  min-height: 500rpx;
+  overflow-y: scroll;
+}
+
+.list-item {
+  border-top: 2rpx solid #f1f2f2;
+  line-height: 100rpx;
+  font-size: 26rpx;
+  overflow: hidden;
+}
+
+.list-item-l {
+  float: left;
+  margin-right: 10rpx;
+}
+
+.addtime {
+  color: #999;
+  font-size: 24prx;
+}
+
+.list-item-r {
+  float: right;
+}
+
+.tips {
+  text-align: center;
+  color: #e84644;
+  line-height: 90rpx;
+  font-size: 30rpx;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  line-height: 90rpx;
+  color: #fff;
+  font-size: 32rpx;
+  height: 90rpx;
+  background: #f3514f;
+  text-align: center;
+}
+
+.disable {
+  background: #d3d3d3;
+}

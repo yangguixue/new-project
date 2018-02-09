@@ -8,13 +8,12 @@ page {
 .top {
   color: #fff;
   background: #333;
-  height: 360rpx;
   padding: 0 30rpx;
   margin-bottom: 10rpx;
 }
 
 .content {
-  padding: 200rpx 0 0 0; 
+  padding: 30rpx 0; 
   overflow: hidden;
 }
 
@@ -42,15 +41,6 @@ page {
   margin-right: 10rpx;
 }
 
-.leval {
-  width:36rpx;
-  height: 28rpx;
-}
-
-.leval-num {
-  color: #ff0000 #333;
-}
-
 .focus {
   margin-right: 20rpx;
 }
@@ -69,4 +59,38 @@ page {
 
 .focused {
   background: #ccc;
+}
+
+.shop {
+  margin-bottom: 10rpx;
+}
+
+.his-title {
+  font-size: 32rpx;
+  line-height: 60rpx;
+}
+
+.shop-box {
+  background: #fff;
+  padding: 20rpx 0;
+  overflow: hidden;
+}
+
+.shop-img {
+  width: 100rpx;
+  height: 100rpx;
+  float: left;
+  margin-right: 10rpx;
+}
+
+.shop-name {
+  float: left;
+  line-height: 100rpx;
+}
+
+.next {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: 30rpx;
+  float: right;
 }

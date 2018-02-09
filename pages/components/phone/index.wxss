@@ -25,23 +25,25 @@
 
 .title {
   font-weight: bold;
+  font-size: 34rpx;
   margin-bottom: 20rpx;
+  text-align: center;
 }
 
 .input {
-  width: 500rpx;
+  width: 300rpx;
   height: 80rpx;
+  float: left;
   border-bottom: 2rpx solid #e5e5e5;
   margin-bottom: 30rpx;
 }
 
-.code-box {
-  overflow: hidden;
+.code {
+  width: 100%;
 }
 
-.code {
-  width: 250rpx;
-  float: left;
+.code-box {
+  overflow: hidden;
 }
 
 .button {
@@ -49,7 +51,7 @@
   height: 70rpx;
   color: #fff;
   line-height: 70rpx;
-  background: #fd450f;
+  background: #fd5046;
 }
 
 .code-btn {

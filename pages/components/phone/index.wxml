@@ -2,14 +2,14 @@
 <view class='phone'  wx:if="{{isShowPhone}}">
   <view class='mask'></view>
   <view class='phone-box'> 
-    <view class='title'>您还没有验证手机号，验证一下，立刻发布</view>
+    <view class='title'>验证手机号</view>
     <form bindsubmit="formSubmit">
-      <input placeholder='手机号' name="phone" class='input' bindinput="handleChange" />
       <view class='code-box'>
-        <input placeholder='验证码' name="validcode" class='input code' />
+        <input placeholder='手机号' name="phone" class='input' bindinput="handleChange" />
         <button class='button code-btn'  wx:if="{{!isSending}}" bindtap='getCode'>获取验证码</button>
         <button class='button code-btn button-disabled' wx:else>{{second}}s后重新获取</button>
       </view>
+      <input placeholder='验证码' name="validcode" class='input code' />
       <button class='button' formType="submit">提交</button>
     </form>
   </view>

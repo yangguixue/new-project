@@ -1,22 +1,82 @@
 <!--pages/container/shopList/index.wxml-->
-
+<import src="../../template/catelog.wxml"/>
 <view class="search">
-  <view class="search-left">
-    <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" bindinput='handleChange' />
-  </view>
-  <view class="search-button">
-    <image src="../../images/search.svg" bindtap='handleSearch' />
+  <view class="search-box">
+    <navigator hover-class="none" url="../../container/searchShop/index">
+      <input type="text" placeholder="输入商家，商品名搜索"  class="search-input" disabled='{{true}}' />
+    </navigator>
+    <view class="search-button">搜索</view>
   </view>
 </view>
+<view class='banner' bindtap='openDiscount'>
+  <image class='banner-img' src='../../images/dplb.jpg' />
+</view>
+<view class='catelog'>
+  <template is="catelog" data="{{category, shop: true }}" />
+</view>
+<view class="publish-box">
+  <view class='publish'>
+    <view class='publish-l'>
+      <image src='../../images/new.svg' />
+    </view>
+    <view class='publish-c'>
+      恭喜 <text class='red'>#{{shopName}}#</text> 入驻
+    </view>
+    <view class='publish-r' bindtap='handlePublish'>+ 入驻</view>
+  </view>
+</view>  
 
-<view class="banner" bindtap='handlePublish'>
-  <image src="https://www.qmjoin.com/data/upload/xrxz/dplb.jpg" />
+<view class='shop-block'>
+  <navigator url="../newShop/index?name=new" hover-class="none" >
+    <view class='block-box'>
+      <view class='block-title'>
+        <text class='title-h1'>新店开业</text>
+        <view class='title-tips'>开业提前知晓</view>
+      </view>
+      <view class='block-bottom'>
+        <view class='block-l'>
+          <image src='{{recommend.new.shop_logo}}' mode='widthFix' />
+        </view>
+        <view class='block-r'>
+          <view class='block-name'>
+            {{recommend.new.shop_name}}
+          </view>
+          <view class='block-cate'>
+            <text class='discount' wx:if="{{recommend.new.is_sale}}">优惠</text>
+            <text class='jobs' wx:if="{{recommend.new.is_recruit}}">招聘</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+  
+  <navigator url="../newShop/index?name=job" hover-class="none" >
+    <view class='block-box block-box2'>
+      <view class='block-title'>
+        <text class='title-h1'>热店招聘</text>
+        <view class='title-tips title-tips2'>找工作不再难</view>
+      </view>
+      <view class='block-bottom'>
+        <view class='block-l'>
+          <image src='{{recommend.recruit.shop_logo}}' mode='widthFix'/>
+        </view>
+        <view class='block-r'>
+          <view class='block-name'>
+            {{recommend.recruit.shop_name}}
+          </view>
+          <view class='block-cate'>
+            <text class='jobs'>招聘 {{recommend.recruit.recruit_num}} 个职位</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
 </view>
 
 <view class='menu'>
   <view class='menu-title'>
     <view class="category" bindtap='handleFilter' data-id="0">
-      {{category[value].name}}
+      {{categorys[value].name}}
       <text class='triangle' />
     </view>
     <view class='line'></view>
@@ -31,7 +91,7 @@
   <view class='mask' bindtap='handleHideMask' ></view>
   <view class='menu-title menu-title2'>
     <view class="{{isShowCate ? 'category selected' : 'category'}}" bindtap='handleFilter' data-id="0">
-      {{category[value].name}}
+      {{categorys[value].name}}
       <text class='triangle' wx:if="{{!isShowCate}}" />
       <text class='triangle2' wx:else /> 
     </view>
@@ -43,7 +103,7 @@
     </view>  
   </view>
   <view class="{{isShowCate ? 'menu-list' : 'menu-list dn'}}">
-    <block wx:for="{{category}}" wx:key="{{index}}">
+    <block wx:for="{{categorys}}" wx:key="{{index}}">
       <view class="{{item.selected ? 'menu-item menu-item-hover' : 'menu-item'}}" bindtap='handleFilterSearch' data-item="{{item}}" data-index="{{index}}" data-id="0">{{item.name}}</view>
     </block>
   </view> 

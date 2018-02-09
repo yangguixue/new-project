@@ -3,46 +3,36 @@
 <view>
   <view class="head">
     <view class="head-top">
-      <view class="head-top-left">
-        <image src="{{userInfo.userphoto || '../../images/userhead.jpg'}}" class="user-img"/>
-      </view>
-      <view class="head-top-right">
-        <view class="user-name" wx:if="{{userInfo.username}}">{{userInfo.username}}</view>
-        <view class="user-name" wx:else bindtap="handleOpenLogin">登录/注册</view>
-        <view class="gold" wx:if="{{userInfo.member_id}}">
-          积分 {{userInfo.point || 0}}
-        </view>
-        <view class="gold" wx:else>
-          登录免费发消息
-        </view>
-      </view>
+      <image src="{{userInfo.userphoto || '../../images/userhead.jpg'}}" class="user-img"/>
+      <view class="user-name" wx:if="{{userInfo.username}}">{{userInfo.username}}</view>
+      <view class="user-name" wx:else bindtap="handleOpenLogin">登录/注册</view>
     </view>
+
     <view class="head-bottom" wx:if="{{userInfo.member_id}}">
-      <navigator hover-class="none" url='../userPage/index?id={{userInfo.member_id}}'>
+      <navigator hover-class="none" url='../activity/myIntegration/index?id={{userInfo.member_id}}'>
         <view class='head-block'>
           <view class="collection">
-            <view class="number">{{userInfo.post_num || 0}}</view>
-            <view>动态</view>
+            <view>我的积分</view>
+            <view class="number">{{userInfo.point || 0}}</view>
           </view>
         </view>
       </navigator>
 
       <view class="line"/>
-      <navigator hover-class="none" url='../fans/index?url=focus'>
+      <navigator hover-class="none" url="../myMoney/index" wx:if="{{userInfo.member_id}}">
         <view class='head-block'>
           <view class="collection">
-            <view class="number">{{userInfo.follow_num || 0}}</view>
-            <view>关注</view>
+            <view>我的钱包</view>
+            <view class="number">{{userInfo.yue/100 || 0}}</view>
           </view>
         </view>      
       </navigator>
-
       <view class="line"/>
-      <navigator hover-class="none" url='../fans/index?url=fans'>
+      <navigator hover-class="none" url='../userPage/index?id={{userInfo.member_id}}'>
         <view class='head-block'>
           <view class="collection">
-            <view class="number">{{userInfo.fan_num || 0}}</view>
-            <view>粉丝</view>
+            <view>我的发布</view>
+            <view class="number">{{userInfo.post_num || 0}}</view>
           </view>
         </view>
       </navigator>
@@ -59,7 +49,7 @@
     <block wx:for="{{entry}}" wx:key="{{index}}">
       <navigator hover-class="none" url="../{{item.url}}/index">
         <view class='entry-item'>
-          <text class='dot' wx:if="{{item.id == 3 && userInfo.message_num != 0}}"/>
+          <text class='dot' wx:if="{{item.id == 2 && userInfo.message_num != 0}}"/>
           <view class='entry-icon'>
             <image src='../../images/user-icon0{{item.id}}.svg' />
           </view>
@@ -68,38 +58,16 @@
       </navigator>
     </block>
   </view>
-
-  <view wx:if="{{userInfo.member_id}}">
-    <navigator hover-class="none" url="../circleList/index">
-      <view class="circle-title">
-        <text>我加入的圈子</text>
-      </view>
-    </navigator>
-    <view class="circle-join">
-      <!-- 加入圈子展示 -->
-      <scroll-view class="scroll" scroll-x  wx:if="{{userInfo.cicles.length > 0}}">
-        <block wx:for="{{userInfo.cicles}}" wx:key="{{item.cg_id}}">
-          <navigator hover-class="none" url="../circleDetail/index?id={{item.cg_id}}">
-            <view class="circle-content">
-              <view class="circle">
-                <image src="{{item.icon}}" class="circle-img" />
-              </view>
-              <text>{{item.name}}</text>
-            </view>
-          </navigator>
-        </block>
-      </scroll-view>
-      <!-- 没有加入圈子展示 -->
-      <block wx:else>
-        <template is="no-info" data="{{img: '../../images/cry.svg', tips: '生活一点乐趣都没有，好桑心', button: '前去找乐子 >>', url: '../circle/index'}}" />
-      </block>
-    </view>
-  </view>
   
-
   <view class="usercenter-list">
     <navigator hover-class="none" url="../getPhone/index" wx:if="{{userInfo.member_id}}">
       <view class="list-name">绑定手机<image src="../../images/next.svg" class="next" /><text class='list-text'>{{userInfo.phone ? userInfo.phone : '绑定手机送50积分'}}</text></view>
+    </navigator>
+    <navigator hover-class="none" url='../fans/index?url=fans' wx:if="{{userInfo.member_id}}">
+      <view class="list-name">我的粉丝<image src="../../images/next.svg" class="next" /></view>
+    </navigator>
+    <navigator hover-class="none" url='../fans/index?url=focus' wx:if="{{userInfo.member_id}}">
+      <view class="list-name">我的关注<image src="../../images/next.svg" class="next" /></view>
     </navigator>
     <navigator hover-class="none" url="../activity/integration/index">
       <view class="list-name">积分排名<image src="../../images/next.svg" class="next" />

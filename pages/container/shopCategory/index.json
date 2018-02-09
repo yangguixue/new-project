@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "shop": "../../components/shop/index"
+  },
+  "enablePullDownRefresh": "true"
+}

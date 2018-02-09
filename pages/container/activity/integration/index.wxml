@@ -1,47 +1,55 @@
 <!--pages/container/activity/integration/index.wxml-->
-<view class='bg'>
-  <image src='../../../images/bg-jifen01.png'/>
-</view>
-
-<view class='box'>
-  <view class='list'>
-    <view class='title'>
-      <text class='title-text wid01'>排行</text>
-      <text class='title-text wid02'>用户</text>
-      <text class='title-text wid03'>积分</text>
-    </view>
-    <block wx:for="{{items}}" wx:key="{{item.member_id}}">
-      <view class='item'>
-        <view class='item-text'>
-          <image src='../../../images/sort01.png' wx:if="{{index == 0}}" class='sort' />
-          <image src='../../../images/sort02.png' wx:elif="{{index == 1}}" class='sort' />
-          <image src='../../../images/sort03.png' wx:elif="{{index == 2}}" class='sort' />
-          <text wx:else>{{index + 1}}</text>
-        </view>
-        <view class='user'>
-          <image src='{{item.userphoto}}' class='userhead'/>
-          <text class='username'> {{item.username}}</text>
-        </view>
-        <view class='jifen'>
-          <image src='../../../images/point.svg' style='width: 32rpx;height: 32rpx;' />
-          <text> {{item.point}}</text>
-        </view>
-      </view>
-    </block>
-  </view>
-</view>
-
-<view class='myPoint' bindtap='myPoint'>我的积分 ></view>
-
-<view class='pd'>
-  <button class='button button1' bindtap="handleSend">我也要发布</button>
-  <button class='button' open-type="share">分享给好友</button>
+<view>
+  <image src='../../../images/choujiang.png' mode='widthFix'/>
 </view>
 
 <view class='content'>
-  <rich-text nodes="{{nodes}}"></rich-text>
+  <view class='user-list'>
+    <view class='user-item'>
+      <text class='blue'>{{userItem.username}} </text>抽中了{{userItem.money}}元红包
+    </view>
+  </view>
+
+  <view class="container-out">
+    <view class="circle" wx:for="{{circleList}}" wx:key="{{index}}" style="top:{{item.topCircle}}rpx;left:{{item.leftCircle}}rpx;background-color: {{(index%2==0)?colorCircleFirst:colorCircleSecond}};"></view>
+    <view class="container-in">
+      <view class="{{index==indexSelect ? 'content-out content-out-selected' : 'content-out'}}" wx:for="{{awardList}}" wx:key="{{index}}" style="top:{{item.topAward}}rpx;left:{{item.leftAward}}rpx">
+        <!-- <image class="award-image" src="{{item.imageAward}}"></image> -->
+        <text class="award-image">{{item.imageAward.redp}}元</text>
+      </view>
+      <view class="start-btn" bindtap="startGame">GO</view> 
+    </view>
+  </view>
+  <view class='user-info'>
+    <text class='info-r'>我的积分: <text class="blue">{{point.point}}</text></text>
+    <text class='info-l'>你还有<text class="blue">{{point.count}}</text>次抽奖机会</text>
+  </view>
+  <view class='button-box'>
+    <button class='button button1' bindtap="handleSend">去搞积分</button>
+    <button class='button' open-type="share">分享给好友</button>
+  </view>
 </view>
 
-<view class='footer'>—— 息壤同城 ——</view>
+<view class='big-hongbao' wx:if="{{showRed}}"> 
+    <view class='mask'></view>
+    <view class='hongbao-content'>
+      <view class='hongbao2'> 
+        <image src='../../../images/hongbao-ok.png' class='hongbao2-png' />
+        <view class='text-box'>
+          <view class='text01'>恭喜你获得红包奖金</view>
+          <view class='money'>￥{{awardList[indexSelect].imageAward.redp}}</view>
+          <view class='text02'>已存入零钱</view>
+          <navigator url='../../myMoney/index' hover-class="none">
+            <text class='text03'>我的钱包></text>
+          </navigator>
+        </view>
+      </view> 
+      <view><view class='close-hongbao' bindtap='closeHongbao'>x</view></view>
+    </view>
+  </view>
+
+  <view class='content-text'>
+    <rich-text nodes="{{nodes}}"></rich-text>
+  </view> 
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

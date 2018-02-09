@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "article": "../../components/article/index",
-    "noLogin": "../../components/noLogin/index"
-  },
-  "enablePullDownRefresh": true
-}

@@ -1,9 +1,0 @@
-<!--pages/container/circleList/index.wxml-->
-<block wx:for="{{items}}" wx:key="{{item.cg_id}}">
-  <circle item="{{item}}" />
-</block>
-
-<view class='list-footer' wx:if="{{items.length > 0}}">没有更多了</view>
-<view class='list-footer' wx:if="{{items.length == 0}}">这里啥也没有</view>
-
-<loading isLoading="{{isLoading}}" /> 

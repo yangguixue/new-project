@@ -1,0 +1,40 @@
+/* pages/container/searchShop/index.wxss */
+page {
+  background: #f1f2f2;
+}
+
+.search {
+  background: #fff;
+  height: 86rpx;
+  padding: 14rpx 30rpx 0;
+  margin-bottom: 10rpx;
+}
+
+.search-box {
+  width: 690rpx;
+  height: 72rpx;
+  background: #f2f2f2;
+  border-radius: 36rpx;
+  position: relative;
+}
+
+.search-input {
+  width: 450rpx;
+  height: 72rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.search-button {
+  width: 122rpx;
+  height: 72rpx;
+  text-align: center;
+  color: #fff;
+  line-height: 72rpx;
+  font-size: 26rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #fd5046;
+  border-radius: 0 36rpx 36rpx 0;
+}

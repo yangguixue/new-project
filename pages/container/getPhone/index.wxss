@@ -37,7 +37,7 @@ page {
   padding: 0 20rpx;
   color: #fff;
   border-radius: 10rpx;
-  background: #fd450f;
+  background: #fd5046;
 }
 
 .button-disabled {
