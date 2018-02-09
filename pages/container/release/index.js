@@ -265,7 +265,13 @@ Page({
     var isSelect = this.data.isSelect;
     var serverUrl = this.data.serverUrl;
     item.smeta = serverUrl;
-    console.log(item)
+
+    if (!item.post_addr_name) {
+      wx.showModal({
+        content: '请选择你所在的位置',
+      })
+      return;
+    }
 
     if (secondMenus.length > 0 && !isSelect) {
       wx.showModal({

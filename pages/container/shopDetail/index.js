@@ -16,10 +16,24 @@ Page({
 
   onLoad: function (options) {
     var that = this;
-    this.setData({
-      shopId: options.id,
-    });
-
+    if (options.scene) {
+      var scene = decodeURIComponent(options.scene);
+      var a = scene.split('&');
+      var invaitid = a[0].split('=');
+      var id = a[1].split('=');
+      var item = {};
+      item[invaitid[0]] = invaitid[1];
+      item[id[0]] = id[1];
+      wx.setStorageSync('invaitid', '58');
+      this.setData({
+        shopId: item.id,
+      });
+    } else {
+      this.setData({
+        shopId: options.id,
+      });
+    }
+    
     // 获取规则
     util.req('&m=ad&a=getIll', { name: 'haohua' }, function (data) {
       if (data.flag == 1) {
@@ -35,6 +49,7 @@ Page({
   onShow: function() {
     const that = this;
     const id = this.data.shopId;
+    // console.log(this.data.shopId)
     this.fetchDetail(that, id);
   },
 
@@ -337,6 +352,28 @@ Page({
         })
       }
       that.setData({ isLoading: false });
+    })
+  },
+
+  //生成店铺二维码
+  getCode: function() {
+    const that = this;
+    const item = {};
+    item.session3rd = app.globalData.token;
+    item.page = 'pages/container/shopDetail/index',
+    util.req('&m=member&a=getShopCode', item, function(data) {
+      if (data.flag == 1) {
+        wx.showModal({
+          title: '温馨提示',
+          content: '把拜年码保存到本地就可以发朋友圈给大家拜年啦~~',
+          success: function(res) {
+            wx.previewImage({
+              current: data.result,
+              urls: [data.result]
+            })
+          }
+        })
+      }
     })
   },
 

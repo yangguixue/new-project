@@ -168,7 +168,6 @@ Page({
       this.handleOpenLogin();
       return;
     }
-    if (this.data.isRunning) return;
     this.setData({
       isRunning: true
     })

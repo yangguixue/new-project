@@ -308,11 +308,14 @@
   <view class='mask' bindtap='handleHideActive' />
 </view>
 
-<view class='qrcode'>
-  <image src='../../images/qrcode.svg' class='code-icon' />
-  <text class='code-text'>生成我的店铺拜年码</text>
+<view bindtap='getCode' wx:if="{{info.is_owner}}">  
+  <view class='qrcode'>
+    <image src='../../images/qrcode.svg' class='code-icon' />
+    <text class='code-text'>生成我的店铺拜年码</text>
+  </view>
+  <image src='../../images/dog.png' class='dog' />
 </view>
-<image src='../../images/dog.png' class='dog' />
+
 
 <loading isLoading="{{isLoading}}" />
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

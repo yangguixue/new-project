@@ -67,7 +67,7 @@
       <view class='point-num-text'>+{{pointNum}}积分</view>
     </view>
     <view class='point-success'>发布成功</view>
-    <view class='point-art'>积分比拼<text class='red'>赢现金</text></view>
+    <view class='point-art'>攒积分<text class='red'>抽现金</text></view>
     <navigator hover-class="none"  url='../activity/integration/index'>
       <view class='point-detail'>了解详情</view>
     </navigator>

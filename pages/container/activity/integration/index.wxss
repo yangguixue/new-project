@@ -28,7 +28,7 @@ page{
 }
 
 .blue {
-  color: #63acff;
+  color: #ffff00;
 }
 
 .user-info {

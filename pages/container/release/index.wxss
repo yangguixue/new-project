@@ -195,7 +195,7 @@ page {
 
 .red {
   font-size: 36rpx;
-  color: #fd450f;
+  color: #ff0033;
 }
 
 .point-detail {
@@ -203,7 +203,7 @@ page {
   position: absolute;
   bottom: 0;
   line-height: 72rpx;
-  background: #fd450f;
+  background: #ff0033;
   color: #fff;
   font-size: 26rpx;
   border-radius: 0 0 20rpx 20rpx;

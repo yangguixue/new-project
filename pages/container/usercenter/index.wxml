@@ -3,7 +3,8 @@
 <view>
   <view class="head">
     <view class="head-top">
-      <image src="{{userInfo.userphoto || '../../images/userhead.jpg'}}" class="user-img"/>
+      <image wx:if="{{userInfo.userphoto}}" src="{{userInfo.userphoto}}" class="user-img"/>
+      <image wx:else src="../../images/userhead.jpg" class="user-img" bindtap="handleOpenLogin"/>
       <view class="user-name" wx:if="{{userInfo.username}}">{{userInfo.username}}</view>
       <view class="user-name" wx:else bindtap="handleOpenLogin">登录/注册</view>
     </view>
@@ -69,19 +70,16 @@
     <navigator hover-class="none" url='../fans/index?url=focus' wx:if="{{userInfo.member_id}}">
       <view class="list-name">我的关注<image src="../../images/next.svg" class="next" /></view>
     </navigator>
-    <navigator hover-class="none" url="../activity/integration/index">
+    <!-- <navigator hover-class="none" url="../activity/integration/index">
       <view class="list-name">积分排名<image src="../../images/next.svg" class="next" />
         <text class='list-text'>积分排名送现金啦！</text>
         <image src='../../images/redpackage.svg' class='red-pack'/>
       </view>
-    </navigator>
+    </navigator> -->
     <navigator hover-class="none" url="../leaveMessage/index" wx:if="{{userInfo.member_id}}">
       <view class="list-name">留言反馈<image src="../../images/next.svg" class="next" /></view>
     </navigator>
   </view>
-  <!-- <view class="usercenter-list">
-    <contact-button>联系客服</contact-button>
-  </view> -->
   <view class="usercenter-list">
     <navigator hover-class="none" url='../rules/index?name=aboutUs'>  
       <view class="list-name">关于我们<image src="../../images/next.svg" class="next" /></view>

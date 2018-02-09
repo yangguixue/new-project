@@ -142,6 +142,7 @@ App({
   registerUser: function(userInfo) {
     var that = this;
     var from_user = wx.getStorageSync('from_user');
+    var invaitid = wx.getStorageSync('invaitid');
     return new Promise(function(resolve, reject) {
       wx.login({
         success: function (res) {
@@ -154,9 +155,12 @@ App({
           if (from_user) {
             item.token = from_user;
           }
+
+          if (invaitid) {
+            item.invaitid = invaitid;
+          }
           
           util.req('&m=member&a=onReg', item, function (data) {
-            console.log(data)
             if (data.flag == 1) {
               resolve(res.code);
             } else {

@@ -29,6 +29,13 @@
 					"pathName": "pages/container/shopDetail/index",
 					"query": "userId=\"ddd\"",
 					"scene": "1008"
+				},
+				{
+					"id": 1,
+					"name": "扫二维码",
+					"pathName": "pages/container/shopDetail/index",
+					"query": "scene=invaitid%3D58%26id%3D456",
+					"scene": "1048"
 				}
 			]
 		}

@@ -1,6 +1,6 @@
 <!--pages/container/activity/integration/index.wxml-->
 <view>
-  <image src='../../../images/choujiang.png' mode='widthFix'/>
+  <image src='https://www.qmjoin.com/data/upload/xrxz/choujiang.png' mode='widthFix'/>
 </view>
 
 <view class='content'>
@@ -17,7 +17,8 @@
         <!-- <image class="award-image" src="{{item.imageAward}}"></image> -->
         <text class="award-image">{{item.imageAward.redp}}元</text>
       </view>
-      <view class="start-btn" bindtap="startGame">GO</view> 
+      <view class="start-btn" bindtap="startGame" wx:if="{{!isRunning}}">GO</view> 
+      <view class="start-btn" wx:else>GO</view> 
     </view>
   </view>
   <view class='user-info'>

@@ -15,8 +15,6 @@ Page({
       name: '本周明细'
     }],
     points: {},
-
-    
   },
 
   onLoad: function (options) {

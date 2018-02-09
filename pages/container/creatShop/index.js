@@ -8,7 +8,9 @@ Page({
     info: {
       is_new: false,
       is_brand: false,
-      shop_property: true
+      shop_property: true,
+      start_time: '08:00',
+      end_time: '20:00'
     },
     startTime: '08:00',  
     endTime: '20:00',  

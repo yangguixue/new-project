@@ -86,7 +86,8 @@ Page({
     HideHongbaoMask: true,
     showHongbao: false, //拆红包展示
     closeBigHonebao: false,
-    money: ''
+    money: '',
+    dogPosition: 0
   },
   onLoad: function (options) {
     var that = this;
@@ -218,6 +219,19 @@ Page({
 
   getMoney:  function() {
     var that = this;
+    var res = wx.getSystemInfoSync()
+    if (res.SDKVersion < '1.6.3') {
+      wx.showModal({
+        title: '温馨提示',
+        content: '当前微信版本过低，无法拆红包，请升级到最新微信版本后重试。',
+      })
+      return;
+    }
+
+    if (!app.globalData.is_reg) {
+      that.handleOpenLogin();
+      return;
+    }
     util.req('&m=member&a=redPacket', { session3rd: app.globalData.token }, function (data) {
       const money = data.result;
       that.setData({ money, isRedp: true, showHongbao: true });
@@ -333,6 +347,34 @@ Page({
       }
     }
   },
+
+  //生成店铺二维码
+  getCode: function () {
+    const that = this;
+    const item = {};
+    item.session3rd = app.globalData.token;
+    item.page = 'pages/container/index/index',
+    util.req('&m=member&a=getPersonalCode', item, function (data) {
+      if (data.flag == 1) {
+        wx.showModal({
+          title: '温馨提示',
+          content: '把拜年码保存到本地就可以发朋友圈给大家拜年啦~~',
+          success: function (res) {
+            wx.previewImage({
+              current: data.result,
+              urls: [data.result]
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: '温馨提示',
+          content: data.msg,
+        })
+      }
+    })
+  },
+
 
   //开启红包
   openHongbao: function () {

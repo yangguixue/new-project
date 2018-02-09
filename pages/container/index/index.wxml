@@ -9,62 +9,36 @@
   <!-- 分类 -->
   <template is="catelog" data="{{category}}"/>
   <!-- 分类END -->
-  <view class="active-entry">
-    <navigator hover-class="none" url="../discountList/index">
-      <view class="entry01">
-        <view class="entry01-left">
-          <view class="active-title">附近优惠</view>
-          <view class="active-intro">打折，满减，促销一网打尽</view>
-        </view>
-        <view class="entry01-right">
-          <image src="../../images/sale2.png" />
-        </view>
-      </view>
-    </navigator>
-
-    <view class="entry02" bindtap='creatShop'>
-      <view class="entry01-left">
-        <view class="active-title">我要开店</view>
-        <view class="active-intro">店铺，地摊，私人买卖全搜罗</view>
-      </view>
-      <view class="entry01-right">
-        <image src="../../images/shop.png" />
-      </view>
-    </view>
-  </view>
-
-  <!-- <view class='shop'>
-    <view class='shop-title'>
-      <view class='title-box'>
-         <view class='title-icon'>
-          <image src='../../images/tabbar/icon5.png' />
-        </view> 
-        <view class='title-text'>本地门店</view>
-      </view>
-      <view class='title-more' bindtap='handleMore'>查看更多>></view>
-    </view>
-    <view class='shop-item'>
-      <block wx:for="{{shops}}" wx:key="{{index}}">
-        <navigator hover-class="none" url='../shopDetail/index?id={{item.id}}'>
-          <view class='shop-item-box'>
-            <view class='shop-item-img'>
-              <image src='{{item.shop_logo}}' mode='aspectFill' />
-            </view>
-            <view class='shop-item-name'>{{item.shop_name}}</view>
-            <view>
-              <text class='tag tag01' wx:if="{{item.ad_list.length > 0}}">优惠</text>
-              <text class='tag tag02' wx:if="{{item.recruit_num > 0}}">招聘</text>
-            </view>
-          </view>       
-        </navigator>
-      </block>
-    </view>
-  </view> -->
-  
   <view class="new-message">
     <image src="../../images/new.svg" class="new-icon" style="width:80rpx; height:40rpx;float:left;margin-top:28rpx;" />
     <text>本站信息请自行辨别真假，欢迎您举报不良信息！</text>
   </view>
+  
+  <view class="active-entry">
+    <navigator hover-class="none" url="../discountDetail/index?id=446">
+      <view class="entry01 line">
+        <view class="entry01-left">
+          <view class="active-title">天天领红包</view>
+          <view class="active-intro">红包天天大放送</view>
+        </view>
+        <view class="entry-img">
+          <image src="../../images/index01.png" class='entry-icon'  />
+        </view>
+      </view>
+    </navigator>
+    <navigator hover-class="none" url="../activity/integration/index">
+      <view class="entry01">
+        <view class="entry01-left">
+          <view class="active-title">积分大抽奖</view>
+          <view class="active-intro">最高奖励100元~</view>
+        </view>
+        <view class="entry-img">
+          <image src="../../images/index02.png" class='entry-icon' />
+        </view>
+      </view>
+    </navigator>
+  </view>
+
   <message-card />
   <view wx:for="{{list}}" wx:key="{{item.id}}">
     <article content="{{item}}" data-id="{{item.id}}"  bind:openLogin="handleOpenLogin" bind:changeList="changeList" />
@@ -105,9 +79,16 @@
   </view>
 </view>
 
+<view bindtap='getCode'>  
+  <view class='qrcode' style='right: {{dogPosition}}rpx'>
+    <image src='../../images/qrcode.svg' class='code-icon' />
+    <text class='code-text'>生成我的拜年码</text>
+  </view>
+  <image src='../../images/dog.png' class='dog' />
+</view>
 
-<view class='min-hongbao' bindtap='openHongbao'  wx:if="{{HideHongbaoMask && !isRedp}}">
-  <image src='../../images/hongbao.png' />
+<view class='min-hongbao' bindtap='openHongbao' wx:if="{{HideHongbaoMask && !isRedp}}">
+  <image src='../../images/redpackage.svg' />
 </view>
 
 <noLogin isHide="{{isShowLogin}}" bind:handleCloseLogin="handleCloseLogin"/>

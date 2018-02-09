@@ -93,21 +93,6 @@ Page({
         util.errorTips(data.msg);
       }
     })
-
-    // util.req('&m=shop&a=getShopList', { is_recruit: true }, function (data) {
-    //   const array = data.result;
-    //   const shops = array.slice(0, 3);
-    //   that.setData({ shops });
-    // })
-
-    // util.getReq('&m=member&a=getMemberInfo', { session3rd: app.globalData.token }, function (data) {
-    //   if (data.flag == 1) {
-    //     const shopId = data.result.shop_id;
-    //     that.setData({ shopId });
-    //   } else {
-    //     util.errorTips(data.msg);
-    //   }
-    // })
   },
 
   onShow: function() {
@@ -115,7 +100,6 @@ Page({
     fetchShopList(that, 0);
     util.req('&m=shop&a=getRecomend', {}, function (data) {
       if (data.flag == 1) {
-        console.log(data.result)
         that.setData({ recommend: data.result });
       } else {
         wx.showModal({

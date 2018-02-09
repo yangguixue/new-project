@@ -10,7 +10,7 @@
 </view>
 
 <view class='banner' bindtap='openDiscount'>
-  <image class='banner-img' src='../../images/dplb.jpg' />
+  <image class='banner-img' src='https://www.qmjoin.com/data/upload/xrxz/dplb1.jpg' />
 </view>
 
 <block wx:for="{{list}}" wx:key="{{item.id}}">

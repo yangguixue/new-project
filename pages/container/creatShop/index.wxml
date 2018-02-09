@@ -145,11 +145,11 @@
     </view>
   </view>
 
-  <view class='item-deail h90'>
+  <view class='item-deail h90' wx:if="{{info.id && info.level == 1}}">
     <text>产品图片</text>
   </view>
 
-  <view class='item-detail'>
+  <view class='item-detail' wx:if="{{info.id && info.level == 1}}">
     <view class="image-box">
       <block wx:for="{{goods_pic_show}}" wx:key="{{index}}">
         <view class="image">

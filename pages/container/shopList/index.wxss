@@ -47,7 +47,6 @@ page {
 
 .catelog {
   background: #fff;
-  padding-bottom: 30rpx;
 }
 
 .menu {
